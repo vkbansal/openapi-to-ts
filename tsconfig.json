@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "target": "es2019",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "allowJs": true,
+    "checkJs": false,
+    "jsx": "react",
+    "sourceMap": false,
+    "skipLibCheck": true,
+    "downlevelIteration": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "outDir": "lib",
+    "rootDir": "./src",
+    "typeRoots": ["node_modules/@types"],
+    "resolveJsonModule": true,
+    "importsNotUsedAsValues": "error",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "include": ["src/"],
+  "exclude": ["node_modules"]
+}
