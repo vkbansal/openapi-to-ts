@@ -52,10 +52,3 @@ overrides:
       '@typescript-eslint/no-explicit-any': 0
       '@typescript-eslint/no-non-null-asserted-optional-chain': 0
       no-await-in-loop: 0
-      jest/consistent-test-it:
-        - 2
-        - fn: test
-          withinDescribe: test
-      jest/expect-expect: 2
-      jest/no-disabled-tests: 2
-      jest/no-commented-out-tests: 2
