@@ -1,0 +1,17 @@
+{
+  "name": "@vkbansal/oa2ts-plugin-restful-react",
+  "version": "0.1.0",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "peerDependencies": {
+    "typescript": "^3.9.7",
+    "@vkbansal/oa2ts-cli": "^0.1.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@vkbansal/oa2ts-cli": "^0.1.0",
+    "typescript": "^3.9.7"
+  }
+}

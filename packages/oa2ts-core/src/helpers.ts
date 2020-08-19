@@ -1,4 +1,10 @@
-import { isEmpty, isPlainObject } from 'lodash';
+import isEmpty from 'lodash.isempty';
+import isPlainObject from 'lodash.isplainobject';
+import type { ReferenceObject } from 'openapi3-ts';
+
+export function isReferenceObject(data: unknown): data is ReferenceObject {
+  return typeof data === 'object' && data !== null && Object.prototype.hasOwnProperty.call(data, '$ref');
+}
 
 export interface ObjectWithDependencies<T> {
   node: T;
@@ -7,7 +13,7 @@ export interface ObjectWithDependencies<T> {
 
 export type TupleWithDependencies<T> = [T, string[]];
 
-export function isEmptyObject(obj: any): boolean {
+export function isEmptyObject(obj: unknown): boolean {
   return isPlainObject(obj) && isEmpty(obj);
 }
 

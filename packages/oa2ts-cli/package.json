@@ -1,0 +1,25 @@
+{
+  "name": "@vkbansal/oa2ts-cli",
+  "version": "0.1.0",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "peerDependencies": {
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "@vkbansal/oa2ts-core": "^0.1.0",
+    "ajv": "^6.12.4",
+    "chalk": "^4.1.0",
+    "ibm-openapi-validator": "^0.29.0",
+    "js-yaml": "^3.14.0",
+    "mkdirp": "^1.0.4",
+    "openapi3-ts": "^1.4.0",
+    "swagger2openapi": "^6.2.3",
+    "yargs": "^15.4.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.7"
+  }
+}
