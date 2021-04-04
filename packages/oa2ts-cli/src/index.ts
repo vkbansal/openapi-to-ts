@@ -1,31 +1,70 @@
-import type ts from 'typescript';
-import type { OpenAPIObject } from 'openapi3-ts';
-// import { cosmiconfig } from 'cosmiconfig';
+import { cosmiconfigSync } from 'cosmiconfig';
+import chalk from 'chalk';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 
-import type { TupleWithDependencies } from '@vkbansal/oa2ts-core';
+import { importSpec } from './importSpec';
+import { validateAdvancedConfig } from './helpers';
+// import schema from './options-schema.json';
+// import type { Config, AdvancedConfig } from './types';
 
-export interface Options {
-  spec: OpenAPIObject;
-}
+const NAME = 'oa2ts';
 
-export interface GeneratedInterface {
-  statement: ts.Statement;
-  dependencies: string[];
-}
+const explorer = cosmiconfigSync(NAME);
+const result = explorer.search();
 
-// const explorer = cosmiconfig('oa2ts');
+if (result) {
+  console.log(chalk.bold(`Using config from "${result.filepath}"`));
 
-// const result = await explorer.search();
+  try {
+    validateAdvancedConfig(result.config);
+  } catch (e) {
+    console.log(chalk.bold.red('Invalid configuration found!'));
+    console.log(chalk.bold.red(e.message));
+  }
 
-export default function generateInterfacesFromSpec(options: Options): Array<TupleWithDependencies<ts.Statement>> {
-  const { spec } = options;
+  // const ajv = new Ajv({ allErrors: true });
+  // const validate = ajv.compile(schema);
+  // const valid = validate(result.config);
 
-  const output: Array<TupleWithDependencies<ts.Statement>> = [];
-
-  // if (spec.components) {
-  //   if (spec.components.schemas) output.push(...generateSchemaDefintions(spec.components.schemas));
-  //   if (spec.components.requestBodies) output.push(...generateRequestBodiesDefinition(spec.components.requestBodies));
+  // if (!valid && Array.isArray(validate.errors)) {
+  //   console.log(chalk.bold.red('Invalid configuration found!'));
+  //   validate.errors.forEach(({ instancePath, message }) => console.log(`${instancePath} ${message}`));
+  //   process.exit(1);
   // }
-
-  return output;
 }
+
+yargs(hideBin(process.argv))
+  .scriptName(NAME)
+  .usage('Usage: $0 <cmd> [args]')
+  .command(
+    'import',
+    'Import OpenAPI specification and output TypeScript code',
+    args => {
+      return args
+        .option('file', {
+          type: 'string',
+          describe: 'Path to OpenAPI spec file'
+        })
+        .option('url', {
+          type: 'string',
+          describe: 'URL to remote OpenAPI spec file'
+        })
+        .option('output', {
+          type: 'string',
+          describe: 'Location for the output. If a file is given, all the definitions will be output to'
+        })
+        .conflicts('file', 'url')
+        .check(argv => {
+          if (result) return true;
+
+          if (!argv.file || !argv.url) {
+            throw new Error('Either "--file" or "--url" is required');
+          }
+
+          return true;
+        });
+    },
+    argv => importSpec(argv, result?.config)
+  )
+  .help().argv;

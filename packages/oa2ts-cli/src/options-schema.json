@@ -1,5 +1,17 @@
 {
-  "$schema": "https://json-schema.org/draft-07/schema",
   "type": "object",
-  "properties": {}
+  "additionalProperties": {
+    "$ref": "#/definitions/ConfigOptions"
+  },
+  "definitions": {
+    "ConfigOptions": {
+      "type": "object",
+      "required": ["output"],
+      "properties": {
+        "output": {
+          "type": "string"
+        }
+      }
+    }
+  }
 }

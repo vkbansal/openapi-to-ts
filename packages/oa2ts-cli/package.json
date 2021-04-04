@@ -2,6 +2,14 @@
   "name": "@vkbansal/oa2ts-cli",
   "version": "0.1.0",
   "license": "MIT",
+  "bin": {
+    "oa2ts": "./bin/oa2ts"
+  },
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc --outDir dist",
+    "postbuild": "cp ./src/options-schema.json ./dist/"
+  },
   "engines": {
     "node": ">=14.0.0"
   },
@@ -10,17 +18,21 @@
   },
   "dependencies": {
     "@vkbansal/oa2ts-core": "^0.1.0",
-    "ajv": "^8.0.3",
     "chalk": "^4.1.0",
     "cosmiconfig": "^7.0.0",
+    "esm": "^3.2.25",
     "ibm-openapi-validator": "^0.39.0",
     "js-yaml": "^4.0.0",
+    "lodash": "^4.17.21",
     "mkdirp": "^1.0.4",
     "openapi3-ts": "^2.0.1",
     "swagger2openapi": "^7.0.5",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.168",
+    "@types/yargs": "^16.0.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.2.3"
   }
 }

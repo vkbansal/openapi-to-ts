@@ -8,6 +8,9 @@
   "engines": {
     "node": ">=14.0.0"
   },
+  "scripts": {
+    "build": "echo 0"
+  },
   "peerDependencies": {
     "@vkbansal/oa2ts-cli": "^0.1.0",
     "typescript": "^3.9.0 || ^4.0.0"
@@ -15,6 +18,7 @@
   "dependencies": {},
   "devDependencies": {
     "@vkbansal/oa2ts-cli": "^0.1.0",
+    "rimraf": "^3.0.2",
     "typescript": "^4.2.3"
   }
 }
