@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "target": "es2019",
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
     "allowJs": true,
@@ -15,13 +15,13 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "rootDir": "./src",
+    "rootDir": "./packages",
     "typeRoots": ["node_modules/@types"],
     "resolveJsonModule": true,
     "importsNotUsedAsValues": "error",
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "include": ["packages/"],
+  "include": ["packages/*"],
   "exclude": ["node_modules"]
 }

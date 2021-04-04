@@ -9,7 +9,7 @@ import generateInterface from './generateInterface';
 import getReqResDefintion from './getReqResDefintion';
 import resolveValue from './resolveValue';
 
-export default function generateRequestBodyDefinition(
+export function generateRequestBodyDefinition(
   schemas: ComponentsObject['requestBodies'] = {}
 ): Array<TupleWithDependencies<ts.Statement>> {
   const data = Object.entries(schemas);
@@ -24,12 +24,12 @@ export default function generateRequestBodyDefinition(
       return generateInterface(finalName, definitions[0]);
     } else {
       return transformType(mapWithDeps(definitions, resolveValue), typeNode => {
-        const declaration = ts.createTypeAliasDeclaration(
+        const declaration = ts.factory.createTypeAliasDeclaration(
           /* decorators */ undefined,
-          /* modifiers */ [ts.createModifier(ts.SyntaxKind.ExportKeyword)],
+          /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
           /* name */ finalName,
           /* typeParameters */ undefined,
-          /* type */ ts.createUnionTypeNode(typeNode)
+          /* type */ ts.factory.createUnionTypeNode(typeNode)
         );
 
         // TODO: Add metadata to node

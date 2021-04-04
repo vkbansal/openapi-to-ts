@@ -10,9 +10,9 @@ import addMetadataToNode from './addMetadataToNode';
 
 export default function generateInterface(name: string, schema: SchemaObject): TupleWithDependencies<ts.Statement> {
   return transformType(getObjectProperties(schema), members => {
-    const node = ts.createInterfaceDeclaration(
+    const node = ts.factory.createInterfaceDeclaration(
       /* decorators */ undefined,
-      /* modifiers */ [ts.createModifier(ts.SyntaxKind.ExportKeyword)],
+      /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
       /* name */ pascal(name),
       /* typeParameters */ undefined,
       /** heritageClause */ undefined,

@@ -11,36 +11,22 @@ export default function getScalar(item: SchemaObject): TupleWithDependencies<ts.
   let deps: string[] = [];
 
   switch (item.type) {
-    case 'int32':
-    case 'int64':
     case 'number':
     case 'integer':
-    case 'long':
-    case 'float':
-    case 'double':
-      type = ts.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
+      type = ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
       break;
     case 'boolean':
-      type = ts.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
+      type = ts.factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
       break;
     case 'array':
       [type, deps] = getArray(item);
       break;
     case 'string':
-    case 'byte':
-    case 'binary':
-    case 'date':
-    case 'dateTime':
-    case 'date-time':
-    case 'password':
       type = item.enum
-        ? ts.createUnionTypeNode(
-            item.enum.map((name: string) => ts.createLiteralTypeNode(ts.createStringLiteral(name)))
+        ? ts.factory.createUnionTypeNode(
+            item.enum.map((name: string) => ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(name)))
           )
-        : ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
-      break;
-    case 'void':
-      type = ts.createKeywordTypeNode(ts.SyntaxKind.VoidKeyword);
+        : ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
       break;
     case 'object':
     default:
@@ -48,7 +34,7 @@ export default function getScalar(item: SchemaObject): TupleWithDependencies<ts.
   }
 
   if (item.nullable) {
-    type = ts.createUnionTypeNode([type, ts.createKeywordTypeNode(ts.SyntaxKind.NullKeyword)]);
+    type = ts.factory.createUnionTypeNode([type, ts.factory.createLiteralTypeNode(ts.factory.createNull())]);
   }
 
   return [type, deps];

@@ -18,5 +18,5 @@ export default function getRef($ref: string): TupleWithDependencies<ts.TypeNode>
     throw new Error('This library only resolve $ref that are include into `#/components/*` for now');
   }
 
-  return [ts.createTypeReferenceNode(type, []), [type]];
+  return [ts.factory.createTypeReferenceNode(type, []), [type]];
 }

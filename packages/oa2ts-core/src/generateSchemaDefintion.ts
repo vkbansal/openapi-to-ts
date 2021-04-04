@@ -1,4 +1,4 @@
-import ts from 'typescript';
+import type ts from 'typescript';
 import type { ComponentsObject } from 'openapi3-ts';
 
 import type { TupleWithDependencies } from './helpers';
@@ -6,7 +6,7 @@ import { isReferenceObject } from './helpers';
 import generateInterface from './generateInterface';
 import generateTypeDeclaration from './generateTypeDeclaration';
 
-export default function generateSchemaDefintion(
+export function generateSchemaDefintion(
   schemas: ComponentsObject['schemas'] = {}
 ): Array<TupleWithDependencies<ts.Statement>> {
   const data = Object.entries(schemas);

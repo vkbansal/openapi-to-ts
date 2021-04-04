@@ -15,14 +15,14 @@ export default function getObject(item: SchemaObject): TupleWithDependencies<ts.
   if (item.allOf) {
     const mappedValues = mapWithDeps(item.allOf, resolveValue);
 
-    return transformType(mappedValues, typeNode => ts.createIntersectionTypeNode(typeNode));
+    return transformType(mappedValues, typeNode => ts.factory.createIntersectionTypeNode(typeNode));
   }
 
   if (item.oneOf) {
     const mappedValues = mapWithDeps(item.oneOf, resolveValue);
 
-    return transformType(mappedValues, typeNode => ts.createUnionTypeNode(typeNode));
+    return transformType(mappedValues, typeNode => ts.factory.createUnionTypeNode(typeNode));
   }
 
-  return transformType(getObjectProperties(item), typeNode => ts.createTypeLiteralNode(typeNode));
+  return transformType(getObjectProperties(item), typeNode => ts.factory.createTypeLiteralNode(typeNode));
 }

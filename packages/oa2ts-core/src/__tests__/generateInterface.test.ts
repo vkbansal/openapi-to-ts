@@ -2,6 +2,7 @@ import { describe, test, expect } from '@jest/globals';
 
 import { printFile } from './testUtils';
 import generateInterface from '../generateInterface';
+import { SchemaObject } from 'openapi3-ts';
 
 type Data = ReturnType<typeof generateInterface>;
 
@@ -15,7 +16,7 @@ expect.addSnapshotSerializer({
 describe('generateInterfaces Tests', () => {
   describe('works with component.schemas', () => {
     test('works with properties', () => {
-      const spec = {
+      const spec: SchemaObject = {
         type: 'object',
         required: ['string', 'arr'],
         properties: {
@@ -23,7 +24,7 @@ describe('generateInterfaces Tests', () => {
           number: { type: 'number' },
           boolean: { type: 'boolean' },
           enum: { type: 'string', enum: ['VALUE_1', 'VALUE_2'] },
-          arr: { type: 'array', items: { type: 'int32' } }
+          arr: { type: 'array', items: { type: 'integer', format: 'int32' } }
         }
       };
 
@@ -48,7 +49,7 @@ describe('generateInterfaces Tests', () => {
     });
 
     test('with only type object', () => {
-      const spec = { type: 'object' };
+      const spec: SchemaObject = { type: 'object' };
 
       expect(generateInterface('ObjectInterface', spec)).toMatchInlineSnapshot(`
         export interface ObjectInterface {
@@ -58,7 +59,7 @@ describe('generateInterfaces Tests', () => {
     });
 
     test('with type and empty additionalProperties', () => {
-      const spec = { type: 'object', additionalProperties: {} };
+      const spec: SchemaObject = { type: 'object', additionalProperties: {} };
 
       expect(generateInterface('ObjectInterface', spec)).toMatchInlineSnapshot(`
         export interface ObjectInterface {
@@ -68,7 +69,7 @@ describe('generateInterfaces Tests', () => {
     });
 
     test('with type and additionalProperties: true', () => {
-      const spec = { type: 'object', additionalProperties: true };
+      const spec: SchemaObject = { type: 'object', additionalProperties: true };
 
       expect(generateInterface('ObjectInterface', spec)).toMatchInlineSnapshot(`
         export interface ObjectInterface {
@@ -78,7 +79,7 @@ describe('generateInterfaces Tests', () => {
     });
 
     test('with type and additionalProperties: false', () => {
-      const spec = { type: 'object', additionalProperties: false };
+      const spec: SchemaObject = { type: 'object', additionalProperties: false };
 
       expect(generateInterface('ObjectInterface', spec)).toMatchInlineSnapshot(`
         export interface ObjectInterface {
@@ -87,7 +88,7 @@ describe('generateInterfaces Tests', () => {
     });
 
     test('with type and additionalProperties: object', () => {
-      const spec = {
+      const spec: SchemaObject = {
         type: 'object',
         additionalProperties: {
           type: 'number'
@@ -102,7 +103,7 @@ describe('generateInterfaces Tests', () => {
     });
 
     test('with properties and additionalProperties', () => {
-      const spec = {
+      const spec: SchemaObject = {
         type: 'object',
         properties: {
           id: { type: 'number' }
@@ -121,17 +122,17 @@ describe('generateInterfaces Tests', () => {
 
   describe('works with different types', () => {
     test('works with string', () => {
-      const spec = {
+      const spec: SchemaObject = {
         type: 'object',
         required: ['string'],
         properties: {
           string: { type: 'string' },
-          byte: { type: 'byte' },
-          binary: { type: 'binary' },
-          date: { type: 'date' },
-          dateTime: { type: 'dateTime' },
-          dateTime2: { type: 'date-time' },
-          password: { type: 'password' }
+          byte: { type: 'string', format: 'byte' },
+          binary: { type: 'string', format: 'binary' },
+          date: { type: 'string', format: 'date' },
+          dateTime: { type: 'string', format: 'dateTime' },
+          dateTime2: { type: 'string', format: 'date-time' },
+          password: { type: 'string', format: 'password' }
         },
         additionalProperties: { type: 'string' }
       };
@@ -151,17 +152,17 @@ describe('generateInterfaces Tests', () => {
     });
 
     test('works with numbers', () => {
-      const spec = {
+      const spec: SchemaObject = {
         type: 'object',
         required: ['int32', 'int64', 'number'],
         properties: {
-          int32: { type: 'int32' },
-          int64: { type: 'int64' },
-          number: { type: 'number' },
-          integer: { type: 'integer' },
-          long: { type: 'long' },
-          float: { type: 'float' },
-          double: { type: 'double' }
+          int32: { type: 'integer', format: 'int32' },
+          int64: { type: 'integer', format: 'int64' },
+          number: { type: 'integer' },
+          integer: { type: 'number' },
+          long: { type: 'number', format: 'long' },
+          float: { type: 'number', format: 'float' },
+          double: { type: 'number', format: 'double' }
         },
         additionalProperties: { type: 'string' }
       };
@@ -181,7 +182,7 @@ describe('generateInterfaces Tests', () => {
     });
 
     test('works with boolean', () => {
-      const spec = { type: 'object', properties: { bool: { type: 'boolean' } } };
+      const spec: SchemaObject = { type: 'object', properties: { bool: { type: 'boolean' } } };
 
       expect(generateInterface('ObjectInterface', spec)).toMatchInlineSnapshot(`
         export interface ObjectInterface {
@@ -190,18 +191,8 @@ describe('generateInterfaces Tests', () => {
       `);
     });
 
-    test('works with void', () => {
-      const spec = { type: 'object', properties: { key: { type: 'void' } } };
-
-      expect(generateInterface('ObjectInterface', spec)).toMatchInlineSnapshot(`
-        export interface ObjectInterface {
-            key?: void;
-        }
-      `);
-    });
-
     test('works with object', () => {
-      const spec = { type: 'object', properties: { key: { type: 'object' } } };
+      const spec: SchemaObject = { type: 'object', properties: { key: { type: 'object' } } };
 
       expect(generateInterface('ObjectInterface', spec)).toMatchInlineSnapshot(`
         export interface ObjectInterface {
@@ -213,7 +204,7 @@ describe('generateInterfaces Tests', () => {
     });
 
     test('works with enum', () => {
-      const spec = {
+      const spec: SchemaObject = {
         type: 'object',
         properties: {
           enum: { type: 'string', enum: ['VALUE_1', 'VALUE_2', 'VALUE_3'] }
@@ -228,7 +219,7 @@ describe('generateInterfaces Tests', () => {
     });
 
     test('works with array', () => {
-      const spec = {
+      const spec: SchemaObject = {
         type: 'object',
         properties: {
           str: { type: 'array', items: { type: 'string' } },

@@ -1,4 +1,4 @@
-import ts from 'typescript';
+import type ts from 'typescript';
 import type { SchemaObject } from 'openapi3-ts';
 
 import type { TupleWithDependencies } from './helpers';

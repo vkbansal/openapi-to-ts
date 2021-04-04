@@ -17,7 +17,7 @@ export function isEmptyObject(obj: unknown): boolean {
   return isPlainObject(obj) && isEmpty(obj);
 }
 
-export function transformType<T, U>(elem: TupleWithDependencies<T>, func: (elem: T) => U): TupleWithDependencies<U> {
+export function transformType<T, U>(elem: TupleWithDependencies<T>, func: (e: T) => U): TupleWithDependencies<U> {
   const typeNode = func(elem[0]);
 
   return [typeNode, elem[1]];

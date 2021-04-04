@@ -12,9 +12,9 @@ export default function generateTypeDeclaration(
   schema: SchemaObject
 ): TupleWithDependencies<ts.Statement> {
   return transformType(resolveValue(schema), typeNode => {
-    const declaration = ts.createTypeAliasDeclaration(
+    const declaration = ts.factory.createTypeAliasDeclaration(
       /* decorators */ undefined,
-      /* modifiers */ [ts.createModifier(ts.SyntaxKind.ExportKeyword)],
+      /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
       /* name */ pascal(name),
       /* typeParameters */ undefined,
       /* type */ typeNode

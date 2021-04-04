@@ -9,10 +9,10 @@ export default function getArray(item: SchemaObject): TupleWithDependencies<ts.T
   if (item.items) {
     return transformType(getScalar(item.items), typeNode => {
       if (ts.isUnionTypeNode(typeNode) || ts.isIntersectionTypeNode(typeNode)) {
-        return ts.createTypeReferenceNode('Array', [typeNode]);
+        return ts.factory.createTypeReferenceNode('Array', [typeNode]);
       }
 
-      return ts.createArrayTypeNode(typeNode);
+      return ts.factory.createArrayTypeNode(typeNode);
     });
   } else {
     throw new Error('All arrays must have an `items` key define');

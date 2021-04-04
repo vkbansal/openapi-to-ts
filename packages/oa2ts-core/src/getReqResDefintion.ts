@@ -17,9 +17,9 @@ export default function getReqResDefintion(
           (mediaType.startsWith('application/octet-stream') && schema.schema)
       );
 
-      return content?.[1].schema ? content[1].schema : { type: 'void' };
+      return content?.[1].schema ? content[1].schema : { type: 'object' };
     }
 
-    return { type: 'void' };
+    return { type: 'object' };
   });
 }

@@ -35,12 +35,13 @@ export default function getObjectProperties(item: SchemaObject): TupleWithDepend
   if (item.properties) {
     const [propetySignatures, dependencies] = mapWithDeps(Object.entries(item.properties), ([name, schema]) => {
       return transformType(getScalar(schema), typeNode => {
-        const propertySignature = ts.createPropertySignature(
+        const propertySignature = ts.factory.createPropertySignature(
           /* modifiers */ undefined,
           /* name*/ name,
-          /* questionToken */ item.required?.includes(name) ? undefined : ts.createToken(ts.SyntaxKind.QuestionToken),
-          /* type */ typeNode,
-          /* initializer */ undefined
+          /* questionToken */ item.required?.includes(name)
+            ? undefined
+            : ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+          /* type */ typeNode
         );
 
         addMetadataToNode(propertySignature, schema);
