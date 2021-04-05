@@ -1,6 +1,5 @@
 import type { SchemaObject, ReferenceObject, RequestBodyObject } from 'openapi3-ts';
-
-import { isReferenceObject } from './helpers';
+import { isReferenceObject } from '@vkbansal/oa2ts-utils';
 
 export default function getReqResDefintion(
   requestOrResponse: Array<[string, RequestBodyObject | ReferenceObject]>

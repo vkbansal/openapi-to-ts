@@ -4,10 +4,10 @@ export interface Config {
   url?: string;
   transformer?: string;
   plugins?: string[];
-}
-
-export interface AdvancedConfig {
   prettier?: boolean;
   prettierConfig?: unknown;
+}
+
+export interface AdvancedConfig extends Omit<Config, 'output' | 'file' | 'url'> {
   specs: Record<string, Config>;
 }

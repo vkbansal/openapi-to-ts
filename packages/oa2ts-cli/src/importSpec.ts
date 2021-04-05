@@ -1,10 +1,75 @@
-import type { Config, AdvancedConfig } from './types';
+import fs from 'fs';
+import path from 'path';
 
-export async function importSpec(argv: Partial<Config>, config: AdvancedConfig | null) {
+// import ts from 'typescript';
+import _ from 'lodash';
+import yaml from 'js-yaml';
+import type { OpenAPIObject } from 'openapi3-ts';
+import { generateSchemaDefintion } from '@vkbansal/oa2ts-core';
+// import { TupleWithDependencies } from '@vkbansal/oa2ts-core';
+
+import type { Config, AdvancedConfig } from './types';
+// import { printStatement } from './helpers';
+
+// const printer = ts.createPrinter({
+//   newLine: ts.NewLineKind.LineFeed,
+//   removeComments: false,
+//   omitTrailingSemicolon: true
+// });
+
+export interface ImportOpenAPIArgs {
+  content: string;
+  format: 'json' | 'yaml';
+}
+
+async function importOpenAPI({ content, format }: ImportOpenAPIArgs): Promise<void> {
+  const spec: OpenAPIObject = format === 'yaml' ? yaml.load(content) : JSON.parse(content);
+
+  const schemaDefs = generateSchemaDefintion(spec.components?.schemas);
+  // const requestDefs = generateRequestBodyDefinition(spec.components?.requestBodies);
+
+  // const allStatements: Array<TupleWithDependencies<ts.Statement>> = _.sortBy([...schemaDefs, ...requestDefs], ([node]) =>)
+
+  // const input = ts.createSourceFile(
+  //   'dummy.ts',
+  //   '',
+  //   ts.ScriptTarget.Latest,
+  //   /* setParentNodes */ false,
+  //   ts.ScriptKind.TS
+  // );
+
+  // const final = schemaDefs.reduce((str, [node]) => {
+  //   return str + '\n' + printStatement(node, printer, input);
+  // }, '');
+
+  console.log(schemaDefs);
+}
+
+async function generate(config: Config): Promise<void> {
+  if (config.file) {
+    const content = await fs.promises.readFile(path.resolve(process.cwd(), config.file), 'utf8');
+    const ext = path.extname(config.file);
+    const format = /\.ya?ml$/i.test(ext) ? 'yaml' : 'json';
+
+    await importOpenAPI({ content, format });
+  } else if (config.url) {
+    // read from URL
+  }
+}
+
+export async function importSpec(argv: Config, config: AdvancedConfig | null): Promise<void> {
   if (config) {
-    // useConfig
+    const { specs, ...restConfig } = config;
+
+    const tasks = _.map(config.specs, conf => {
+      const resolvedConf = _.defaults(conf, restConfig);
+
+      return generate(resolvedConf);
+    });
+
+    await Promise.all(tasks);
   } else {
-    // use argv
+    await generate(argv);
   }
 }
 

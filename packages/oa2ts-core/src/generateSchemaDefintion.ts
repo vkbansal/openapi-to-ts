@@ -1,29 +1,32 @@
-import type ts from 'typescript';
 import type { ComponentsObject } from 'openapi3-ts';
+import _ from 'lodash';
+import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
+import { isReferenceObject } from '@vkbansal/oa2ts-utils';
 
-import type { TupleWithDependencies } from './helpers';
-import { isReferenceObject } from './helpers';
 import generateInterface from './generateInterface';
 import generateTypeDeclaration from './generateTypeDeclaration';
 
 export function generateSchemaDefintion(
   schemas: ComponentsObject['schemas'] = {}
-): Array<TupleWithDependencies<ts.Statement>> {
+): Map<string, ObjectWithDependencies> {
   const data = Object.entries(schemas);
+  const definitionsMap = new Map<string, ObjectWithDependencies>();
 
-  if (data.length === 0) return [];
+  if (data.length > 0) {
+    _.sortBy(data, ([name]) => name).forEach(([name, schema]) => {
+      if (
+        !isReferenceObject(schema) &&
+        (!schema.type || schema.type === 'object') &&
+        !schema.allOf &&
+        !schema.oneOf &&
+        !schema.nullable
+      ) {
+        definitionsMap.set(name, generateInterface(name, schema));
+      } else {
+        definitionsMap.set(name, generateTypeDeclaration(name, schema));
+      }
+    });
+  }
 
-  return data.map(([name, schema]) => {
-    if (
-      !isReferenceObject(schema) &&
-      (!schema.type || schema.type === 'object') &&
-      !schema.allOf &&
-      !schema.oneOf &&
-      !schema.nullable
-    ) {
-      return generateInterface(name, schema);
-    } else {
-      return generateTypeDeclaration(name, schema);
-    }
-  });
+  return definitionsMap;
 }

@@ -1,22 +1,24 @@
 import ts from 'typescript';
-import has from 'lodash.has';
+import _ from 'lodash';
 import type { SchemaObject } from 'openapi3-ts';
+import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
+import { isEmptyObject, mapWithDeps, transformType } from '@vkbansal/oa2ts-utils';
 
-import type { TupleWithDependencies } from './helpers';
-import { isEmptyObject, mapWithDeps, transformType } from './helpers';
 import getFreeFormProperty from './getFreeFormProperty';
 import resolveValue from './resolveValue';
 import getScalar from './getScalar';
 import addMetadataToNode from './addMetadataToNode';
 
-export default function getObjectProperties(item: SchemaObject): TupleWithDependencies<ts.TypeElement[]> {
-  if (!item.type && !has(item, 'properties') && !has(item, 'additionalProperties')) {
-    return [[], []];
+export type ObjPropsWithDependencies = ObjectWithDependencies<ts.TypeElement[]>;
+
+export default function getObjectProperties(item: SchemaObject): ObjPropsWithDependencies {
+  if (!item.type && !_.has(item, 'properties') && !_.has(item, 'additionalProperties')) {
+    return { node: [], dependencies: [] };
   }
 
-  if (item.type === 'object' && !has(item, 'properties')) {
+  if (item.type === 'object' && !_.has(item, 'properties')) {
     if (
-      !has(item, 'additionalProperties') ||
+      !_.has(item, 'additionalProperties') ||
       isEmptyObject(item.additionalProperties) ||
       item.additionalProperties === true
     ) {
@@ -24,7 +26,7 @@ export default function getObjectProperties(item: SchemaObject): TupleWithDepend
     }
 
     if (item.additionalProperties === false) {
-      return [[], []];
+      return { node: [], dependencies: [] };
     }
 
     if (item.additionalProperties) {
@@ -33,8 +35,8 @@ export default function getObjectProperties(item: SchemaObject): TupleWithDepend
   }
 
   if (item.properties) {
-    const [propetySignatures, dependencies] = mapWithDeps(Object.entries(item.properties), ([name, schema]) => {
-      return transformType(getScalar(schema), typeNode => {
+    const { node: propetySignatures, dependencies } = mapWithDeps(Object.entries(item.properties), ([name, schema]) =>
+      transformType(getScalar(schema), typeNode => {
         const propertySignature = ts.factory.createPropertySignature(
           /* modifiers */ undefined,
           /* name*/ name,
@@ -47,19 +49,26 @@ export default function getObjectProperties(item: SchemaObject): TupleWithDepend
         addMetadataToNode(propertySignature, schema);
 
         return propertySignature;
-      });
-    });
+      })
+    );
 
     if (item.additionalProperties) {
-      const [typeNode, moreDependencies] = getFreeFormProperty(
+      const { node: typeNode, dependencies: moreDependencies } = getFreeFormProperty(
         item.additionalProperties === true ? undefined : resolveValue(item.additionalProperties)
       );
-      propetySignatures.push(typeNode as any);
+
+      propetySignatures.push(typeNode as ts.PropertySignature);
       dependencies.push(...moreDependencies);
     }
 
-    return [propetySignatures, dependencies];
+    return {
+      node: propetySignatures,
+      dependencies
+    };
   }
 
-  return [[], []];
+  return {
+    node: [],
+    dependencies: []
+  };
 }

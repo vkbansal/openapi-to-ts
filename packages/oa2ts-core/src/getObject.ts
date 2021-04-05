@@ -1,13 +1,13 @@
 import ts from 'typescript';
 import type { SchemaObject } from 'openapi3-ts';
+import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
+import { mapWithDeps, transformType, isReferenceObject } from '@vkbansal/oa2ts-utils';
 
-import type { TupleWithDependencies } from './helpers';
-import { mapWithDeps, transformType, isReferenceObject } from './helpers';
 import getRef from './getRef';
 import getObjectProperties from './getObjectProperties';
 import resolveValue from './resolveValue';
 
-export default function getObject(item: SchemaObject): TupleWithDependencies<ts.TypeNode> {
+export default function getObject(item: SchemaObject): ObjectWithDependencies<ts.TypeNode> {
   if (isReferenceObject(item)) {
     return getRef(item.$ref);
   }

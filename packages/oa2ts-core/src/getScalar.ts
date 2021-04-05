@@ -1,12 +1,11 @@
 import ts from 'typescript';
-
 import type { SchemaObject } from 'openapi3-ts';
+import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
 
-import type { TupleWithDependencies } from './helpers';
 import getArray from './getArray';
 import getObject from './getObject';
 
-export default function getScalar(item: SchemaObject): TupleWithDependencies<ts.TypeNode> {
+export default function getScalar(item: SchemaObject): ObjectWithDependencies<ts.TypeNode> {
   let type: ts.TypeNode;
   let deps: string[] = [];
 
@@ -18,9 +17,12 @@ export default function getScalar(item: SchemaObject): TupleWithDependencies<ts.
     case 'boolean':
       type = ts.factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
       break;
-    case 'array':
-      [type, deps] = getArray(item);
+    case 'array': {
+      const arr = getArray(item);
+      type = arr.node;
+      deps = arr.dependencies;
       break;
+    }
     case 'string':
       type = item.enum
         ? ts.factory.createUnionTypeNode(
@@ -29,13 +31,19 @@ export default function getScalar(item: SchemaObject): TupleWithDependencies<ts.
         : ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
       break;
     case 'object':
-    default:
-      [type, deps] = getObject(item);
+    default: {
+      const obj = getObject(item);
+      type = obj.node;
+      deps = obj.dependencies;
+    }
   }
 
   if (item.nullable) {
     type = ts.factory.createUnionTypeNode([type, ts.factory.createLiteralTypeNode(ts.factory.createNull())]);
   }
 
-  return [type, deps];
+  return {
+    node: type,
+    dependencies: deps
+  };
 }

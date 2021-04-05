@@ -1,12 +1,16 @@
 import ts from 'typescript';
-
-import type { TupleWithDependencies } from './helpers';
+import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
 
 export default function getFreeFormProperty(
-  [typeNode, dependencies]: [ts.TypeNode, string[]] = [ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword), []]
-): TupleWithDependencies<ts.TypeElement> {
-  return [
-    ts.factory.createIndexSignature(
+  input: ObjectWithDependencies<ts.TypeNode> = {
+    node: ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
+    dependencies: []
+  }
+): ObjectWithDependencies<ts.TypeElement> {
+  const { node: typeNode, dependencies } = input;
+
+  return {
+    node: ts.factory.createIndexSignature(
       /* decorators */ undefined,
       /* modifiers */ undefined,
       /* parameters*/ [
@@ -23,5 +27,5 @@ export default function getFreeFormProperty(
       /* type */ typeNode
     ),
     dependencies
-  ];
+  };
 }

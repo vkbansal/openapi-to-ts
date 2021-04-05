@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import ts from 'typescript';
 
-const printer = ts.factory.createPrinter({
+const printer = ts.createPrinter({
   newLine: ts.NewLineKind.LineFeed,
   removeComments: false,
   omitTrailingSemicolon: true
 });
 
-export function printFile(statements: ts.Statement[]): string {
-  const sourceFile = ts.factory.createSourceFile(
+export function printFile(statements: ts.Statement | ts.Statement[]): string {
+  const sourceFile = ts.createSourceFile(
     'dummy.ts',
     '',
     ts.ScriptTarget.Latest,
@@ -15,7 +16,8 @@ export function printFile(statements: ts.Statement[]): string {
     ts.ScriptKind.TS
   );
 
-  sourceFile.statements = ts.factory.createNodeArray(statements);
+  // @ts-ignore
+  sourceFile.statements = ts.factory.createNodeArray(Array.isArray(statements) ? statements : [statements]);
 
   return printer.printFile(sourceFile);
 }

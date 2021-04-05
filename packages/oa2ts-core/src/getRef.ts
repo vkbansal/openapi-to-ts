@@ -1,9 +1,8 @@
 import ts from 'typescript';
 import { pascal } from 'case';
+import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
 
-import type { TupleWithDependencies } from './helpers';
-
-export default function getRef($ref: string): TupleWithDependencies<ts.TypeNode> {
+export default function getRef($ref: string): ObjectWithDependencies<ts.TypeNode> {
   let type = '';
 
   if ($ref.startsWith('#/components/schemas')) {
@@ -18,5 +17,8 @@ export default function getRef($ref: string): TupleWithDependencies<ts.TypeNode>
     throw new Error('This library only resolve $ref that are include into `#/components/*` for now');
   }
 
-  return [ts.factory.createTypeReferenceNode(type, []), [type]];
+  return {
+    node: ts.factory.createTypeReferenceNode(type, []),
+    dependencies: [type]
+  };
 }

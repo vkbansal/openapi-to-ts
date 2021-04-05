@@ -5,6 +5,7 @@ import { hideBin } from 'yargs/helpers';
 
 import { importSpec } from './importSpec';
 import { validateAdvancedConfig } from './helpers';
+import type { Config } from './types';
 // import schema from './options-schema.json';
 // import type { Config, AdvancedConfig } from './types';
 
@@ -54,6 +55,10 @@ yargs(hideBin(process.argv))
           type: 'string',
           describe: 'Location for the output. If a file is given, all the definitions will be output to'
         })
+        .option('verbose', {
+          type: 'boolean',
+          describe: 'Shows verbose output'
+        })
         .conflicts('file', 'url')
         .check(argv => {
           if (result) return true;
@@ -65,6 +70,6 @@ yargs(hideBin(process.argv))
           return true;
         });
     },
-    argv => importSpec(argv, result?.config)
+    argv => importSpec(argv as Config, result?.config)
   )
   .help().argv;

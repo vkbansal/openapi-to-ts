@@ -1,4 +1,6 @@
+import ts from 'typescript';
 import { isEmpty, forEach, isPlainObject, isString } from 'lodash';
+
 import type { AdvancedConfig, Config } from './types';
 
 export function validateSpecConfig(value: Config, key?: string): void {
@@ -25,4 +27,8 @@ export function validateAdvancedConfig(config: AdvancedConfig): void {
   }
 
   forEach(config.specs, (value, key) => validateSpecConfig(value, key));
+}
+
+export function printStatement(statement: ts.Statement, printer: ts.Printer, sourceFile: ts.SourceFile): string {
+  return printer.printNode(ts.EmitHint.Unspecified, statement, sourceFile);
 }

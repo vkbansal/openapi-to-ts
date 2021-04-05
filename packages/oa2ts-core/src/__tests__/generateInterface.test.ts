@@ -7,9 +7,9 @@ import { SchemaObject } from 'openapi3-ts';
 type Data = ReturnType<typeof generateInterface>;
 
 expect.addSnapshotSerializer({
-  test: (val: any): val is Data => Array.isArray(val) && val.length === 2 && val[0].kind,
+  test: (val: any): val is Data => val.node && Array.isArray(val.dependencies),
   print: (val: Data): string => {
-    return printFile([val[0]]).trim();
+    return printFile(val.node).trim();
   }
 });
 
@@ -140,11 +140,29 @@ describe('generateInterfaces Tests', () => {
       expect(generateInterface('ObjectInterface', spec)).toMatchInlineSnapshot(`
         export interface ObjectInterface {
             string: string;
+            /**
+             * @format byte
+              */
             byte?: string;
+            /**
+             * @format binary
+              */
             binary?: string;
+            /**
+             * @format date
+              */
             date?: string;
+            /**
+             * @format dateTime
+              */
             dateTime?: string;
+            /**
+             * @format date-time
+              */
             dateTime2?: string;
+            /**
+             * @format password
+              */
             password?: string;
             [key: string]: string;
         }
@@ -169,12 +187,27 @@ describe('generateInterfaces Tests', () => {
 
       expect(generateInterface('ObjectInterface', spec)).toMatchInlineSnapshot(`
         export interface ObjectInterface {
+            /**
+             * @format int32
+              */
             int32: number;
+            /**
+             * @format int64
+              */
             int64: number;
             number: number;
             integer?: number;
+            /**
+             * @format long
+              */
             long?: number;
+            /**
+             * @format float
+              */
             float?: number;
+            /**
+             * @format double
+              */
             double?: number;
             [key: string]: string;
         }
