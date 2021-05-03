@@ -5,7 +5,9 @@ import { transformType } from '@vkbansal/oa2ts-utils';
 
 import getScalar from './getScalar';
 
-export default function getArray(item: SchemaObject): ObjectWithDependencies<ts.TypeNode> {
+export default function getArray(
+  item: SchemaObject
+): ObjectWithDependencies<ts.TypeNode> {
   if (item.items) {
     return transformType(getScalar(item.items), typeNode => {
       if (ts.isUnionTypeNode(typeNode) || ts.isIntersectionTypeNode(typeNode)) {

@@ -20,7 +20,9 @@ export default function getFreeFormProperty(
           /* spread token */ undefined,
           /* name */ 'key',
           /* questionToken */ undefined,
-          /* type */ ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+          /* type */ ts.factory.createKeywordTypeNode(
+            ts.SyntaxKind.StringKeyword
+          ),
           /* initializer */ undefined
         )
       ],

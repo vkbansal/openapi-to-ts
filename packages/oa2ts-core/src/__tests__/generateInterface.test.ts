@@ -79,7 +79,10 @@ describe('generateInterfaces Tests', () => {
     });
 
     test('with type and additionalProperties: false', () => {
-      const spec: SchemaObject = { type: 'object', additionalProperties: false };
+      const spec: SchemaObject = {
+        type: 'object',
+        additionalProperties: false
+      };
 
       expect(generateInterface('ObjectInterface', spec)).toMatchInlineSnapshot(`
         export interface ObjectInterface {
@@ -215,7 +218,10 @@ describe('generateInterfaces Tests', () => {
     });
 
     test('works with boolean', () => {
-      const spec: SchemaObject = { type: 'object', properties: { bool: { type: 'boolean' } } };
+      const spec: SchemaObject = {
+        type: 'object',
+        properties: { bool: { type: 'boolean' } }
+      };
 
       expect(generateInterface('ObjectInterface', spec)).toMatchInlineSnapshot(`
         export interface ObjectInterface {
@@ -225,7 +231,10 @@ describe('generateInterfaces Tests', () => {
     });
 
     test('works with object', () => {
-      const spec: SchemaObject = { type: 'object', properties: { key: { type: 'object' } } };
+      const spec: SchemaObject = {
+        type: 'object',
+        properties: { key: { type: 'object' } }
+      };
 
       expect(generateInterface('ObjectInterface', spec)).toMatchInlineSnapshot(`
         export interface ObjectInterface {
@@ -257,7 +266,10 @@ describe('generateInterfaces Tests', () => {
         properties: {
           str: { type: 'array', items: { type: 'string' } },
           num: { type: 'array', items: { type: 'number' } },
-          enum: { type: 'array', items: { type: 'string', enum: ['VALUE_1', 'VALUE_2', 'VALUE_3'] } }
+          enum: {
+            type: 'array',
+            items: { type: 'string', enum: ['VALUE_1', 'VALUE_2', 'VALUE_3'] }
+          }
         }
       };
 

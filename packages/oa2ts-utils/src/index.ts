@@ -1,11 +1,10 @@
-import type ts from 'typescript';
 import _ from 'lodash';
 import type { ReferenceObject } from 'openapi3-ts';
+import type { ObjectWithDependencies } from './types';
 
-export interface ObjectWithDependencies<T = ts.Statement> {
-  node: T;
-  dependencies: string[];
-}
+export type { ObjectWithDependencies };
+export { createNamedImport } from './createNamedImport';
+export { createNamedExport } from './createNamedExport';
 
 export function isReferenceObject(data: unknown): data is ReferenceObject {
   return typeof data === 'object' && data !== null && _.has(data, '$ref');
@@ -15,7 +14,10 @@ export function isEmptyObject(obj: unknown): boolean {
   return _.isPlainObject(obj) && _.isEmpty(obj);
 }
 
-export function transformType<T, U>(elem: ObjectWithDependencies<T>, func: (e: T) => U): ObjectWithDependencies<U> {
+export function transformType<T, U>(
+  elem: ObjectWithDependencies<T>,
+  func: (e: T) => U
+): ObjectWithDependencies<U> {
   return {
     node: func(elem.node),
     dependencies: elem.dependencies
@@ -31,11 +33,11 @@ export function mapWithDeps<T, U>(
 ): ObjectWithDependencies<U[]> {
   return arr.reduce<ObjectWithDependencies<U[]>>(
     (acc: ObjectWithDependencies<U[]>, current: T, i) => {
-      const trasnsform = func(current, i);
+      const transform = func(current, i);
 
       return {
-        node: [...acc.node, trasnsform.node],
-        dependencies: [...acc.dependencies, ...trasnsform.dependencies]
+        node: [...acc.node, transform.node],
+        dependencies: [...acc.dependencies, ...transform.dependencies]
       };
     },
     { node: [], dependencies: [] } as ObjectWithDependencies<U[]>

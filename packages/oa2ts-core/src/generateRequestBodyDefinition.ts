@@ -13,7 +13,10 @@ export function generateRequestBodyDefinition(
   schemas: ComponentsObject['requestBodies'] = {}
 ): Map<string, ObjectWithDependencies> {
   const data = Object.entries(schemas);
-  const definitionsMap = new Map<string, ObjectWithDependencies<ts.Statement>>();
+  const definitionsMap = new Map<
+    string,
+    ObjectWithDependencies<ts.Statement>
+  >();
 
   if (data.length > 0) {
     _.sortBy(data, ([name]) => name).map(([name, requestBody]) => {
@@ -23,19 +26,24 @@ export function generateRequestBodyDefinition(
       if (definitions.length === 1) {
         definitionsMap.set(name, generateInterface(finalName, definitions[0]));
       } else {
-        const node = transformType(mapWithDeps(definitions, resolveValue), typeNode => {
-          const declaration = ts.factory.createTypeAliasDeclaration(
-            /* decorators */ undefined,
-            /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-            /* name */ finalName,
-            /* typeParameters */ undefined,
-            /* type */ ts.factory.createUnionTypeNode(typeNode)
-          );
+        const node = transformType(
+          mapWithDeps(definitions, resolveValue),
+          typeNode => {
+            const declaration = ts.factory.createTypeAliasDeclaration(
+              /* decorators */ undefined,
+              /* modifiers */ [
+                ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)
+              ],
+              /* name */ finalName,
+              /* typeParameters */ undefined,
+              /* type */ ts.factory.createUnionTypeNode(typeNode)
+            );
 
-          // TODO: Add metadata to node
+            // TODO: Add metadata to node
 
-          return declaration;
-        });
+            return declaration;
+          }
+        );
 
         definitionsMap.set(name, node);
       }

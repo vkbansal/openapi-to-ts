@@ -17,7 +17,9 @@ export function printFile(statements: ts.Statement | ts.Statement[]): string {
   );
 
   // @ts-ignore
-  sourceFile.statements = ts.factory.createNodeArray(Array.isArray(statements) ? statements : [statements]);
+  sourceFile.statements = ts.factory.createNodeArray(
+    Array.isArray(statements) ? statements : [statements]
+  );
 
   return printer.printFile(sourceFile);
 }

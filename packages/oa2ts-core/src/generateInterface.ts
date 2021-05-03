@@ -7,7 +7,10 @@ import { transformType } from '@vkbansal/oa2ts-utils';
 import getObjectProperties from './getObjectProperties';
 import addMetadataToNode from './addMetadataToNode';
 
-export default function generateInterface(name: string, schema: SchemaObject): ObjectWithDependencies {
+export default function generateInterface(
+  name: string,
+  schema: SchemaObject
+): ObjectWithDependencies {
   return transformType(getObjectProperties(schema), members => {
     const node = ts.factory.createInterfaceDeclaration(
       /* decorators */ undefined,

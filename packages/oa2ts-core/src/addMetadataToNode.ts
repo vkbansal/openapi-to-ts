@@ -1,5 +1,9 @@
 import ts from 'typescript';
-import type { SchemaObject, ReferenceObject, RequestBodyObject } from 'openapi3-ts';
+import type {
+  SchemaObject,
+  ReferenceObject,
+  RequestBodyObject
+} from 'openapi3-ts';
 import { isReferenceObject } from '@vkbansal/oa2ts-utils';
 
 import formatDescription from './formatDescription';

@@ -1,6 +1,12 @@
 import ts from 'typescript';
 import { isEmpty, forEach, isPlainObject, isString } from 'lodash';
 
+const printer = ts.createPrinter({
+  newLine: ts.NewLineKind.LineFeed,
+  removeComments: false,
+  omitTrailingSemicolon: true
+});
+
 import type { AdvancedConfig, Config } from './types';
 
 export function validateSpecConfig(value: Config, key?: string): void {
@@ -29,6 +35,12 @@ export function validateAdvancedConfig(config: AdvancedConfig): void {
   forEach(config.specs, (value, key) => validateSpecConfig(value, key));
 }
 
-export function printStatement(statement: ts.Statement, printer: ts.Printer, sourceFile: ts.SourceFile): string {
-  return printer.printNode(ts.EmitHint.Unspecified, statement, sourceFile);
+export function printFile(statements: ts.Statement[]): string {
+  return printer.printFile(
+    ts.factory.createSourceFile(
+      statements,
+      ts.factory.createToken(ts.SyntaxKind.EndOfFileToken),
+      ts.NodeFlags.None
+    )
+  );
 }

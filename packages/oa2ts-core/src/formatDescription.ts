@@ -1,4 +1,7 @@
-export default function formatDescription(description: string, tabSize = 0): string {
+export default function formatDescription(
+  description: string,
+  tabSize = 0
+): string {
   return `*
 ${description
   .split('\n')

@@ -1,68 +1,124 @@
 import fs from 'fs';
 import path from 'path';
 
-// import ts from 'typescript';
 import _ from 'lodash';
 import yaml from 'js-yaml';
+import chalk from 'chalk';
 import type { OpenAPIObject } from 'openapi3-ts';
-import { generateSchemaDefintion } from '@vkbansal/oa2ts-core';
-// import { TupleWithDependencies } from '@vkbansal/oa2ts-core';
+import {
+  generateSchemaDefintion,
+  generateRequestBodyDefinition
+} from '@vkbansal/oa2ts-core';
+import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
 
 import type { Config, AdvancedConfig } from './types';
-// import { printStatement } from './helpers';
-
-// const printer = ts.createPrinter({
-//   newLine: ts.NewLineKind.LineFeed,
-//   removeComments: false,
-//   omitTrailingSemicolon: true
-// });
+import { writeToDir } from './writeToDir';
+import { writeToFile } from './writeToFile';
 
 export interface ImportOpenAPIArgs {
   content: string;
   format: 'json' | 'yaml';
+  config: Config;
 }
 
-async function importOpenAPI({ content, format }: ImportOpenAPIArgs): Promise<void> {
-  const spec: OpenAPIObject = format === 'yaml' ? yaml.load(content) : JSON.parse(content);
+async function importOpenAPI({
+  content,
+  format,
+  config
+}: ImportOpenAPIArgs): Promise<void> {
+  let spec: OpenAPIObject =
+    format === 'yaml' ? yaml.load(content) : JSON.parse(content);
 
+  // transform the spec using given transformer
+  if (config.transformer) {
+    const transformer = await import(config.transformer);
+
+    spec = transformer(spec);
+  }
+
+  // generate definition for all the schemas
   const schemaDefs = generateSchemaDefintion(spec.components?.schemas);
-  // const requestDefs = generateRequestBodyDefinition(spec.components?.requestBodies);
 
-  // const allStatements: Array<TupleWithDependencies<ts.Statement>> = _.sortBy([...schemaDefs, ...requestDefs], ([node]) =>)
+  // generate definitions for all the request bodies
+  const requestBodyDefs = generateRequestBodyDefinition(
+    spec.components?.requestBodies
+  );
 
-  // const input = ts.createSourceFile(
-  //   'dummy.ts',
-  //   '',
-  //   ts.ScriptTarget.Latest,
-  //   /* setParentNodes */ false,
-  //   ts.ScriptKind.TS
-  // );
+  // placeholder fr plugin data
+  let pluginsData: Array<Map<string, ObjectWithDependencies>> = [];
 
-  // const final = schemaDefs.reduce((str, [node]) => {
-  //   return str + '\n' + printStatement(node, printer, input);
-  // }, '');
+  // run all the plugins
+  if (Array.isArray(config.plugins) && config.plugins.length > 0) {
+    const pluginsDataPromises = config.plugins.map(async name => {
+      const plugin = await import(name);
 
-  console.log(schemaDefs);
+      return plugin(spec);
+    });
+
+    pluginsData = await Promise.all(pluginsDataPromises);
+  }
+
+  // placeholder for all the generated statements, including plugins
+  const allStatements = new Map<string, ObjectWithDependencies>();
+
+  function updateAllStatements(
+    value: ObjectWithDependencies,
+    key: string
+  ): void {
+    if (allStatements.has(key)) {
+      console.log(
+        chalk.bold.yellow(
+          `Warning: duplicate entry for "${key}" found, this might lead to undesired consequences`
+        )
+      );
+    }
+
+    allStatements.set(key, value);
+  }
+
+  // update `allStatements`
+  schemaDefs.forEach(updateAllStatements);
+  requestBodyDefs.forEach(updateAllStatements);
+  pluginsData.forEach(pluginData => pluginData.forEach(updateAllStatements));
+
+  // check is output is a dir or a file
+  const isOutDir = path.extname(config.output) === '';
+
+  if (isOutDir) {
+    // for a directory write each definition to its own file
+    await writeToDir(config, allStatements);
+  } else {
+    // output to a single file
+    await writeToFile(config, allStatements);
+  }
 }
 
 async function generate(config: Config): Promise<void> {
   if (config.file) {
-    const content = await fs.promises.readFile(path.resolve(process.cwd(), config.file), 'utf8');
+    const content = await fs.promises.readFile(
+      path.resolve(process.cwd(), config.file),
+      'utf8'
+    );
     const ext = path.extname(config.file);
     const format = /\.ya?ml$/i.test(ext) ? 'yaml' : 'json';
 
-    await importOpenAPI({ content, format });
+    await importOpenAPI({ content, format, config });
   } else if (config.url) {
     // read from URL
   }
 }
 
-export async function importSpec(argv: Config, config: AdvancedConfig | null): Promise<void> {
+export async function importSpec(
+  argv: Config,
+  config: AdvancedConfig | null
+): Promise<void> {
   if (config) {
     const { specs, ...restConfig } = config;
 
-    const tasks = _.map(config.specs, conf => {
+    const tasks = _.map(config.specs, (conf, key) => {
       const resolvedConf = _.defaults(conf, restConfig);
+
+      console.log(chalk.yellow(`Generating code for ${key}`));
 
       return generate(resolvedConf);
     });
@@ -72,29 +128,3 @@ export async function importSpec(argv: Config, config: AdvancedConfig | null): P
     await generate(argv);
   }
 }
-
-// import type ts from 'typescript';
-// import type { OpenAPIObject } from 'openapi3-ts';
-// import type { TupleWithDependencies } from '@vkbansal/oa2ts-core';
-
-// export interface Options {
-//   spec: OpenAPIObject;
-// }
-
-// export interface GeneratedInterface {
-//   statement: ts.Statement;
-//   dependencies: string[];
-// }
-
-// export default function generateInterfacesFromSpec(options: Options): Array<TupleWithDependencies<ts.Statement>> {
-//   const { spec } = options;
-
-//   const output: Array<TupleWithDependencies<ts.Statement>> = [];
-
-//   // if (spec.components) {
-//   //   if (spec.components.schemas) output.push(...generateSchemaDefintions(spec.components.schemas));
-//   //   if (spec.components.requestBodies) output.push(...generateRequestBodiesDefinition(spec.components.requestBodies));
-//   // }
-
-//   return output;
-// }

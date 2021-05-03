@@ -2,7 +2,11 @@ import ts from 'typescript';
 import _ from 'lodash';
 import type { SchemaObject } from 'openapi3-ts';
 import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
-import { isEmptyObject, mapWithDeps, transformType } from '@vkbansal/oa2ts-utils';
+import {
+  isEmptyObject,
+  mapWithDeps,
+  transformType
+} from '@vkbansal/oa2ts-utils';
 
 import getFreeFormProperty from './getFreeFormProperty';
 import resolveValue from './resolveValue';
@@ -11,8 +15,14 @@ import addMetadataToNode from './addMetadataToNode';
 
 export type ObjPropsWithDependencies = ObjectWithDependencies<ts.TypeElement[]>;
 
-export default function getObjectProperties(item: SchemaObject): ObjPropsWithDependencies {
-  if (!item.type && !_.has(item, 'properties') && !_.has(item, 'additionalProperties')) {
+export default function getObjectProperties(
+  item: SchemaObject
+): ObjPropsWithDependencies {
+  if (
+    !item.type &&
+    !_.has(item, 'properties') &&
+    !_.has(item, 'additionalProperties')
+  ) {
     return { node: [], dependencies: [] };
   }
 
@@ -30,31 +40,41 @@ export default function getObjectProperties(item: SchemaObject): ObjPropsWithDep
     }
 
     if (item.additionalProperties) {
-      return transformType(getFreeFormProperty(resolveValue(item.additionalProperties)), type => [type]);
+      return transformType(
+        getFreeFormProperty(resolveValue(item.additionalProperties)),
+        type => [type]
+      );
     }
   }
 
   if (item.properties) {
-    const { node: propetySignatures, dependencies } = mapWithDeps(Object.entries(item.properties), ([name, schema]) =>
-      transformType(getScalar(schema), typeNode => {
-        const propertySignature = ts.factory.createPropertySignature(
-          /* modifiers */ undefined,
-          /* name*/ name,
-          /* questionToken */ item.required?.includes(name)
-            ? undefined
-            : ts.factory.createToken(ts.SyntaxKind.QuestionToken),
-          /* type */ typeNode
-        );
+    const { node: propetySignatures, dependencies } = mapWithDeps(
+      Object.entries(item.properties),
+      ([name, schema]) =>
+        transformType(getScalar(schema), typeNode => {
+          const propertySignature = ts.factory.createPropertySignature(
+            /* modifiers */ undefined,
+            /* name*/ name,
+            /* questionToken */ item.required?.includes(name)
+              ? undefined
+              : ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+            /* type */ typeNode
+          );
 
-        addMetadataToNode(propertySignature, schema);
+          addMetadataToNode(propertySignature, schema);
 
-        return propertySignature;
-      })
+          return propertySignature;
+        })
     );
 
     if (item.additionalProperties) {
-      const { node: typeNode, dependencies: moreDependencies } = getFreeFormProperty(
-        item.additionalProperties === true ? undefined : resolveValue(item.additionalProperties)
+      const {
+        node: typeNode,
+        dependencies: moreDependencies
+      } = getFreeFormProperty(
+        item.additionalProperties === true
+          ? undefined
+          : resolveValue(item.additionalProperties)
       );
 
       propetySignatures.push(typeNode as ts.PropertySignature);

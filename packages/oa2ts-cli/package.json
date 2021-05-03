@@ -18,11 +18,11 @@
   "dependencies": {
     "@vkbansal/oa2ts-core": "^0.1.0",
     "@vkbansal/oa2ts-utils": "^0.1.0",
-    "chalk": "^4.1.0",
+    "chalk": "^4.1.1",
     "cosmiconfig": "^7.0.0",
     "esm": "^3.2.25",
-    "ibm-openapi-validator": "^0.39.0",
-    "js-yaml": "^4.0.0",
+    "ibm-openapi-validator": "^0.44.0",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "mkdirp": "^1.0.4",
     "openapi3-ts": "^2.0.1",
@@ -31,8 +31,9 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.168",
+    "@types/mkdirp": "^1.0.1",
     "@types/yargs": "^16.0.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.4"
   }
 }
