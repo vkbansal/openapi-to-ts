@@ -14,6 +14,7 @@ import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
 import type { Config, AdvancedConfig } from './types';
 import { writeToDir } from './writeToDir';
 import { writeToFile } from './writeToFile';
+import { convertToOpenAPI } from './helpers';
 
 export interface ImportOpenAPIArgs {
   content: string;
@@ -36,6 +37,10 @@ async function importOpenAPI({
     spec = transformer(spec);
   }
 
+  if (!spec.info || !spec.info.version.startsWith('3.0')) {
+    spec = await convertToOpenAPI(spec);
+  }
+
   // generate definition for all the schemas
   const schemaDefs = generateSchemaDefintion(spec.components?.schemas);
 
@@ -48,12 +53,18 @@ async function importOpenAPI({
   let pluginsData: Array<Map<string, ObjectWithDependencies>> = [];
 
   // run all the plugins
-  if (Array.isArray(config.plugins) && config.plugins.length > 0) {
-    const pluginsDataPromises = config.plugins.map(async name => {
-      const plugin = await import(name);
+  const pluginEntries = Object.entries(config.plugins || {}).filter(
+    ([_key, pluginConfig]) => !!pluginConfig
+  );
 
-      return plugin(spec);
-    });
+  if (pluginEntries.length > 0) {
+    const pluginsDataPromises = pluginEntries.map(
+      async ([name, pluginConfig]) => {
+        const plugin = await import(name);
+
+        return plugin(spec, pluginConfig);
+      }
+    );
 
     pluginsData = await Promise.all(pluginsDataPromises);
   }

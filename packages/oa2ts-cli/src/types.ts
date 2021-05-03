@@ -3,7 +3,7 @@ export interface Config {
   file?: string;
   url?: string;
   transformer?: string;
-  plugins?: string[];
+  plugins?: Record<string, unknown>;
 }
 
 export interface AdvancedConfig

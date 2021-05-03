@@ -1,5 +1,6 @@
 import ts from 'typescript';
 import { isEmpty, forEach, isPlainObject, isString } from 'lodash';
+import swagger2openapi from 'swagger2openapi';
 
 const printer = ts.createPrinter({
   newLine: ts.NewLineKind.LineFeed,
@@ -8,6 +9,7 @@ const printer = ts.createPrinter({
 });
 
 import type { AdvancedConfig, Config } from './types';
+import type { OpenAPIObject } from 'openapi3-ts';
 
 export function validateSpecConfig(value: Config, key?: string): void {
   function getMessage(str: string): string {
@@ -43,4 +45,16 @@ export function printFile(statements: ts.Statement[]): string {
       ts.NodeFlags.None
     )
   );
+}
+
+export function convertToOpenAPI(schema: unknown): Promise<OpenAPIObject> {
+  return new Promise((resolve, reject) => {
+    swagger2openapi.convertObj(schema, {}, (err, convertedObj) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(convertedObj.openapi);
+      }
+    });
+  });
 }

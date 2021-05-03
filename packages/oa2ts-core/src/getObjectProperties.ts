@@ -48,8 +48,8 @@ export default function getObjectProperties(
   }
 
   if (item.properties) {
-    const { node: propetySignatures, dependencies } = mapWithDeps(
-      Object.entries(item.properties),
+    const { node: propertySignatures, dependencies } = mapWithDeps(
+      _.sortBy(Object.entries(item.properties), ([key]) => key),
       ([name, schema]) =>
         transformType(getScalar(schema), typeNode => {
           const propertySignature = ts.factory.createPropertySignature(
@@ -77,12 +77,12 @@ export default function getObjectProperties(
           : resolveValue(item.additionalProperties)
       );
 
-      propetySignatures.push(typeNode as ts.PropertySignature);
+      propertySignatures.push(typeNode as ts.PropertySignature);
       dependencies.push(...moreDependencies);
     }
 
     return {
-      node: propetySignatures,
+      node: propertySignatures,
       dependencies
     };
   }

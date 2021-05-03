@@ -21,10 +21,13 @@ export async function writeToDir(
 
   // output each definition to individual files
   const writeFiles = [...allStatements.entries()].map(([key, value]) => {
+    const uniqueDependencies = new Set(value.dependencies);
+    uniqueDependencies.delete(key);
+
     // all the import statements for all the dependencies
-    const statements: ts.Statement[] = value.dependencies.map(dep =>
-      createNamedImport(true, `./${dep}`, dep)
-    );
+    const statements: ts.Statement[] = [...uniqueDependencies]
+      .sort()
+      .map(dep => createNamedImport(true, `./${dep}`, dep));
 
     // actual type definition
     statements.push(value.node);

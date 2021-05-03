@@ -28,11 +28,13 @@ export default function getScalar(
     case 'string':
       type = item.enum
         ? ts.factory.createUnionTypeNode(
-            item.enum.map((name: string) =>
-              ts.factory.createLiteralTypeNode(
-                ts.factory.createStringLiteral(name)
+            item.enum
+              .sort()
+              .map((name: string) =>
+                ts.factory.createLiteralTypeNode(
+                  ts.factory.createStringLiteral(name)
+                )
               )
-            )
           )
         : ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword);
       break;
