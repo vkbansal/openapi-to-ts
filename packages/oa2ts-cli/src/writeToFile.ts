@@ -6,13 +6,17 @@ import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
 import mkdirp from 'mkdirp';
 
 import type { Config } from './types';
-import { printFile } from './helpers';
+import { logInfo, printFile } from './helpers';
 
 export async function writeToFile(
   config: Config,
   allStatements: Map<string, ObjectWithDependencies>
 ): Promise<unknown> {
-  const outFile = path.resolve(process.cwd(), config.output);
+  const { verbose, output } = config;
+
+  logInfo(verbose, `Writing output to a file`);
+
+  const outFile = path.resolve(process.cwd(), output);
   const dir = path.dirname(outFile);
 
   // make sure directory exists
@@ -30,9 +34,6 @@ export async function writeToFile(
       return objWithDeps.node;
     });
 
-  return fs.promises.writeFile(
-    path.resolve(outFile),
-    printFile(sortedStatements),
-    'utf8'
-  );
+  logInfo(verbose, `Writing file: ${outFile}`);
+  return fs.promises.writeFile(outFile, printFile(sortedStatements), 'utf8');
 }

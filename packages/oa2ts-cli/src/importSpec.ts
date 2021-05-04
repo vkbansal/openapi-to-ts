@@ -3,10 +3,9 @@ import path from 'path';
 
 import _ from 'lodash';
 import yaml from 'js-yaml';
-import chalk from 'chalk';
 import type { OpenAPIObject } from 'openapi3-ts';
 import {
-  generateSchemaDefintion,
+  generateSchemaDefinition,
   generateRequestBodyDefinition
 } from '@vkbansal/oa2ts-core';
 import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
@@ -14,7 +13,13 @@ import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
 import type { Config, AdvancedConfig } from './types';
 import { writeToDir } from './writeToDir';
 import { writeToFile } from './writeToFile';
-import { convertToOpenAPI } from './helpers';
+import {
+  convertToOpenAPI,
+  logInfo,
+  logWarning,
+  padChunk,
+  printFile
+} from './helpers';
 
 export interface ImportOpenAPIArgs {
   content: string;
@@ -27,29 +32,43 @@ async function importOpenAPI({
   format,
   config
 }: ImportOpenAPIArgs): Promise<void> {
+  const { verbose } = config;
+
+  logInfo(verbose, 'Parsing data');
   let spec: OpenAPIObject =
     format === 'yaml' ? yaml.load(content) : JSON.parse(content);
 
   // transform the spec using given transformer
   if (config.transformer) {
+    logInfo(verbose, `Transforming schema using "${config.transformer}"`);
+
     const transformer = await import(config.transformer);
+
+    if (typeof transformer !== 'function') {
+      throw new Error(
+        `Expected default export of the transformer "${
+          config.transformer
+        }" to be a function. Got "${typeof transformer}" instead`
+      );
+    }
 
     spec = transformer(spec);
   }
 
   if (!spec.info || !spec.info.version.startsWith('3.0')) {
+    logInfo(verbose, 'Converting spec from Swagger to OpenAPI');
     spec = await convertToOpenAPI(spec);
   }
 
-  // generate definition for all the schemas
-  const schemaDefs = generateSchemaDefintion(spec.components?.schemas);
+  logInfo(verbose, 'Generating schema definitions');
+  const schemaDefs = generateSchemaDefinition(spec.components?.schemas);
 
-  // generate definitions for all the request bodies
+  logInfo(verbose, 'Generating request body definitions');
   const requestBodyDefs = generateRequestBodyDefinition(
     spec.components?.requestBodies
   );
 
-  // placeholder fr plugin data
+  // placeholder for plugin data
   let pluginsData: Array<Map<string, ObjectWithDependencies>> = [];
 
   // run all the plugins
@@ -60,7 +79,15 @@ async function importOpenAPI({
   if (pluginEntries.length > 0) {
     const pluginsDataPromises = pluginEntries.map(
       async ([name, pluginConfig]) => {
+        logInfo(verbose, `Running plugin: "${name}"`);
+
         const plugin = await import(name);
+
+        if (typeof plugin !== 'function') {
+          throw new Error(
+            `Expected default export of the plugin "${name}" to be a function. Got "${typeof plugin}" instead`
+          );
+        }
 
         return plugin(spec, pluginConfig);
       }
@@ -77,11 +104,13 @@ async function importOpenAPI({
     key: string
   ): void {
     if (allStatements.has(key)) {
-      console.log(
-        chalk.bold.yellow(
-          `Warning: duplicate entry for "${key}" found, this might lead to undesired consequences`
-        )
-      );
+      let warning = `Duplicate entry for "${key}" found, this might lead to undesired consequences.`;
+
+      if (verbose) {
+        warning += `\n${padChunk(printFile([value.node]), 8)}`;
+      }
+
+      logWarning(warning);
     }
 
     allStatements.set(key, value);
@@ -106,12 +135,14 @@ async function importOpenAPI({
 
 async function generate(config: Config): Promise<void> {
   if (config.file) {
-    const content = await fs.promises.readFile(
-      path.resolve(process.cwd(), config.file),
-      'utf8'
-    );
     const ext = path.extname(config.file);
     const format = /\.ya?ml$/i.test(ext) ? 'yaml' : 'json';
+    const filePath = path.resolve(process.cwd(), config.file);
+
+    logInfo(config.verbose, `Detected format: ${format}`);
+    logInfo(config.verbose, `Reading file "${filePath}"`);
+
+    const content = await fs.promises.readFile(filePath, 'utf8');
 
     await importOpenAPI({ content, format, config });
   } else if (config.url) {
@@ -129,7 +160,9 @@ export async function importSpec(
     const tasks = _.map(config.specs, (conf, key) => {
       const resolvedConf = _.defaults(conf, restConfig);
 
-      console.log(chalk.yellow(`Generating code for ${key}`));
+      resolvedConf.verbose = !!argv.verbose;
+
+      logInfo(resolvedConf.verbose, `Generating code for "${key}" spec`);
 
       return generate(resolvedConf);
     });

@@ -6,25 +6,25 @@ import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
 import { mapWithDeps, transformType } from '@vkbansal/oa2ts-utils';
 
 import generateInterface from './generateInterface';
-import getReqResDefintion from './getReqResDefintion';
+import getReqResDefinition from './getReqResDefinition';
 import resolveValue from './resolveValue';
 
 export function generateRequestBodyDefinition(
   schemas: ComponentsObject['requestBodies'] = {}
 ): Map<string, ObjectWithDependencies> {
   const data = Object.entries(schemas);
-  const definitionsMap = new Map<
-    string,
-    ObjectWithDependencies<ts.Statement>
-  >();
+  const definitionsMap = new Map<string, ObjectWithDependencies>();
 
   if (data.length > 0) {
     _.sortBy(data, ([name]) => name).map(([name, requestBody]) => {
-      const definitions = getReqResDefintion([['', requestBody]]);
+      const definitions = getReqResDefinition([['', requestBody]]);
       const finalName = `${pascal(name)}RequestBody`;
 
       if (definitions.length === 1) {
-        definitionsMap.set(name, generateInterface(finalName, definitions[0]));
+        definitionsMap.set(
+          finalName,
+          generateInterface(finalName, definitions[0])
+        );
       } else {
         const node = transformType(
           mapWithDeps(definitions, resolveValue),
@@ -45,7 +45,7 @@ export function generateRequestBodyDefinition(
           }
         );
 
-        definitionsMap.set(name, node);
+        definitionsMap.set(finalName, node);
       }
     });
   }

@@ -10,6 +10,7 @@ const printer = ts.createPrinter({
 
 import type { AdvancedConfig, Config } from './types';
 import type { OpenAPIObject } from 'openapi3-ts';
+import chalk from 'chalk';
 
 export function validateSpecConfig(value: Config, key?: string): void {
   function getMessage(str: string): string {
@@ -57,4 +58,21 @@ export function convertToOpenAPI(schema: unknown): Promise<OpenAPIObject> {
       }
     });
   });
+}
+
+export function logInfo(verbose: boolean, msg: string): void {
+  if (verbose) {
+    console.log(chalk.cyan(`[INFO]: ${msg}`));
+  }
+}
+
+export function logWarning(msg: string): void {
+  console.log(chalk.yellow(`[WARN]: ${msg}`));
+}
+
+export function padChunk(chunk: string, spacing = 6): string {
+  return chunk
+    .split('\n')
+    .map(line => ' '.repeat(spacing) + line)
+    .join('\n');
 }

@@ -4,6 +4,7 @@ export interface Config {
   url?: string;
   transformer?: string;
   plugins?: Record<string, unknown>;
+  verbose: boolean;
 }
 
 export interface AdvancedConfig

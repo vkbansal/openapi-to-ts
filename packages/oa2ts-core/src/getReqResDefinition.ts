@@ -5,7 +5,7 @@ import type {
 } from 'openapi3-ts';
 import { isReferenceObject } from '@vkbansal/oa2ts-utils';
 
-export default function getReqResDefintion(
+export default function getReqResDefinition(
   requestOrResponse: Array<[string, RequestBodyObject | ReferenceObject]>
 ): Array<ReferenceObject | SchemaObject> {
   return requestOrResponse.map<ReferenceObject | SchemaObject>(([_1, res]) => {

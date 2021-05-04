@@ -9,13 +9,15 @@ import {
   ObjectWithDependencies
 } from '@vkbansal/oa2ts-utils';
 
-import { printFile } from './helpers';
+import { logInfo, printFile } from './helpers';
 import type { Config } from './types';
 
 export async function writeToDir(
   config: Config,
   allStatements: Map<string, ObjectWithDependencies>
 ): Promise<unknown> {
+  const { verbose, output } = config;
+  logInfo(verbose, `Writing output to a directory`);
   // make sure directory exists
   await mkdirp(config.output);
 
@@ -23,6 +25,8 @@ export async function writeToDir(
   const writeFiles = [...allStatements.entries()].map(([key, value]) => {
     const uniqueDependencies = new Set(value.dependencies);
     uniqueDependencies.delete(key);
+
+    const filePath = path.resolve(output, `${key}.ts`);
 
     // all the import statements for all the dependencies
     const statements: ts.Statement[] = [...uniqueDependencies]
@@ -32,11 +36,8 @@ export async function writeToDir(
     // actual type definition
     statements.push(value.node);
 
-    return fs.promises.writeFile(
-      path.resolve(config.output, `${key}.ts`),
-      printFile(statements),
-      'utf8'
-    );
+    logInfo(verbose, `Writing file ${filePath}`);
+    return fs.promises.writeFile(filePath, printFile(statements), 'utf8');
   });
 
   // create index file with all the definitions
@@ -57,13 +58,12 @@ export async function writeToDir(
       );
     });
 
+  const indexFilePath = path.resolve(config.output, `index.ts`);
+
   // queue the index file write
+  logInfo(verbose, `Writing file: ${indexFilePath}`);
   writeFiles.push(
-    fs.promises.writeFile(
-      path.resolve(config.output, `index.ts`),
-      printFile(indexExports),
-      'utf8'
-    )
+    fs.promises.writeFile(indexFilePath, printFile(indexExports), 'utf8')
   );
 
   return Promise.all(writeFiles);

@@ -6,7 +6,7 @@ import { isReferenceObject } from '@vkbansal/oa2ts-utils';
 import generateInterface from './generateInterface';
 import generateTypeDeclaration from './generateTypeDeclaration';
 
-export function generateSchemaDefintion(
+export function generateSchemaDefinition(
   schemas: ComponentsObject['schemas'] = {}
 ): Map<string, ObjectWithDependencies> {
   const data = Object.entries(schemas);

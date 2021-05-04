@@ -8,26 +8,28 @@ MODULE=$1
 
 function buildPackage() {
   local package=$1
-  pushd "packages/oa2ts-${package}" > /dev/null
+  pushd "packages/oa2ts-${package}" || exit 1 > /dev/null
   echo "Building ${package}..."
   yarn build
   echo ""
-  popd > /dev/null
+  popd || exit 1 > /dev/null
 }
 
 function buildAll() {
   for i in "${PACKAGES[@]}"
   do
-    buildPackage "${i}"
+    buildPackage "$i"
   done
 }
 
-case $MODULE in
-  utils | core | cli)
-    buildPackage "${MODULE}"
-    ;;
-  *)
-    buildAll
-    ;;
-esac
+# build individual packages
+for i in "${PACKAGES[@]}"
+do
+  if [[ "$i" == "$MODULE" ]]; then
+    buildPackage "$MODULE"
+    exit 0
+  fi
+done
 
+# build all packages
+buildAll
