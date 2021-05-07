@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
+import { groupBy } from 'lodash';
 import type { Statement } from 'typescript';
 import mkdirp from 'mkdirp';
 import { createNamedExport, createImports } from '@vkbansal/oa2ts-core';
@@ -34,11 +35,21 @@ export async function writeToDir(
 
     // all the import statements for all the imports
     if (Array.isArray(imports) && imports.length > 0) {
-      const importStatements = imports.map(i =>
-        createImports(i.isTypeOnly, i.from, i.named, i.default)
-      );
+      Object.entries(groupBy(imports, i => i.from)).forEach(
+        ([from, importsArray]) => {
+          const named = new Set(
+            importsArray.filter(i => i.named).flatMap(i => i.named) as string[]
+          );
+          const isTypeOnly = importsArray.every(i => i.isTypeOnly);
+          const defaultImport = new Set(
+            importsArray.filter(i => i.default).map(i => i.default) as string[]
+          );
 
-      finalStatements.push(...importStatements);
+          finalStatements.push(
+            createImports(isTypeOnly, from, [...named], [...defaultImport][0])
+          );
+        }
+      );
     }
 
     // all the import statements for all the dependencies

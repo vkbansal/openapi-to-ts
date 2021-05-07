@@ -224,6 +224,7 @@ export function createHook(props: CreateHooksProps): void {
   );
 
   typeDef.statements.push(hookPropsDef);
+  typeDef.exports.push({ name: hookPropsName, isTypeOnly: true });
 
   const hookDef = createHookUsage({
     ...props,

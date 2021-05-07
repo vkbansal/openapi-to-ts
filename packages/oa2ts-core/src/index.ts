@@ -101,7 +101,7 @@ export function createImports(
       /* name */ defaultImport
         ? factory.createIdentifier(defaultImport)
         : undefined,
-      /* nameBindings */ Array.isArray(named)
+      /* nameBindings */ Array.isArray(named) && named.length > 0
         ? factory.createNamedImports(
             /* elements */ named.map(name =>
               factory.createImportSpecifier(

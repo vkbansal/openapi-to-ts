@@ -8,7 +8,7 @@ import type {
   SchemaObject
 } from 'openapi3-ts';
 import { get, groupBy } from 'lodash';
-import { Statement, factory, SyntaxKind } from 'typescript';
+import type { Statement } from 'typescript';
 import {
   getNameForPathParams,
   isReferenceObject,
@@ -23,6 +23,7 @@ import {
 
 import type { PluginConfig } from './types';
 import { createHook } from './createHook';
+import { createComponent } from './createComponent';
 
 const ALLOWED_METHODS = ['get', 'post', 'patch', 'put', 'delete'];
 
@@ -209,34 +210,17 @@ export function plugin(
           }
 
           if (!config.noComponents) {
-            typeDef.tsx = true;
-            const propsName = `${componentName}Props`;
-
-            const propsSchema: SchemaObject = { type: 'object' };
-
-            const propsDef = createInterface(propsName, propsSchema);
-
-            typeDef.statements.push(propsDef.statements);
-            typeDef.dependencies.push(...propsDef.dependencies);
-            typeDef.exports.push({ name: propsName, isTypeOnly: true });
-
-            const componentDef = factory.createFunctionDeclaration(
-              /* decorators */ undefined,
-              /* modifiers */ [
-                factory.createModifier(SyntaxKind.ExportKeyword)
-              ],
-              /* asteriskToken */ undefined,
-              /* name */ componentName,
-              /* typeParameters */ [],
-              /* parameters */ [],
-              /* returnType */ undefined,
-              /* body */ factory.createBlock([])
-            );
-
-            typeDef.statements.push(componentDef);
-            typeDef.exports.push({
-              name: componentName,
-              isTypeOnly: false
+            createComponent({
+              componentName,
+              pathParamsName,
+              hasQueryParams,
+              paramsInPath,
+              queryParamsName,
+              responseType: responseType.statements,
+              errorType: errorType.statements,
+              route,
+              typeDef,
+              verb
             });
           }
 
