@@ -1,16 +1,15 @@
 import fs from 'fs';
 import path from 'path';
 
-import _ from 'lodash';
+import { defaultsDeep } from 'lodash';
 import yaml from 'js-yaml';
 import type { OpenAPIObject } from 'openapi3-ts';
 import {
-  generateSchemaDefinition,
-  generateRequestBodyDefinition
+  createSchemaDefinitions,
+  createRequestBodyDefinitions
 } from '@vkbansal/oa2ts-core';
-import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
 
-import type { Config, AdvancedConfig } from './types';
+import type { Config, AdvancedConfig, TypeDefinition } from './types';
 import { writeToDir } from './writeToDir';
 import { writeToFile } from './writeToFile';
 import {
@@ -61,15 +60,15 @@ async function importOpenAPI({
   }
 
   logInfo(verbose, 'Generating schema definitions');
-  const schemaDefs = generateSchemaDefinition(spec.components?.schemas);
+  const schemaDefs = createSchemaDefinitions(spec.components?.schemas);
 
   logInfo(verbose, 'Generating request body definitions');
-  const requestBodyDefs = generateRequestBodyDefinition(
+  const requestBodyDefs = createRequestBodyDefinitions(
     spec.components?.requestBodies
   );
 
   // placeholder for plugin data
-  let pluginsData: Array<Map<string, ObjectWithDependencies>> = [];
+  let pluginsData: Array<Map<string, TypeDefinition>> = [];
 
   // run all the plugins
   const pluginEntries = Object.entries(config.plugins || {}).filter(
@@ -81,11 +80,11 @@ async function importOpenAPI({
       async ([name, pluginConfig]) => {
         logInfo(verbose, `Running plugin: "${name}"`);
 
-        const plugin = await import(name);
+        const { plugin } = await import(name);
 
         if (typeof plugin !== 'function') {
           throw new Error(
-            `Expected default export of the plugin "${name}" to be a function. Got "${typeof plugin}" instead`
+            `Expected "${name}" to have an exported function named "plugin". Got "${typeof plugin}" instead`
           );
         }
 
@@ -97,17 +96,21 @@ async function importOpenAPI({
   }
 
   // placeholder for all the generated statements, including plugins
-  const allStatements = new Map<string, ObjectWithDependencies>();
+  const allStatements = new Map<string, TypeDefinition>();
 
-  function updateAllStatements(
-    value: ObjectWithDependencies,
-    key: string
-  ): void {
+  function updateAllStatements(value: TypeDefinition, key: string): void {
     if (allStatements.has(key)) {
       let warning = `Duplicate entry for "${key}" found, this might lead to undesired consequences.`;
 
       if (verbose) {
-        warning += `\n${padChunk(printFile([value.node]), 8)}`;
+        warning += `\n${padChunk(
+          printFile(
+            Array.isArray(value.statements)
+              ? value.statements
+              : [value.statements]
+          ),
+          8
+        )}`;
       }
 
       logWarning(warning);
@@ -157,10 +160,10 @@ export async function importSpec(
   if (config) {
     const { specs, ...restConfig } = config;
 
-    const tasks = _.map(config.specs, (conf, key) => {
-      const resolvedConf = _.defaults(conf, restConfig);
+    const tasks = Object.entries(config.specs).map(([key, conf]) => {
+      const resolvedConf = defaultsDeep(conf, restConfig);
 
-      resolvedConf.verbose = !!argv.verbose;
+      resolvedConf.verbose = argv.verbose;
 
       logInfo(resolvedConf.verbose, `Generating code for "${key}" spec`);
 

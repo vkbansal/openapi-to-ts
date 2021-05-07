@@ -1,16 +1,15 @@
 import fs from 'fs';
 import path from 'path';
 
-import type * as ts from 'typescript';
-import type { ObjectWithDependencies } from '@vkbansal/oa2ts-utils';
+import type { Statement } from 'typescript';
 import mkdirp from 'mkdirp';
 
-import type { Config } from './types';
+import type { Config, TypeDefinition } from './types';
 import { logInfo, printFile } from './helpers';
 
 export async function writeToFile(
   config: Config,
-  allStatements: Map<string, ObjectWithDependencies>
+  allStatements: Map<string, TypeDefinition>
 ): Promise<unknown> {
   const { verbose, output } = config;
 
@@ -22,16 +21,16 @@ export async function writeToFile(
   // make sure directory exists
   await mkdirp(dir);
 
-  const sortedStatements: ts.Statement[] = [...allStatements.keys()]
+  const sortedStatements: Statement[] = [...allStatements.keys()]
     .sort()
-    .map(key => {
+    .flatMap(key => {
       const objWithDeps = allStatements.get(key);
 
       if (!objWithDeps) {
         throw new Error();
       }
 
-      return objWithDeps.node;
+      return objWithDeps.statements;
     });
 
   logInfo(verbose, `Writing file: ${outFile}`);

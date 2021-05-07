@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 PACKAGES=(
-  'utils'
   'core'
   'cli'
+  'plugin-restful-react'
 )
 MODULE=$1
 

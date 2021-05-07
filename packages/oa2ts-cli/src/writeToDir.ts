@@ -1,20 +1,16 @@
 import fs from 'fs';
 import path from 'path';
 
+import type { Statement } from 'typescript';
 import mkdirp from 'mkdirp';
-import ts from 'typescript';
-import {
-  createNamedExport,
-  createNamedImport,
-  ObjectWithDependencies
-} from '@vkbansal/oa2ts-utils';
+import { createNamedExport, createImports } from '@vkbansal/oa2ts-core';
 
 import { logInfo, printFile } from './helpers';
-import type { Config } from './types';
+import type { Config, TypeDefinition } from './types';
 
 export async function writeToDir(
   config: Config,
-  allStatements: Map<string, ObjectWithDependencies>
+  allStatements: Map<string, TypeDefinition>
 ): Promise<unknown> {
   const { verbose, output } = config;
   logInfo(verbose, `Writing output to a directory`);
@@ -23,25 +19,47 @@ export async function writeToDir(
 
   // output each definition to individual files
   const writeFiles = [...allStatements.entries()].map(([key, value]) => {
-    const uniqueDependencies = new Set(value.dependencies);
+    const { statements, dependencies, imports, exports, tsx } = value;
+    const uniqueDependencies = new Set(dependencies);
+
+    // remove import of named module
     uniqueDependencies.delete(key);
 
-    const filePath = path.resolve(output, `${key}.ts`);
+    // remove dependencies that being exported from same file
+    exports.forEach(dep => uniqueDependencies.delete(dep.name));
+
+    const filePath = path.resolve(output, `${key}${tsx ? '.tsx' : '.ts'}`);
+
+    const finalStatements: Statement[] = [];
+
+    // all the import statements for all the imports
+    if (Array.isArray(imports) && imports.length > 0) {
+      const importStatements = imports.map(i =>
+        createImports(i.isTypeOnly, i.from, i.named, i.default)
+      );
+
+      finalStatements.push(...importStatements);
+    }
 
     // all the import statements for all the dependencies
-    const statements: ts.Statement[] = [...uniqueDependencies]
-      .sort()
-      .map(dep => createNamedImport(true, `./${dep}`, dep));
+    if (uniqueDependencies.size > 0) {
+      const importStatements = [...uniqueDependencies]
+        .sort()
+        .map(dep => createImports(true, `./${dep}`, [dep]));
+      finalStatements.push(...importStatements);
+    }
 
     // actual type definition
-    statements.push(value.node);
+    finalStatements.push(
+      ...(Array.isArray(statements) ? statements : [statements])
+    );
 
     logInfo(verbose, `Writing file ${filePath}`);
-    return fs.promises.writeFile(filePath, printFile(statements), 'utf8');
+    return fs.promises.writeFile(filePath, printFile(finalStatements), 'utf8');
   });
 
   // create index file with all the definitions
-  const indexExports: ts.Statement[] = [...allStatements.keys()]
+  const indexExports: Statement[] = [...allStatements.keys()]
     .sort()
     .map(name => {
       const objWithDeps = allStatements.get(name);
@@ -51,10 +69,9 @@ export async function writeToDir(
       }
 
       return createNamedExport(
-        ts.isInterfaceDeclaration(objWithDeps.node) ||
-          ts.isTypeLiteralNode(objWithDeps.node),
+        objWithDeps.exports.every(e => e.isTypeOnly),
         `./${name}`,
-        name
+        objWithDeps.exports.map(e => e.name)
       );
     });
 
