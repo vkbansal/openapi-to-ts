@@ -28,7 +28,7 @@ export function createComponentUsage(
   } = props;
 
   // covert path to string literal
-  const pathStringLiteral = route.replace(/{(.+?)}/g, '${pathParams.$1}');
+  const pathStringLiteral = route.replace(/{(.+?)}/g, '${$1}');
   const pathExpression = (parseToAST('`' + pathStringLiteral + '`')
     .statements[0] as ExpressionStatement).expression;
   const hasPathParams = paramsInPath.length > 0;
@@ -139,7 +139,10 @@ export function createComponent(props: CreateComponentProps): void {
       verb === 'get' ? 'GetProps' : 'MutateProps',
       getHookTypeProps({ ...props, hasPathParams })
     ),
-    factory.createLiteralTypeNode(factory.createStringLiteral('path'))
+    factory.createUnionTypeNode([
+      factory.createLiteralTypeNode(factory.createStringLiteral('path')),
+      factory.createLiteralTypeNode(factory.createStringLiteral('verb'))
+    ])
   ]);
 
   const propsDef = factory.createTypeAliasDeclaration(
@@ -156,7 +159,6 @@ export function createComponent(props: CreateComponentProps): void {
   );
 
   typeDef.statements.push(propsDef);
-  typeDef.exports.push({ name: propsTypeName, isTypeOnly: true });
 
   const componentDef = createComponentUsage({ ...props, propsTypeName });
 
@@ -169,8 +171,4 @@ export function createComponent(props: CreateComponentProps): void {
     isTypeOnly: false
   });
   typeDef.statements.push(componentDef);
-  typeDef.exports.push({
-    name: componentName,
-    isTypeOnly: false
-  });
 }

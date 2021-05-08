@@ -1,11 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 
+import { sortBy, groupBy } from 'lodash';
 import type { Statement } from 'typescript';
 import mkdirp from 'mkdirp';
+import type { ImportOption } from '@vkbansal/oa2ts-core';
 
 import type { Config, TypeDefinition } from './types';
-import { logInfo, printFile } from './helpers';
+import { createUniqImports, logInfo, printFile } from './helpers';
 
 export async function writeToFile(
   config: Config,
@@ -17,21 +19,35 @@ export async function writeToFile(
 
   const outFile = path.resolve(process.cwd(), output);
   const dir = path.dirname(outFile);
+  const sortedStatements: Statement[] = [];
+  const allGroupedImports: Record<string, ImportOption[]> = {};
 
   // make sure directory exists
   await mkdirp(dir);
 
-  const sortedStatements: Statement[] = [...allStatements.keys()]
-    .sort()
-    .flatMap(key => {
-      const objWithDeps = allStatements.get(key);
+  sortBy([...allStatements.entries()], ([key]) => key).forEach(
+    ([_key, { statements, imports }]) => {
+      sortedStatements.push(
+        ...(Array.isArray(statements) ? statements : [statements])
+      );
 
-      if (!objWithDeps) {
-        throw new Error();
-      }
+      const groupedImports = groupBy(imports || [], i => i.from);
 
-      return objWithDeps.statements;
-    });
+      Object.entries(groupedImports).forEach(
+        ([from, data]: [string, ImportOption[]]) => {
+          if (!Array.isArray(allGroupedImports[from])) {
+            allGroupedImports[from] = [];
+          }
+
+          allGroupedImports[from].push(...data);
+        }
+      );
+    }
+  );
+
+  Object.entries(allGroupedImports).forEach(([_key, imports]) => {
+    sortedStatements.unshift(...createUniqImports(imports));
+  });
 
   logInfo(verbose, `Writing file: ${outFile}`);
   return fs.promises.writeFile(outFile, printFile(sortedStatements), 'utf8');

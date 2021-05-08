@@ -1,13 +1,82 @@
 import fs from 'fs';
 import path from 'path';
 
-import { groupBy } from 'lodash';
-import type { Statement } from 'typescript';
+import {
+  Statement,
+  isFunctionDeclaration,
+  isTypeAliasDeclaration,
+  isInterfaceDeclaration,
+  isVariableStatement,
+  SyntaxKind
+} from 'typescript';
 import mkdirp from 'mkdirp';
-import { createNamedExport, createImports } from '@vkbansal/oa2ts-core';
+import { sortBy } from 'lodash';
+import {
+  createImports,
+  ImportOption,
+  createNamedExport
+} from '@vkbansal/oa2ts-core';
 
-import { logInfo, printFile } from './helpers';
+import { createUniqImports, logInfo, printFile } from './helpers';
 import type { Config, TypeDefinition } from './types';
+
+function isExported(statement: Statement): boolean {
+  return (
+    Array.isArray(statement.modifiers) &&
+    statement.modifiers.some(m => m.kind === SyntaxKind.ExportKeyword)
+  );
+}
+
+function typeOfExport(statement: Statement): 'default' | 'named' {
+  return Array.isArray(statement.modifiers) &&
+    statement.modifiers.some(m => m.kind === SyntaxKind.DefaultKeyword)
+    ? 'default'
+    : 'named';
+}
+
+export interface GetExportNameReturn {
+  isTypeOnly: boolean;
+  typeOfExport: 'named' | 'default';
+  name: string;
+}
+
+function getExportName(statement: Statement): GetExportNameReturn | null {
+  if (isVariableStatement(statement)) {
+    if (!isExported(statement)) {
+      return null;
+    }
+
+    return {
+      isTypeOnly: false,
+      typeOfExport: typeOfExport(statement),
+      name: ''
+    };
+  } else if (isFunctionDeclaration(statement)) {
+    if (!isExported(statement)) {
+      return null;
+    }
+    return {
+      isTypeOnly: false,
+      typeOfExport: typeOfExport(statement),
+      name: statement.name?.escapedText as string
+    };
+  } else if (
+    isTypeAliasDeclaration(statement) ||
+    isInterfaceDeclaration(statement)
+  ) {
+    if (!isExported(statement)) {
+      return null;
+    }
+
+    return {
+      isTypeOnly: true,
+      typeOfExport: typeOfExport(statement),
+      name: statement.name.escapedText as string
+    };
+  } else {
+    return null;
+  }
+}
 
 export async function writeToDir(
   config: Config,
@@ -15,76 +84,75 @@ export async function writeToDir(
 ): Promise<unknown> {
   const { verbose, output } = config;
   logInfo(verbose, `Writing output to a directory`);
+  const indexExports: Statement[] = [];
   // make sure directory exists
   await mkdirp(config.output);
 
   // output each definition to individual files
-  const writeFiles = [...allStatements.entries()].map(([key, value]) => {
-    const { statements, dependencies, imports, exports, tsx } = value;
-    const uniqueDependencies = new Set(dependencies);
+  const writeFiles = sortBy([...allStatements.entries()], ([key]) => key).map(
+    ([key, value]) => {
+      const { statements, dependencies, imports, tsx } = value;
+      const filePath = path.resolve(output, `${key}${tsx ? '.tsx' : '.ts'}`);
+      const finalStatements: Statement[] = [...createUniqImports(imports)];
+      const uniqueDependencies = new Set(dependencies);
+      const statementsArray = Array.isArray(statements)
+        ? statements
+        : [statements];
+      const importConfigs: GetExportNameReturn[] = [];
 
-    // remove import of named module
-    uniqueDependencies.delete(key);
+      statementsArray.forEach(node => {
+        const import1 = getExportName(node);
 
-    // remove dependencies that being exported from same file
-    exports.forEach(dep => uniqueDependencies.delete(dep.name));
-
-    const filePath = path.resolve(output, `${key}${tsx ? '.tsx' : '.ts'}`);
-
-    const finalStatements: Statement[] = [];
-
-    // all the import statements for all the imports
-    if (Array.isArray(imports) && imports.length > 0) {
-      Object.entries(groupBy(imports, i => i.from)).forEach(
-        ([from, importsArray]) => {
-          const named = new Set(
-            importsArray.filter(i => i.named).flatMap(i => i.named) as string[]
-          );
-          const isTypeOnly = importsArray.every(i => i.isTypeOnly);
-          const defaultImport = new Set(
-            importsArray.filter(i => i.default).map(i => i.default) as string[]
-          );
-
-          finalStatements.push(
-            createImports(isTypeOnly, from, [...named], [...defaultImport][0])
-          );
+        if (import1) {
+          importConfigs.push(import1);
         }
-      );
-    }
+      });
 
-    // all the import statements for all the dependencies
-    if (uniqueDependencies.size > 0) {
-      const importStatements = [...uniqueDependencies]
-        .sort()
-        .map(dep => createImports(true, `./${dep}`, [dep]));
-      finalStatements.push(...importStatements);
-    }
+      if (importConfigs.length > 0) {
+        const indexImports = importConfigs.reduce<Required<ImportOption>>(
+          (acc: Required<ImportOption>, { name, isTypeOnly, typeOfExport }) => {
+            if (typeOfExport === 'named') {
+              acc.named!.push(name);
+            }
 
-    // actual type definition
-    finalStatements.push(
-      ...(Array.isArray(statements) ? statements : [statements])
-    );
+            acc.isTypeOnly = isTypeOnly && acc.isTypeOnly;
 
-    logInfo(verbose, `Writing file ${filePath}`);
-    return fs.promises.writeFile(filePath, printFile(finalStatements), 'utf8');
-  });
+            return acc;
+          },
+          { from: `./${key}`, isTypeOnly: true, named: [], default: '' }
+        );
 
-  // create index file with all the definitions
-  const indexExports: Statement[] = [...allStatements.keys()]
-    .sort()
-    .map(name => {
-      const objWithDeps = allStatements.get(name);
-
-      if (!objWithDeps) {
-        throw new Error();
+        indexExports.push(
+          createNamedExport(
+            indexImports.isTypeOnly,
+            indexImports.from,
+            indexImports.named
+          )
+        );
       }
 
-      return createNamedExport(
-        objWithDeps.exports.every(e => e.isTypeOnly),
-        `./${name}`,
-        objWithDeps.exports.map(e => e.name)
+      // remove import of named module
+      uniqueDependencies.delete(key);
+
+      // all the import statements for all the dependencies
+      if (uniqueDependencies.size > 0) {
+        const importStatements = [...uniqueDependencies]
+          .sort()
+          .map(dep => createImports(true, `./${dep}`, [dep]));
+        finalStatements.push(...importStatements);
+      }
+
+      // actual type definition
+      finalStatements.push(...statementsArray);
+
+      logInfo(verbose, `Writing file ${filePath}`);
+      return fs.promises.writeFile(
+        filePath,
+        printFile(finalStatements),
+        'utf8'
       );
-    });
+    }
+  );
 
   const indexFilePath = path.resolve(config.output, `index.ts`);
 

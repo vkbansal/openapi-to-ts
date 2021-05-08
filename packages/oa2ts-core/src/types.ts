@@ -1,15 +1,16 @@
 import type { Statement } from 'typescript';
 
+export interface ImportOption {
+  default?: string;
+  named?: string[];
+  from: string;
+  isTypeOnly: boolean;
+}
+
 export interface TypeDefinitionWithExports<T = Statement>
   extends TypeDefinition<T> {
-  exports: Array<{ name: string; isTypeOnly: boolean }>;
   tsx?: boolean;
-  imports?: Array<{
-    default?: string;
-    named?: string[];
-    from: string;
-    isTypeOnly: boolean;
-  }>;
+  imports?: ImportOption[];
 }
 
 export interface TypeDefinition<T = Statement> {

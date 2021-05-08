@@ -16,7 +16,11 @@ import {
   addMetadataToNode,
   formatDescription
 } from './utils';
-import type { TypeDefinition, TypeDefinitionWithExports } from './types';
+import type {
+  TypeDefinition,
+  TypeDefinitionWithExports,
+  ImportOption
+} from './types';
 import {
   createReferenceNode,
   createInterface,
@@ -51,6 +55,7 @@ export {
   /* types */
   TypeDefinition,
   TypeDefinitionWithExports,
+  ImportOption,
   /* utils */
   getNameForRequestBody,
   getNameForType,
@@ -141,13 +146,11 @@ export function createSchemaDefinitions(
         !schema.nullable
       ) {
         definitionsMap.set(finalName, {
-          ...createInterface(finalName, schema),
-          exports: [{ name: finalName, isTypeOnly: true }]
+          ...createInterface(finalName, schema)
         });
       } else {
         definitionsMap.set(finalName, {
-          ...createTypeDeclaration(finalName, schema),
-          exports: [{ name: finalName, isTypeOnly: true }]
+          ...createTypeDeclaration(finalName, schema)
         });
       }
     });
@@ -169,15 +172,13 @@ export function createRequestBodyDefinitions(
 
       if (definitions.length === 1) {
         definitionsMap.set(finalName, {
-          ...createInterface(finalName, definitions[0]),
-          exports: [{ name: finalName, isTypeOnly: true }]
+          ...createInterface(finalName, definitions[0])
         });
       } else {
         const node = createUnionType(finalName, definitions);
 
         definitionsMap.set(finalName, {
-          ...node,
-          exports: [{ name: finalName, isTypeOnly: true }]
+          ...node
         });
       }
     });
