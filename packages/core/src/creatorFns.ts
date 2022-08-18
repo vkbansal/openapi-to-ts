@@ -33,7 +33,7 @@ export type SchemaOrRef = ReferenceObject | SchemaObject;
 
 export function createTypeDeclaration(
   name: string,
-  schema: SchemaObject
+  schema: SchemaObject | ReferenceObject
 ): TypeDefinition<Statement> {
   return transformStatements(resolveValue(schema), typeNode => {
     const declaration = factory.createTypeAliasDeclaration(
@@ -52,7 +52,7 @@ export function createTypeDeclaration(
 
 export function createArray(item: SchemaObject): TypeDefinition<TypeNode> {
   if (item.items) {
-    return transformStatements(createScalarNode(item.items), typeNode => {
+    return transformStatements(resolveValue(item.items), typeNode => {
       if (isUnionTypeNode(typeNode) || isIntersectionTypeNode(typeNode)) {
         return factory.createTypeReferenceNode('Array', [typeNode]);
       }
@@ -158,37 +158,33 @@ export function createObjectProperties(
   }
 
   if (item.properties) {
-    const {
-      statements: propertySignatures,
-      dependencies
-    } = reduceToTypeDefinition(
-      sortBy(Object.entries(item.properties), ([key]) => key),
-      ([name, schema]) =>
-        transformStatements(createScalarNode(schema), typeNode => {
-          const propertySignature = factory.createPropertySignature(
-            /* modifiers */ undefined,
-            /* name*/ name,
-            /* questionToken */ item.required?.includes(name)
-              ? undefined
-              : factory.createToken(SyntaxKind.QuestionToken),
-            /* type */ typeNode
-          );
+    const { statements: propertySignatures, dependencies } =
+      reduceToTypeDefinition(
+        sortBy(Object.entries(item.properties), ([key]) => key),
+        ([name, schema]) =>
+          transformStatements(resolveValue(schema), typeNode => {
+            const propertySignature = factory.createPropertySignature(
+              /* modifiers */ undefined,
+              /* name*/ name,
+              /* questionToken */ item.required?.includes(name)
+                ? undefined
+                : factory.createToken(SyntaxKind.QuestionToken),
+              /* type */ typeNode
+            );
 
-          addMetadataToNode(propertySignature, schema);
+            addMetadataToNode(propertySignature, schema);
 
-          return [propertySignature];
-        })
-    );
+            return [propertySignature];
+          })
+      );
 
     if (item.additionalProperties) {
-      const {
-        statements: typeNode,
-        dependencies: moreDependencies
-      } = createFreeFormProperty(
-        item.additionalProperties === true
-          ? undefined
-          : resolveValue(item.additionalProperties)
-      );
+      const { statements: typeNode, dependencies: moreDependencies } =
+        createFreeFormProperty(
+          item.additionalProperties === true
+            ? undefined
+            : resolveValue(item.additionalProperties)
+        );
 
       propertySignatures.push(typeNode as PropertySignature);
       dependencies.push(...moreDependencies);
@@ -234,9 +230,9 @@ export function createReferenceNode($ref: string): TypeDefinition<TypeNode> {
 export function getOKResponseSchema(
   responsesObject: ResponsesObject
 ): Array<SchemaOrRef> {
-  const filteredResponseEntries = Object.entries(
-    responsesObject
-  ).filter(([status]) => status.toString().startsWith('2'));
+  const filteredResponseEntries = Object.entries(responsesObject).filter(
+    ([status]) => status.toString().startsWith('2')
+  );
 
   return getRequestResponseSchema(filteredResponseEntries);
 }
@@ -349,7 +345,9 @@ export function createInterface(
   });
 }
 
-export function resolveValue(schema: SchemaObject): TypeDefinition<TypeNode> {
+export function resolveValue(
+  schema: SchemaObject | ReferenceObject
+): TypeDefinition<TypeNode> {
   return isReferenceObject(schema)
     ? createReferenceNode(schema.$ref)
     : createScalarNode(schema);

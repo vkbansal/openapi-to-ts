@@ -1,29 +1,28 @@
 import fs from 'fs';
 import path from 'path';
 
-import { defaultsDeep } from 'lodash';
 import yaml from 'js-yaml';
 import type { OpenAPIObject } from 'openapi3-ts';
-import {
-  createSchemaDefinitions,
-  createRequestBodyDefinitions
-} from '@vkbansal/oa2ts-core';
+import { createRequestBodyDefinitions } from '@vkbansal/oa2ts-core';
 
-import type { Config, AdvancedConfig, TypeDefinition } from './types';
+import { createSchemaDefinitions } from './codegen/createSchemaDefinitions';
+
+import type { TypeDefinition } from './types';
 import { writeToDir } from './writeToDir';
 import { writeToFile } from './writeToFile';
 import {
   convertToOpenAPI,
-  logInfo,
-  logWarning,
-  padChunk,
-  printFile
+  logInfo
+  // logWarning,
+  // padChunk,
+  // printFile
 } from './helpers';
+import type { CLIConfig, ServiceConfig } from './config';
 
 export interface ImportOpenAPIArgs {
   content: string;
   format: 'json' | 'yaml';
-  config: Config;
+  config: ServiceConfig;
 }
 
 async function importOpenAPI({
@@ -31,38 +30,27 @@ async function importOpenAPI({
   format,
   config
 }: ImportOpenAPIArgs): Promise<void> {
-  const { verbose } = config;
+  logInfo('Parsing data');
 
-  logInfo(verbose, 'Parsing data');
   let spec: OpenAPIObject =
     format === 'yaml' ? yaml.load(content) : JSON.parse(content);
 
   // transform the spec using given transformer
   if (config.transformer) {
-    logInfo(verbose, `Transforming schema using "${config.transformer}"`);
+    logInfo(`Transforming schema using "${config.transformer}"`);
 
-    const transformer = await import(config.transformer);
-
-    if (typeof transformer !== 'function') {
-      throw new Error(
-        `Expected default export of the transformer "${
-          config.transformer
-        }" to be a function. Got "${typeof transformer}" instead`
-      );
-    }
-
-    spec = transformer(spec);
+    spec = config.transformer(spec);
   }
 
-  if (!spec.info || !spec.info.version.startsWith('3.0')) {
-    logInfo(verbose, 'Converting spec from Swagger to OpenAPI');
+  if (!spec.info || !spec.info.version.startsWith('3.')) {
+    logInfo('Converting spec from Swagger to OpenAPI');
     spec = await convertToOpenAPI(spec);
   }
 
-  logInfo(verbose, 'Generating schema definitions');
-  const schemaDefs = createSchemaDefinitions(spec.components?.schemas);
+  logInfo('Generating schema definitions');
+  const schemaDefs = await createSchemaDefinitions(spec.components?.schemas);
 
-  logInfo(verbose, 'Generating request body definitions');
+  logInfo('Generating request body definitions');
   const requestBodyDefs = createRequestBodyDefinitions(
     spec.components?.requestBodies
   );
@@ -78,7 +66,7 @@ async function importOpenAPI({
   if (pluginEntries.length > 0) {
     const pluginsDataPromises = pluginEntries.map(
       async ([name, pluginConfig]) => {
-        logInfo(verbose, `Running plugin: "${name}"`);
+        logInfo(`Running plugin: "${name}"`);
 
         const { plugin } = await import(name);
 
@@ -100,20 +88,18 @@ async function importOpenAPI({
 
   function updateAllStatements(value: TypeDefinition, key: string): void {
     if (allStatements.has(key)) {
-      let warning = `Duplicate entry for "${key}" found, this might lead to undesired consequences.`;
-
-      if (verbose) {
-        warning += `\n${padChunk(
-          printFile(
-            Array.isArray(value.statements)
-              ? value.statements
-              : [value.statements]
-          ),
-          8
-        )}`;
-      }
-
-      logWarning(warning);
+      // let warning = `Duplicate entry for "${key}" found, this might lead to undesired consequences.`;
+      // if (verbose) {
+      //   warning += `\n${padChunk(
+      //     printFile(
+      //       Array.isArray(value.statements)
+      //         ? value.statements
+      //         : [value.statements]
+      //     ),
+      //     8
+      //   )}`;
+      // }
+      // logWarning(warning);
     }
 
     allStatements.set(key, value);
@@ -136,14 +122,17 @@ async function importOpenAPI({
   }
 }
 
-async function generate(config: Config): Promise<void> {
+/**
+ * Loads spec file/url and creates code from the spec
+ */
+async function generate(config: ServiceConfig): Promise<void> {
   if (config.file) {
     const ext = path.extname(config.file);
     const format = /\.ya?ml$/i.test(ext) ? 'yaml' : 'json';
     const filePath = path.resolve(process.cwd(), config.file);
 
-    logInfo(config.verbose, `Detected format: ${format}`);
-    logInfo(config.verbose, `Reading file "${filePath}"`);
+    logInfo(`Detected format: ${format}`);
+    logInfo(`Reading file "${filePath}"`);
 
     const content = await fs.promises.readFile(filePath, 'utf8');
 
@@ -153,24 +142,19 @@ async function generate(config: Config): Promise<void> {
   }
 }
 
-export async function importSpec(
-  argv: Config,
-  config: AdvancedConfig | null
-): Promise<void> {
-  if (config) {
-    const { specs, ...restConfig } = config;
-
-    const tasks = Object.entries(config.specs).map(([key, conf]) => {
-      const resolvedConf = defaultsDeep(conf, restConfig);
-
-      resolvedConf.verbose = argv.verbose;
-
-      logInfo(resolvedConf.verbose, `Generating code for "${key}" spec`);
-
-      return generate(resolvedConf);
-    });
-
-    await Promise.all(tasks);
+/**
+ * Resolves config and imports spec
+ */
+export async function importSpec(argv: CLIConfig): Promise<void> {
+  if (argv.config) {
+    // const { specs, ...restConfig } = config;
+    // const tasks = Object.entries(config.specs).map(([key, conf]) => {
+    //   const resolvedConf = defaultsDeep(conf, restConfig);
+    //   resolvedConf.verbose = argv.verbose;
+    //   logInfo(resolvedConf.verbose, `Generating code for "${key}" spec`);
+    //   return generate(resolvedConf);
+    // });
+    // await Promise.all(tasks);
   } else {
     await generate(argv);
   }

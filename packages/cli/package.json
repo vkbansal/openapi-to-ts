@@ -2,36 +2,39 @@
   "name": "@vkbansal/oa2ts-cli",
   "version": "0.1.0",
   "license": "MIT",
+  "type": "module",
   "bin": {
     "oa2ts": "./bin/oa2ts"
+  },
+  "exports": {
+    "config": "./dist/config.js"
   },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc --outDir dist"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=16.0.0"
   },
   "peerDependencies": {
     "typescript": "^3.9.0 || ^4.0.0"
   },
   "dependencies": {
     "@vkbansal/oa2ts-core": "^0.1.0",
-    "chalk": "^4.1.1",
-    "cosmiconfig": "^7.0.0",
-    "esm": "^3.2.25",
-    "ibm-openapi-validator": "^0.46.0",
+    "chalk": "^5.0.1",
+    "esbuild": "^0.15.5",
+    "ibm-openapi-validator": "^0.88.0",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
-    "mkdirp": "^1.0.4",
-    "openapi3-ts": "^2.0.1",
+    "openapi3-ts": "^3.0.1",
+    "pascal-case": "^3.1.2",
     "swagger2openapi": "^7.0.5",
     "yargs": "^17.0.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.168",
     "@types/mkdirp": "^1.0.1",
-    "@types/yargs": "^16.0.1",
+    "@types/yargs": "^17.0.11",
     "rimraf": "^3.0.2",
     "typescript": "^4.2.4"
   }

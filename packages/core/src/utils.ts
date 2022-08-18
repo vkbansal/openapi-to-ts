@@ -94,13 +94,16 @@ export function addMetadataToNode<T extends Node>(
   if (!isReferenceObject(schema)) {
     if (schema.description) comments.push(schema.description);
 
-    if (schema.format) comments.push(`@format ${schema.format}`);
+    if ((schema as SchemaObject).format)
+      comments.push(`@format ${(schema as SchemaObject).format}`);
 
-    if (schema.default) comments.push(`@default ${schema.default}`);
+    if ((schema as SchemaObject).default)
+      comments.push(`@default ${(schema as SchemaObject).default}`);
 
-    if (schema.example) comments.push(`@example\n${schema.example}`);
+    if ((schema as SchemaObject).example)
+      comments.push(`@example\n${(schema as SchemaObject).example}`);
 
-    if (schema.deprecated) comments.push('@deprecated');
+    if ((schema as SchemaObject).deprecated) comments.push('@deprecated');
   }
 
   if (comments.length > 0) {

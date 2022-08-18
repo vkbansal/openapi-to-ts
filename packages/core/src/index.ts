@@ -85,7 +85,11 @@ export function createNamedExport(
     /* typeOnly */ typeOnly,
     /* exportClause */ factory.createNamedExports(
       names.map(name =>
-        factory.createExportSpecifier(undefined, factory.createIdentifier(name))
+        factory.createExportSpecifier(
+          false,
+          undefined,
+          factory.createIdentifier(name)
+        )
       )
     ),
     /* moduleSpecifier */ factory.createStringLiteral(importFrom)
@@ -110,6 +114,7 @@ export function createImports(
         ? factory.createNamedImports(
             /* elements */ named.map(name =>
               factory.createImportSpecifier(
+                false,
                 undefined,
                 factory.createIdentifier(name)
               )
@@ -121,43 +126,11 @@ export function createImports(
   );
 }
 
-export const createOKResponseDefinition = createResponseDefinitionCreator(
-  getOKResponseSchema
-);
+export const createOKResponseDefinition =
+  createResponseDefinitionCreator(getOKResponseSchema);
 export const createErrorResponseDefinition = createResponseDefinitionCreator(
   getErrorResponseSchema
 );
-
-export function createSchemaDefinitions(
-  schemas: ComponentsObject['schemas'] = {}
-): Map<string, TypeDefinitionWithExports> {
-  const data = Object.entries(schemas);
-  const definitionsMap = new Map<string, TypeDefinitionWithExports>();
-
-  if (data.length > 0) {
-    sortBy(data, ([name]) => name).forEach(([name, schema]) => {
-      const finalName = getNameForType(name);
-
-      if (
-        !isReferenceObject(schema) &&
-        (!schema.type || schema.type === 'object') &&
-        !schema.allOf &&
-        !schema.oneOf &&
-        !schema.nullable
-      ) {
-        definitionsMap.set(finalName, {
-          ...createInterface(finalName, schema)
-        });
-      } else {
-        definitionsMap.set(finalName, {
-          ...createTypeDeclaration(finalName, schema)
-        });
-      }
-    });
-  }
-
-  return definitionsMap;
-}
 
 export function createRequestBodyDefinitions(
   schemas: ComponentsObject['requestBodies'] = {}
@@ -170,7 +143,7 @@ export function createRequestBodyDefinitions(
       const definitions = getRequestResponseSchema([['', requestBody]]);
       const finalName = getNameForRequestBody(name);
 
-      if (definitions.length === 1) {
+      if (definitions.length === 1 && !isReferenceObject(definitions[0])) {
         definitionsMap.set(finalName, {
           ...createInterface(finalName, definitions[0])
         });

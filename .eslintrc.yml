@@ -22,7 +22,6 @@ extends:
 rules:
   # built-in
   semi: [2, 'always']
-  no-await-in-loop: 2
   no-shadow: 2
 
   #typescript

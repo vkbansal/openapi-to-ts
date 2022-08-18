@@ -1,59 +1,50 @@
-import {
-  Statement,
-  NewLineKind,
-  createPrinter,
-  SyntaxKind,
-  factory,
-  NodeFlags
-} from 'typescript';
-import { isEmpty, forEach, isPlainObject, isString, groupBy } from 'lodash';
+import { groupBy } from 'lodash';
 import swagger2openapi from 'swagger2openapi';
-import type { AdvancedConfig, Config } from './types';
 import type { OpenAPIObject } from 'openapi3-ts';
 import chalk from 'chalk';
 import { createImports, ImportOption } from '@vkbansal/oa2ts-core';
 
-const printer = createPrinter({
-  newLine: NewLineKind.LineFeed,
-  removeComments: false,
-  omitTrailingSemicolon: true
-});
+// const printer = createPrinter({
+//   newLine: NewLineKind.LineFeed,
+//   removeComments: false,
+//   omitTrailingSemicolon: true
+// });
 
-export function validateSpecConfig(value: Config, key?: string): void {
-  function getMessage(str: string): string {
-    return key ? `specs.${key}.${str}` : str;
-  }
+// export function validateSpecConfig(value: Config, key?: string): void {
+//   function getMessage(str: string): string {
+//     return key ? `specs.${key}.${str}` : str;
+//   }
 
-  if (!isPlainObject(value)) {
-    throw new Error(`spec must be an object`);
-  }
+//   if (!isPlainObject(value)) {
+//     throw new Error(`spec must be an object`);
+//   }
 
-  if (!isString(value.output)) {
-    throw new Error(getMessage(`output must be a string`));
-  }
-}
+//   if (!isString(value.output)) {
+//     throw new Error(getMessage(`output must be a string`));
+//   }
+// }
 
-export function validateAdvancedConfig(config: AdvancedConfig): void {
-  if (isEmpty(config)) {
-    throw new Error('Config cannot be empty');
-  }
+// export function validateAdvancedConfig(config: AdvancedConfig): void {
+//   if (isEmpty(config)) {
+//     throw new Error('Config cannot be empty');
+//   }
 
-  if (isEmpty(config.specs)) {
-    throw new Error('At least one spec is required');
-  }
+//   if (isEmpty(config.specs)) {
+//     throw new Error('At least one spec is required');
+//   }
 
-  forEach(config.specs, (value, key) => validateSpecConfig(value, key));
-}
+//   forEach(config.specs, (value, key) => validateSpecConfig(value, key));
+// }
 
-export function printFile(statements: Statement[]): string {
-  return printer.printFile(
-    factory.createSourceFile(
-      statements,
-      factory.createToken(SyntaxKind.EndOfFileToken),
-      NodeFlags.None
-    )
-  );
-}
+// export function printFile(statements: Statement[]): string {
+//   return printer.printFile(
+//     factory.createSourceFile(
+//       statements,
+//       factory.createToken(SyntaxKind.EndOfFileToken),
+//       NodeFlags.None
+//     )
+//   );
+// }
 
 export function convertToOpenAPI(schema: unknown): Promise<OpenAPIObject> {
   return new Promise((resolve, reject) => {
@@ -67,8 +58,8 @@ export function convertToOpenAPI(schema: unknown): Promise<OpenAPIObject> {
   });
 }
 
-export function logInfo(verbose: boolean, msg: string): void {
-  if (verbose) {
+export function logInfo(msg: string): void {
+  if (process.env.DEBUG_OA2TS === 'true') {
     console.log(chalk.cyan(`[INFO]: ${msg}`));
   }
 }
