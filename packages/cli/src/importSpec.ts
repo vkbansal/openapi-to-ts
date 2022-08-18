@@ -5,7 +5,7 @@ import yaml from 'js-yaml';
 import type { OpenAPIObject } from 'openapi3-ts';
 import { createRequestBodyDefinitions } from '@vkbansal/oa2ts-core';
 
-import { createSchemaDefinitions } from './codegen/createSchemaDefinitions';
+import { createSchemaDefinitions } from './codegen';
 
 import type { TypeDefinition } from './types';
 import { writeToDir } from './writeToDir';
@@ -48,7 +48,7 @@ async function importOpenAPI({
   }
 
   logInfo('Generating schema definitions');
-  const schemaDefs = await createSchemaDefinitions(spec.components?.schemas);
+  const schemaDefs = createSchemaDefinitions(spec.components?.schemas);
 
   logInfo('Generating request body definitions');
   const requestBodyDefs = createRequestBodyDefinitions(
