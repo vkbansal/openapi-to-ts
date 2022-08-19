@@ -1,0 +1,28 @@
+{
+  "name": "@vkbansal/oa2ts-plugin-react-query",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./dist/plugin.js"
+  },
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc --outDir dist"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "peerDependencies": {
+    "@vkbansal/oa2ts-cli": "^0.1.0"
+  },
+  "dependencies": {
+    "pascal-case": "^3.1.2"
+  },
+  "devDependencies": {
+    "@vkbansal/oa2ts-cli": "^0.1.0",
+    "@types/lodash": "^4.14.168",
+    "openapi3-ts": "^3.0.1",
+    "rimraf": "^3.0.2"
+  }
+}
