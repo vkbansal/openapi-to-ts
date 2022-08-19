@@ -20,7 +20,6 @@
     "typescript": "^3.9.0 || ^4.0.0"
   },
   "dependencies": {
-    "@vkbansal/oa2ts-core": "^0.1.0",
     "chalk": "^5.0.1",
     "esbuild": "^0.15.5",
     "ibm-openapi-validator": "^0.88.0",

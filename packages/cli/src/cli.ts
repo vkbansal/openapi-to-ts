@@ -2,7 +2,7 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-import { importSpec } from './importSpec';
+import { generateSpec } from './generateSpec';
 import type { CLIConfig } from './config';
 
 const NAME = 'oa2ts';
@@ -48,7 +48,7 @@ yargs(hideBin(process.argv))
         });
     },
     argv => {
-      return importSpec(argv as CLIConfig);
+      return generateSpec(argv as CLIConfig);
     }
   )
   .demandCommand()

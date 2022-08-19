@@ -1,12 +1,10 @@
 import type {
   ReferenceObject,
   SchemaObject,
-  ComponentsObject,
   RequestBodyObject
 } from 'openapi3-ts';
 import { has, isEmpty, isPlainObject, sortBy } from 'lodash';
 import { pascalCase } from 'pascal-case';
-import type { CodeOutput, PluginReturn } from './config';
 
 export interface ObjectProps {
   key: string;
@@ -273,36 +271,17 @@ export function createInterface(name: string, schema: SchemaObject): string {
     .trim();
 }
 
-export function createSchemaDefinitions(
-  schemas: ComponentsObject['schemas'] = {}
-): PluginReturn {
-  const files: CodeOutput[] = [];
-  const data = Object.entries(schemas);
-  const includes: string[] = [];
+export function createTypeDeclaration(
+  name: string,
+  schema: SchemaObject | ReferenceObject
+): string {
+  const finalName = getNameForType(name);
+  const imports: string[] = [];
+  const value = resolveValue(schema, imports);
 
-  data.forEach(([name, schema]) => {
-    const finalName = getNameForType(name);
-    let code = '';
-
-    if (
-      !isReferenceObject(schema) &&
-      (!schema.type || schema.type === 'object') &&
-      !schema.allOf &&
-      !schema.oneOf &&
-      !schema.nullable
-    ) {
-      code = createInterface(name, schema);
-    } else {
-      code = '';
-
-      // definitionsMap.set(finalName, {
-      //   ...createTypeDeclaration(finalName, schema)
-      // });
-    }
-
-    files.push({ code, file: `schemas/${finalName}.ts` });
-    includes.push(`export { ${finalName} } from './schemas/${finalName}';`);
-  });
-
-  return { files, include: includes.join('\n') };
+  return [
+    ...imports,
+    addMetadata(schema),
+    `export type ${finalName} = ${value};`
+  ].join('\n');
 }

@@ -7,14 +7,12 @@ export interface CodeOutput {
 
 export interface PluginReturn {
   files: CodeOutput[];
-  include?: string;
+  indexInclude?: string;
 }
 
 export interface Plugin {
-  async(
-    spec: Readonly<OpenAPIObject>,
-    config: Readonly<ServiceConfig>
-  ): Promise<PluginReturn>;
+  name: string;
+  generate: (spec: Readonly<OpenAPIObject>) => Promise<PluginReturn>;
 }
 
 export interface CLIConfig {
