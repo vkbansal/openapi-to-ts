@@ -1,11 +1,17 @@
 import fs from 'fs';
 import path from 'path';
 import * as esbuild from 'esbuild';
+import prettier, { type Options as PrettierOptions } from 'prettier';
 
-import type { CLIConfig, PluginReturn, Config } from './config';
-import { generateSpecFromFileOrUrl } from './generateSpecFromFileOrUrl';
+import type { CLIConfig, PluginReturn, Config } from './config.js';
+import { generateSpecFromFileOrUrl } from './generateSpecFromFileOrUrl.js';
+import { logInfo } from './helpers.js';
 
-async function writeData(data: PluginReturn, output: string): Promise<void> {
+async function writeData(
+	data: PluginReturn,
+	output: string,
+	prettierOptions: PrettierOptions | null,
+): Promise<void> {
 	const uniqDirs = new Set<string>();
 
 	// collect all the sub directory paths
@@ -26,7 +32,13 @@ async function writeData(data: PluginReturn, output: string): Promise<void> {
 	}
 
 	for (const file of data.files) {
-		await fs.promises.writeFile(path.resolve(output, file.file), file.code, 'utf8');
+		logInfo(`Prettifying file: ${file.file}`);
+		const formattedCode = prettier.format(file.code, {
+			...(prettierOptions || {}),
+			parser: 'typescript',
+		});
+		logInfo(`Writing file: ${file.file}`);
+		await fs.promises.writeFile(path.resolve(output, file.file), formattedCode, 'utf8');
 	}
 }
 
@@ -34,8 +46,10 @@ async function writeData(data: PluginReturn, output: string): Promise<void> {
  * Resolves config and imports spec
  */
 export async function generateSpec(argv: CLIConfig): Promise<void> {
+	const cwd = process.cwd();
+	const prettierConfig = await prettier.resolveConfig(cwd);
+
 	if (argv.config) {
-		const cwd = process.cwd();
 		const configFilePath = path.resolve(cwd, argv.config);
 
 		const result = await esbuild.build({
@@ -65,10 +79,10 @@ export async function generateSpec(argv: CLIConfig): Promise<void> {
 			}
 
 			const data = await generateSpecFromFileOrUrl(serviceConfig);
-			await writeData(data, argv.output);
+			await writeData(data, argv.output, prettierConfig);
 		}
 	} else {
 		const data = await generateSpecFromFileOrUrl(argv);
-		await writeData(data, argv.output);
+		await writeData(data, argv.output, prettierConfig);
 	}
 }

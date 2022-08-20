@@ -10,8 +10,8 @@ import {
 	createTypeDeclaration,
 	getNameForType,
 	isReferenceObject,
-} from './codegen';
-import type { CodeOutput, PluginReturn } from './config';
+} from './codegen.js';
+import type { CodeOutput, PluginReturn } from './config.js';
 
 export function getRequestResponseSchema(
 	schema: RequestBodyObject | ReferenceObject,
@@ -61,8 +61,8 @@ export function createRequestBodyDefinitions(
 			code = createTypeDeclaration(name, response);
 		}
 
-		files.push({ code, file: `schemas/${finalName}.ts` });
-		includes.push(`export { ${finalName} } from './schemas/${finalName}';`);
+		files.push({ code, file: `requestBodies/${finalName}.ts` });
+		includes.push(`export { ${finalName} } from './requestBodies/${finalName}';`);
 	});
 
 	return { files, indexInclude: includes.join('\n') };

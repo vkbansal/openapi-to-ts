@@ -1,9 +1,9 @@
 import type { OpenAPIObject } from 'openapi3-ts';
-import { createSchemaDefinitions } from './createSchemaDefinitions';
 
-import type { PluginReturn, Plugin } from './config';
-import { logInfo } from './helpers';
-import { createRequestBodyDefinitions } from './createRequestBodyDefinitions';
+import { createSchemaDefinitions } from './createSchemaDefinitions.js';
+import type { PluginReturn, Plugin } from './config.js';
+import { logInfo } from './helpers.js';
+import { createRequestBodyDefinitions } from './createRequestBodyDefinitions.js';
 
 export async function generateOpenAPISpec(
 	spec: OpenAPIObject,

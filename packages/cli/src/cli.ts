@@ -2,8 +2,8 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-import { generateSpec } from './generateSpec';
-import type { CLIConfig } from './config';
+import { generateSpec } from './generateSpec.js';
+import type { CLIConfig } from './config.js';
 
 const NAME = 'oa2ts';
 
@@ -25,10 +25,13 @@ yargs(hideBin(process.argv))
 				})
 				.option('output', {
 					type: 'string',
+					alias: 'o',
 					describe: 'Location for the output.',
+					demandOption: true,
 				})
 				.option('config', {
 					type: 'string',
+					alias: 'c',
 					describe: 'Location for the config file.',
 				})
 				.option('verbose', {
@@ -39,7 +42,7 @@ yargs(hideBin(process.argv))
 				.check((argv) => {
 					if (argv.config) return true;
 
-					if (!argv.file || !argv.url) {
+					if (!argv.file && !argv.url) {
 						throw new Error('Either "--file" or "--url" is required');
 					}
 

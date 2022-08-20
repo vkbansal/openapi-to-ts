@@ -4,8 +4,8 @@ import {
 	createTypeDeclaration,
 	getNameForType,
 	isReferenceObject,
-} from './codegen';
-import type { CodeOutput, PluginReturn } from './config';
+} from './codegen.js';
+import type { CodeOutput, PluginReturn } from './config.js';
 
 export function createSchemaDefinitions(schemas: ComponentsObject['schemas'] = {}): PluginReturn {
 	const files: CodeOutput[] = [];

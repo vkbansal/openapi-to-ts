@@ -5,14 +5,15 @@ export interface ObjectProps {
 	key: string;
 	value: string;
 	comment?: string;
+	required?: boolean;
 }
 
 export function has(obj: object, key: string): boolean {
 	return Object.prototype.hasOwnProperty.call(obj, key);
 }
 
-export function objectPropsToStr({ comment, key, value }: ObjectProps): string {
-	const str = `  ${key}: ${value};`;
+export function objectPropsToStr({ comment, key, value, required }: ObjectProps): string {
+	const str = [JSON.stringify(key), required ? '' : '?', ': ', value, ';'].join('');
 
 	return comment ? `${comment}\n${str}` : str;
 }
@@ -119,9 +120,10 @@ export function createObjectProperties(item: SchemaObject, imports: string[]): O
 				const schema = item.properties![name];
 
 				return {
-					key: item.required?.includes(name) ? name : `${name}?`,
+					key: name,
 					value: resolveValue(schema, imports),
 					comment: addMetadata(schema),
+					required: item.required?.includes(name),
 				};
 			});
 

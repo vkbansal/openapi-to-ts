@@ -1,12 +1,13 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
+import fetch from 'node-fetch';
 import type { OpenAPIObject } from 'openapi3-ts';
 import yaml from 'js-yaml';
 
-import { generateOpenAPISpec } from './generateOpenAPISpec';
-import { convertToOpenAPI, logInfo } from './helpers';
-import type { PluginReturn, ServiceConfig } from './config';
+import { generateOpenAPISpec } from './generateOpenAPISpec.js';
+import { convertToOpenAPI, logInfo } from './helpers.js';
+import type { PluginReturn, ServiceConfig } from './config.js';
 
 /**
  * Loads spec file/url and creates code from the spec
@@ -39,11 +40,14 @@ export async function generateSpecFromFileOrUrl(config: ServiceConfig): Promise<
 		const contentType = response.headers.get('Content-Type');
 		try {
 			logInfo('Parsing data from API');
+
 			if (contentType === 'application/json') {
-				spec = await response.json();
-			} else if (contentType === 'text/yaml') {
+				spec = (await response.json()) as OpenAPIObject;
+				logInfo(`Detected format: JSON`);
+			} else {
 				const txt = await response.text();
 				spec = yaml.load(txt) as OpenAPIObject;
+				logInfo(`Detected format: YAML`);
 			}
 		} catch (_) {
 			throw new Error('Something went wrong while trying to parse contents');
