@@ -1,6 +1,8 @@
 import { defineConfig } from '@oa2ts/cli/config';
+import reactQueryPlugin from '@oa2ts/plugin-react-query';
 
 export default defineConfig({
+	plugins: [reactQueryPlugin()],
 	services: {
 		'petstore-swagger': {
 			output: './petstore-swagger',

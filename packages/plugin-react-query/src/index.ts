@@ -1,8 +1,11 @@
 import type { Plugin } from '@oa2ts/cli/plugin';
 
-const plugin: Plugin = {
-	name: 'oa2ts-plugin-react-query',
-	generate: () => void 0,
-};
+import type { Config } from './config.js';
+import { generateReactQueryHooks } from './generateReactQueryHooks.js';
 
-export default plugin;
+export default function reactQueryPlugin(config: Config): Plugin {
+	return {
+		name: 'oa2ts-plugin-react-query',
+		generate: generateReactQueryHooks(config),
+	};
+}

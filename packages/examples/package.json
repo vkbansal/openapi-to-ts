@@ -11,6 +11,9 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@oa2ts/cli": "^0.1.0"
+    "@oa2ts/cli": "^0.1.0",
+    "@oa2ts/plugin-react-query": "^0.1.0",
+    "@tanstack/react-query": "^4.2.1",
+    "react": "^18.2.0"
   }
 }
