@@ -1,4 +1,3 @@
-## Features
+# oa2ts CLI
 
-- Plugins
-- Output to single file or multiple files
+Package for the `oa2ts` CLI

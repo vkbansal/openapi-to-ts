@@ -5,12 +5,8 @@ import type {
 	RequestBodyObject,
 } from 'openapi3-ts';
 
-import {
-	createInterface,
-	createTypeDeclaration,
-	getNameForRequestBody,
-	isReferenceObject,
-} from './codegen.js';
+import { createInterface, createTypeDeclaration, isReferenceObject } from './codegen.js';
+import { getNameForRequestBody } from './nameHelpers.js';
 import type { CodeOutput, PluginReturn } from './plugin.js';
 
 export function getRequestResponseSchema(

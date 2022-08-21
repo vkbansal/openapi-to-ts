@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "license": "MIT",
   "type": "module",
+  "author": {
+    "name": "Vivek Kumar Bansal",
+    "email": "vkb0310@gmail.com"
+  },
   "exports": {
     ".": "./dist/plugin.js"
   },

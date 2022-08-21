@@ -3,13 +3,12 @@ import fs from 'fs';
 import path from 'path';
 import * as esbuild from 'esbuild';
 import prettier from 'prettier';
-import { ValidationError } from 'yup';
 
 import type { CLIConfig, Config } from './config.js';
 import type { PluginReturn } from './plugin.js';
 import { getConfigSchema } from './config.js';
 import { generateSpecFromFileOrUrl } from './generateSpecFromFileOrUrl.js';
-import { logError, logInfo } from './helpers.js';
+import { logInfo } from './helpers.js';
 
 async function writeData(
 	data: PluginReturn,
@@ -86,21 +85,14 @@ export async function generateSpec(argv: CLIConfig): Promise<void> {
 		logInfo(`Unlinking built config file: ${builtConfigPath}`);
 		await fs.promises.unlink(builtConfigPath);
 
-		try {
-			await getConfigSchema().validate(config);
-		} catch (e) {
-			if (e instanceof ValidationError) {
-				logError(e.errors.join('\n'));
-				process.exit(1);
-			} else {
-				throw e;
-			}
-		}
+		logInfo(`Validating config`);
+		await getConfigSchema().validate(config);
 
 		// TODO: add support for picking services
 		const services = Object.keys(config.services);
 
 		for (const service of services) {
+			logInfo(`Generating spec for: "${service}"`);
 			const serviceConfig = config.services[service];
 
 			// apply global plugins if local plugins are not present

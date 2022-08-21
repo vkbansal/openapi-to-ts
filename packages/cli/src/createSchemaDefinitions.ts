@@ -1,10 +1,6 @@
 import type { ComponentsObject } from 'openapi3-ts';
-import {
-	createInterface,
-	createTypeDeclaration,
-	getNameForType,
-	isReferenceObject,
-} from './codegen.js';
+import { createInterface, createTypeDeclaration, isReferenceObject } from './codegen.js';
+import { getNameForType } from './nameHelpers.js';
 import type { CodeOutput, PluginReturn } from './plugin.js';
 
 export function createSchemaDefinitions(schemas: ComponentsObject['schemas'] = {}): PluginReturn {
