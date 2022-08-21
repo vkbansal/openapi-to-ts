@@ -24,6 +24,10 @@ export function logWarning(msg: string): void {
 	console.log(chalk.yellow(`oa2ts: [WARN]: ${msg}`));
 }
 
+export function logError(msg: string): void {
+	console.log(chalk.red(`oa2ts: [ERROR]: ${msg}`));
+}
+
 export function padChunk(chunk: string, spacing = 6): string {
 	return chunk
 		.split('\n')

@@ -1,16 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 import * as esbuild from 'esbuild';
-import prettier, { type Options as PrettierOptions } from 'prettier';
+import * as prettier from 'prettier';
+import { ValidationError } from 'yup';
 
 import type { CLIConfig, PluginReturn, Config } from './config.js';
+import { configSchema } from './config.js';
 import { generateSpecFromFileOrUrl } from './generateSpecFromFileOrUrl.js';
-import { logInfo } from './helpers.js';
+import { logError, logInfo } from './helpers.js';
 
 async function writeData(
 	data: PluginReturn,
 	output: string,
-	prettierOptions: PrettierOptions | null,
+	prettierOptions: prettier.Options | null,
 ): Promise<void> {
 	const uniqDirs = new Set<string>();
 
@@ -55,18 +57,31 @@ export async function generateSpec(argv: CLIConfig): Promise<void> {
 		const result = await esbuild.build({
 			entryPoints: { [`oa2ts-${new Date().getTime()}`]: configFilePath },
 			outdir: cwd,
+			bundle: true,
 		});
 
 		const builtConfigPath = result.outputFiles?.[0]?.path;
 
 		if (!builtConfigPath) {
-			throw new Error();
+			logError('Could not resolve the config');
+			process.exit(1);
 		}
 
 		const config = (await import(builtConfigPath)) as Config;
 
 		await fs.promises.unlink(builtConfigPath);
-		// TODO: validate config
+
+		try {
+			await configSchema.validate(config);
+		} catch (e) {
+			if (e instanceof ValidationError) {
+				logError(e.errors.join('\n'));
+				process.exit(1);
+			} else {
+				throw e;
+			}
+		}
+
 		// TODO: add support for picking services
 		const services = Object.keys(config.services);
 

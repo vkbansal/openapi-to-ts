@@ -1,5 +1,5 @@
 import type { OpenAPIObject } from 'openapi3-ts';
-import { z } from 'zod';
+import * as Yup from 'yup';
 
 export interface CodeOutput {
 	code: string;
@@ -11,10 +11,10 @@ export interface PluginReturn {
 	indexInclude?: string;
 }
 
-// export interface Plugin {
-// 	name: string;
-// 	generate: (spec: Readonly<OpenAPIObject>) => Promise<PluginReturn>;
-// }
+export interface Plugin {
+	name: string;
+	generate: (spec: Readonly<OpenAPIObject>) => Promise<PluginReturn>;
+}
 
 export interface CLIConfig {
 	output: string;
@@ -23,25 +23,58 @@ export interface CLIConfig {
 	config?: string;
 }
 
-const plugin = z.object({
-	name: z.string(),
-	generate: z.function(),
-});
+export const codeOutputSchema = Yup.object({
+	code: Yup.string().required(),
+	file: Yup.string().required(),
+}).required();
 
-const config = z.object({
-	plugins: z.array(plugin).optional(),
-	services: z.record(
-		z.object({
-			output: z.string(),
-			file: z.string().optional(),
-			url: z.string().optional(),
-			plugins: z.array(plugin).optional(),
-		}),
-	),
-});
+export const pluginReturnSchema = Yup.object({
+	files: Yup.array(codeOutputSchema).min(1).required(),
+	indexInclude: Yup.string(),
+}).required();
 
-export type Config = z.infer<typeof config>;
-export type Plugin = z.infer<typeof plugin>;
+export const pluginSchema = Yup.object({
+	name: Yup.string().required(),
+	generate: Yup.mixed()
+		.test(function (value) {
+			if (typeof value !== 'function') {
+				return this.createError({ message: `Expected to be a function, but got: ${typeof value}` });
+			}
+
+			return true;
+		})
+		.required(),
+}).required();
+
+export const serviceConfigSchema = Yup.object({
+	output: Yup.string().required(),
+	file: Yup.string().when('url', {
+		is: (val: unknown) => typeof val === 'string',
+		then: (schema) => schema.notRequired(),
+		otherwise: (schema) => schema.required(),
+	}),
+	url: Yup.string().when('file', {
+		is: (val: unknown) => typeof val === 'string',
+		then: (schema) => schema.notRequired(),
+		otherwise: (schema) => schema.required(),
+	}),
+	transformer: Yup.mixed().test(function (value) {
+		if (typeof value !== 'function') {
+			return this.createError({ message: `Expected to be a function, but got: ${typeof value}` });
+		}
+
+		return true;
+	}),
+	plugins: Yup.array(pluginSchema),
+}).required();
+
+export const configSchema = Yup.object({
+	plugins: Yup.array(pluginSchema),
+	services: Yup.lazy((obj) => {
+		const schema = Object.keys(obj).reduce((p, c) => ({ ...p, [c]: serviceConfigSchema }), {});
+		return Yup.object(schema).required();
+	}),
+});
 
 export interface ServiceConfig {
 	output: string;
@@ -51,10 +84,10 @@ export interface ServiceConfig {
 	plugins?: Plugin[];
 }
 
-// export interface Config {
-// 	plugins?: Plugin[];
-// 	services: Record<string, ServiceConfig>;
-// }
+export interface Config {
+	plugins?: Plugin[];
+	services: Record<string, ServiceConfig>;
+}
 
 export function defineConfig(config: Config): Config {
 	return config;
