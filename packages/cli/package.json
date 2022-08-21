@@ -1,5 +1,5 @@
 {
-  "name": "@vkbansal/oa2ts-cli",
+  "name": "@oa2ts/cli",
   "version": "0.1.0",
   "license": "MIT",
   "type": "module",
@@ -7,13 +7,18 @@
     "oa2ts": "./bin/oa2ts.js"
   },
   "exports": {
-    "config": "./dist/config.js"
+    "./config": "./dist/config.js",
+    "./plugin": "./dist/plugin.js",
+    "./nameHelpers": "./dist/nameHelpers.js",
+    "./codegen": "./dist/codegen.js"
+  },
+  "imports": {
+    "#@oa2ts/cli/config": "./dist/config.js",
+    "#@oa2ts/cli/plugin": "./dist/plugin.js"
   },
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc --outDir dist",
-    "preexample": "pnpm run build",
-    "example": "node ./bin/oa2ts.js import --url https://api.apis.guru/v2/specs/github.com/1.1.4/openapi.yaml -o examples/github"
+    "build": "tsc --outDir dist"
   },
   "engines": {
     "node": ">=16.0.0"

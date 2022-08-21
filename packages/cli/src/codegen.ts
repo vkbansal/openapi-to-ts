@@ -1,5 +1,11 @@
 import type { ReferenceObject, SchemaObject, RequestBodyObject } from 'openapi3-ts';
-import { pascalCase } from 'pascal-case';
+
+import {
+	getNameForType,
+	getNameForResponse,
+	getNameForRequestBody,
+	getNameForParameter,
+} from './nameHelpers.js';
 
 export interface ObjectProps {
 	key: string;
@@ -41,34 +47,6 @@ export function addMetadata(schema: SchemaObject | ReferenceObject | RequestBody
 	}
 
 	return '';
-}
-
-export function getNameForType(name: string): string {
-	return pascalCase(name);
-}
-
-export function getNameForResponse(name: string): string {
-	return getNameForType(name) + 'Response';
-}
-
-export function getNameForErrorResponse(name: string): string {
-	return getNameForType(name) + 'Error';
-}
-
-export function getNameForParameter(name: string): string {
-	return getNameForType(name) + 'Parameter';
-}
-
-export function getNameForRequestBody(name: string): string {
-	return getNameForType(name) + 'RequestBody';
-}
-
-export function getNameForPathParams(name: string): string {
-	return getNameForType(name) + 'PathParams';
-}
-
-export function getNameForQueryParams(name: string): string {
-	return getNameForType(name) + 'QueryParams';
 }
 
 export function isReferenceObject(data: unknown): data is ReferenceObject {
@@ -241,14 +219,13 @@ export function createScalarNode(item: SchemaObject, imports: string[]): string 
 }
 
 export function createInterface(name: string, schema: SchemaObject): string {
-	const finalName = getNameForType(name);
 	const imports: string[] = [];
 	const properties = createObjectProperties(schema, imports);
 
 	return [
 		...imports,
 		addMetadata(schema),
-		`export interface ${finalName} {`,
+		`export interface ${name} {`,
 		...properties.map(objectPropsToStr),
 		'}',
 	]
@@ -260,9 +237,8 @@ export function createTypeDeclaration(
 	name: string,
 	schema: SchemaObject | ReferenceObject,
 ): string {
-	const finalName = getNameForType(name);
 	const imports: string[] = [];
 	const value = resolveValue(schema, imports);
 
-	return [...imports, addMetadata(schema), `export type ${finalName} = ${value};`].join('\n');
+	return [...imports, addMetadata(schema), `export type ${name} = ${value};`].join('\n');
 }

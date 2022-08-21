@@ -1,6 +1,0 @@
-/**
-  * Determines whether the SSL certificate of the host for `url` will be verified when delivering payloads. Supported values include `0` (verification is performed) and `1` (verification is not performed). The default is `0`. **We strongly recommend not setting this to `1` as you are subject to man-in-the-middle and other attacks.**
-  * @example
-"0"
-  */
-export type WebhookConfigInsecureSsl = string;

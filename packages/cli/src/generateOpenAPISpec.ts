@@ -1,7 +1,7 @@
 import type { OpenAPIObject } from 'openapi3-ts';
 
 import { createSchemaDefinitions } from './createSchemaDefinitions.js';
-import type { PluginReturn, Plugin } from './config.js';
+import type { PluginReturn, Plugin } from './plugin.js';
 import { logInfo } from './helpers.js';
 import { createRequestBodyDefinitions } from './createRequestBodyDefinitions.js';
 

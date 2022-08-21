@@ -5,7 +5,7 @@ import {
 	getNameForType,
 	isReferenceObject,
 } from './codegen.js';
-import type { CodeOutput, PluginReturn } from './config.js';
+import type { CodeOutput, PluginReturn } from './plugin.js';
 
 export function createSchemaDefinitions(schemas: ComponentsObject['schemas'] = {}): PluginReturn {
 	const files: CodeOutput[] = [];
@@ -23,9 +23,9 @@ export function createSchemaDefinitions(schemas: ComponentsObject['schemas'] = {
 			!schema.oneOf &&
 			!schema.nullable
 		) {
-			code = createInterface(name, schema);
+			code = createInterface(finalName, schema);
 		} else {
-			code = createTypeDeclaration(name, schema);
+			code = createTypeDeclaration(finalName, schema);
 		}
 
 		files.push({ code, file: `schemas/${finalName}.ts` });

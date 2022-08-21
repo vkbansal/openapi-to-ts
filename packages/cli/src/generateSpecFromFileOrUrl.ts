@@ -7,7 +7,8 @@ import yaml from 'js-yaml';
 
 import { generateOpenAPISpec } from './generateOpenAPISpec.js';
 import { convertToOpenAPI, logInfo } from './helpers.js';
-import type { PluginReturn, ServiceConfig } from './config.js';
+import type { ServiceConfig } from './config.js';
+import type { PluginReturn } from './plugin.js';
 
 /**
  * Loads spec file/url and creates code from the spec

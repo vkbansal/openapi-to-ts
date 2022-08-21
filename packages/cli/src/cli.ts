@@ -3,6 +3,7 @@ import { hideBin } from 'yargs/helpers';
 
 import { generateSpec } from './generateSpec.js';
 import type { CLIConfig } from './config.js';
+import { logError } from './helpers.js';
 
 const NAME = 'oa2ts';
 
@@ -26,7 +27,6 @@ yargs(hideBin(process.argv))
 					type: 'string',
 					alias: 'o',
 					describe: 'Location for the output.',
-					demandOption: true,
 				})
 				.option('config', {
 					type: 'string',
@@ -41,6 +41,10 @@ yargs(hideBin(process.argv))
 				.check((argv) => {
 					if (argv.config) return true;
 
+					if (!argv.output) {
+						throw new Error('Missing required argument: output');
+					}
+
 					if (!argv.file && !argv.url) {
 						throw new Error('Either "--file" or "--url" is required');
 					}
@@ -52,5 +56,16 @@ yargs(hideBin(process.argv))
 			return generateSpec(argv as CLIConfig);
 		},
 	)
-	.demandCommand()
-	.help().argv;
+	.help()
+	.fail((msg, err) => {
+		if (msg) {
+			logError(msg);
+		}
+
+		if (err) {
+			throw err; // preserve stack
+		}
+
+		process.exit(1);
+	})
+	.demandCommand().argv;

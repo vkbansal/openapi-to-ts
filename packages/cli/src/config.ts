@@ -1,20 +1,7 @@
 import type { OpenAPIObject } from 'openapi3-ts';
 import * as Yup from 'yup';
 
-export interface CodeOutput {
-	code: string;
-	file: string;
-}
-
-export interface PluginReturn {
-	files: CodeOutput[];
-	indexInclude?: string;
-}
-
-export interface Plugin {
-	name: string;
-	generate: (spec: Readonly<OpenAPIObject>) => Promise<PluginReturn>;
-}
+import { getPluginSchema, type Plugin } from './plugin.js';
 
 export interface CLIConfig {
 	output: string;
@@ -23,58 +10,38 @@ export interface CLIConfig {
 	config?: string;
 }
 
-export const codeOutputSchema = Yup.object({
-	code: Yup.string().required(),
-	file: Yup.string().required(),
-}).required();
-
-export const pluginReturnSchema = Yup.object({
-	files: Yup.array(codeOutputSchema).min(1).required(),
-	indexInclude: Yup.string(),
-}).required();
-
-export const pluginSchema = Yup.object({
-	name: Yup.string().required(),
-	generate: Yup.mixed()
-		.test(function (value) {
-			if (typeof value !== 'function') {
+export const getServiceConfigSchema = (): Yup.AnyObjectSchema =>
+	Yup.object({
+		output: Yup.string().required(),
+		file: Yup.string(),
+		url: Yup.string(),
+		transformer: Yup.mixed().test(function (value) {
+			if (value && typeof value !== 'function') {
 				return this.createError({ message: `Expected to be a function, but got: ${typeof value}` });
 			}
 
 			return true;
-		})
-		.required(),
-}).required();
-
-export const serviceConfigSchema = Yup.object({
-	output: Yup.string().required(),
-	file: Yup.string().when('url', {
-		is: (val: unknown) => typeof val === 'string',
-		then: (schema) => schema.notRequired(),
-		otherwise: (schema) => schema.required(),
-	}),
-	url: Yup.string().when('file', {
-		is: (val: unknown) => typeof val === 'string',
-		then: (schema) => schema.notRequired(),
-		otherwise: (schema) => schema.required(),
-	}),
-	transformer: Yup.mixed().test(function (value) {
-		if (typeof value !== 'function') {
-			return this.createError({ message: `Expected to be a function, but got: ${typeof value}` });
+		}),
+		plugins: Yup.array(getPluginSchema().required()),
+	}).test(function (obj: any) {
+		if ((!obj.file || !obj.file.length) && (!obj.url || !obj.url.length)) {
+			return this.createError({ message: 'Either file or url is required' });
 		}
 
 		return true;
-	}),
-	plugins: Yup.array(pluginSchema),
-}).required();
+	});
 
-export const configSchema = Yup.object({
-	plugins: Yup.array(pluginSchema),
-	services: Yup.lazy((obj) => {
-		const schema = Object.keys(obj).reduce((p, c) => ({ ...p, [c]: serviceConfigSchema }), {});
-		return Yup.object(schema).required();
-	}),
-});
+export const getConfigSchema = (): Yup.AnyObjectSchema =>
+	Yup.object({
+		plugins: Yup.array(getPluginSchema().required()),
+		services: Yup.lazy((obj) => {
+			const schema = Object.keys(obj).reduce(
+				(p, c) => ({ ...p, [c]: getServiceConfigSchema().required() }),
+				{},
+			);
+			return Yup.object(schema).required();
+		}),
+	});
 
 export interface ServiceConfig {
 	output: string;

@@ -8,10 +8,10 @@ import type {
 import {
 	createInterface,
 	createTypeDeclaration,
-	getNameForType,
+	getNameForRequestBody,
 	isReferenceObject,
 } from './codegen.js';
-import type { CodeOutput, PluginReturn } from './config.js';
+import type { CodeOutput, PluginReturn } from './plugin.js';
 
 export function getRequestResponseSchema(
 	schema: RequestBodyObject | ReferenceObject,
@@ -40,7 +40,7 @@ export function createRequestBodyDefinitions(
 	const data = Object.entries(schemas);
 
 	data.forEach(([name, schema]) => {
-		const finalName = getNameForType(name);
+		const finalName = getNameForRequestBody(name);
 		let code = '';
 
 		const response = getRequestResponseSchema(schema);
@@ -56,9 +56,9 @@ export function createRequestBodyDefinitions(
 			!response.oneOf &&
 			!response.nullable
 		) {
-			code = createInterface(name, response);
+			code = createInterface(finalName, response);
 		} else {
-			code = createTypeDeclaration(name, response);
+			code = createTypeDeclaration(finalName, response);
 		}
 
 		files.push({ code, file: `requestBodies/${finalName}.ts` });

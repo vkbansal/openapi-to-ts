@@ -1,11 +1,13 @@
+/* eslint-disable import/no-named-as-default-member */
 import fs from 'fs';
 import path from 'path';
 import * as esbuild from 'esbuild';
-import * as prettier from 'prettier';
+import prettier from 'prettier';
 import { ValidationError } from 'yup';
 
-import type { CLIConfig, PluginReturn, Config } from './config.js';
-import { configSchema } from './config.js';
+import type { CLIConfig, Config } from './config.js';
+import type { PluginReturn } from './plugin.js';
+import { getConfigSchema } from './config.js';
 import { generateSpecFromFileOrUrl } from './generateSpecFromFileOrUrl.js';
 import { logError, logInfo } from './helpers.js';
 
@@ -17,10 +19,13 @@ async function writeData(
 	const uniqDirs = new Set<string>();
 
 	// collect all the sub directory paths
-	data.files.forEach((file) => uniqDirs.add(path.dirname(file.file)));
+	data.files.forEach((file) => {
+		uniqDirs.add(path.dirname(file.file));
+	});
 
 	// make sure the output directory exists
 	if (!fs.existsSync(output)) {
+		logInfo(`Creating output directory: ${output}`);
 		await fs.promises.mkdir(output, { recursive: true });
 	}
 
@@ -42,6 +47,17 @@ async function writeData(
 		logInfo(`Writing file: ${file.file}`);
 		await fs.promises.writeFile(path.resolve(output, file.file), formattedCode, 'utf8');
 	}
+
+	if (data.indexInclude) {
+		logInfo(`Prettifying file: index.ts`);
+		const formattedCode = prettier.format(data.indexInclude, {
+			...(prettierOptions || {}),
+			parser: 'typescript',
+		});
+
+		logInfo(`Writing file: index.ts`);
+		await fs.promises.writeFile(path.resolve(output, 'index.ts'), formattedCode, 'utf8');
+	}
 }
 
 /**
@@ -52,27 +68,26 @@ export async function generateSpec(argv: CLIConfig): Promise<void> {
 	const prettierConfig = await prettier.resolveConfig(cwd);
 
 	if (argv.config) {
+		logInfo(`using config file: ${argv.config}`);
 		const configFilePath = path.resolve(cwd, argv.config);
+		logInfo(`Resolve config file to: ${configFilePath}`);
+		const builtConfig = `oa2ts.config.${new Date().getTime()}`;
+		const builtConfigPath = path.resolve(cwd, `${builtConfig}.js`);
 
-		const result = await esbuild.build({
-			entryPoints: { [`oa2ts-${new Date().getTime()}`]: configFilePath },
+		logInfo(`Building config file: ${argv.config}`);
+		await esbuild.build({
+			entryPoints: { [builtConfig]: configFilePath },
+			target: 'node16',
 			outdir: cwd,
-			bundle: true,
 		});
 
-		const builtConfigPath = result.outputFiles?.[0]?.path;
-
-		if (!builtConfigPath) {
-			logError('Could not resolve the config');
-			process.exit(1);
-		}
-
-		const config = (await import(builtConfigPath)) as Config;
-
+		logInfo(`Loading built config file: ${builtConfigPath}`);
+		const { default: config } = (await import(builtConfigPath)) as { default: Config };
+		logInfo(`Unlinking built config file: ${builtConfigPath}`);
 		await fs.promises.unlink(builtConfigPath);
 
 		try {
-			await configSchema.validate(config);
+			await getConfigSchema().validate(config);
 		} catch (e) {
 			if (e instanceof ValidationError) {
 				logError(e.errors.join('\n'));
@@ -94,7 +109,7 @@ export async function generateSpec(argv: CLIConfig): Promise<void> {
 			}
 
 			const data = await generateSpecFromFileOrUrl(serviceConfig);
-			await writeData(data, argv.output, prettierConfig);
+			await writeData(data, serviceConfig.output, prettierConfig);
 		}
 	} else {
 		const data = await generateSpecFromFileOrUrl(argv);

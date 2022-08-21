@@ -1,0 +1,16 @@
+{
+  "name": "@oa2ts/examples",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "private": "true",
+  "scripts": {
+    "build": "oa2ts import --config oa2ts.config.ts"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@oa2ts/cli": "^0.1.0"
+  }
+}
