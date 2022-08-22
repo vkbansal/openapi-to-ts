@@ -8,9 +8,8 @@ export interface Pet {
 	 */
 	id?: number;
 	/**
-  * @example
-doggie
-  */
+	 * @example doggie
+	 */
 	name: string;
 	photoUrls: string[];
 	/**

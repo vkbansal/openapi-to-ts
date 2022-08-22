@@ -1,22 +1,18 @@
 export interface Address {
 	/**
-  * @example
-Palo Alto
-  */
+	 * @example Palo Alto
+	 */
 	city?: string;
 	/**
-  * @example
-CA
-  */
+	 * @example CA
+	 */
 	state?: string;
 	/**
-  * @example
-437 Lytton
-  */
+	 * @example 437 Lytton
+	 */
 	street?: string;
 	/**
-  * @example
-94301
-  */
+	 * @example 94301
+	 */
 	zip?: string;
 }

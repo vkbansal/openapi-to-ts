@@ -1,4 +1,4 @@
-import type { ReferenceObject, SchemaObject, RequestBodyObject } from 'openapi3-ts';
+import type { ReferenceObject, SchemaObject } from 'openapi3-ts';
 
 import {
 	getNameForType,
@@ -24,22 +24,29 @@ export function objectPropsToStr({ comment, key, value, required }: ObjectProps)
 	return comment ? `${comment}\n${str}` : str;
 }
 
-export function addMetadata(schema: SchemaObject | ReferenceObject | RequestBodyObject): string {
+export function addMetadata(schema: SchemaObject | ReferenceObject): string {
 	const comments: string[] = [];
 
 	if (!isReferenceObject(schema)) {
-		if (schema.description) comments.push('  * ' + schema.description);
+		if (schema.description) {
+			comments.push(`  * ${schema.description}`);
+		}
 
-		if ((schema as SchemaObject).format)
-			comments.push(`  * @format ${(schema as SchemaObject).format}`);
+		if (schema.format) {
+			comments.push(`  * @format ${schema.format}`);
+		}
 
-		if ((schema as SchemaObject).default)
-			comments.push(`  * @default ${(schema as SchemaObject).default}`);
+		if (schema.default) {
+			comments.push(`  * @default ${schema.default}`);
+		}
 
-		if ((schema as SchemaObject).example)
-			comments.push(`  * @example\n${(schema as SchemaObject).example}`);
+		if (schema.example) {
+			comments.push(`  * @example ${schema.example}`);
+		}
 
-		if ((schema as SchemaObject).deprecated) comments.push('@deprecated');
+		if (schema.deprecated) {
+			comments.push('@deprecated');
+		}
 	}
 
 	if (comments.length > 0) {

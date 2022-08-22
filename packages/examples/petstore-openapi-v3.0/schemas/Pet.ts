@@ -4,15 +4,13 @@ import { Tag } from '../schemas/Tag';
 export interface Pet {
 	category?: Category;
 	/**
-  * @format int64
-  * @example
-10
-  */
+	 * @format int64
+	 * @example 10
+	 */
 	id?: number;
 	/**
-  * @example
-doggie
-  */
+	 * @example doggie
+	 */
 	name: string;
 	photoUrls: string[];
 	/**

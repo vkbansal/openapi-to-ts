@@ -1,13 +1,11 @@
 export interface Category {
 	/**
-  * @format int64
-  * @example
-1
-  */
+	 * @format int64
+	 * @example 1
+	 */
 	id?: number;
 	/**
-  * @example
-Dogs
-  */
+	 * @example Dogs
+	 */
 	name?: string;
 }
