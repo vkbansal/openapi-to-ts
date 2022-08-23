@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
-    "target": "es2019",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "declaration": true,
     "importHelpers": true,
     "allowJs": true,
     "checkJs": false,
@@ -15,14 +15,12 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "rootDir": "./packages",
-    "typeRoots": ["node_modules/@types"],
     "resolveJsonModule": true,
     "importsNotUsedAsValues": "error",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "jsx": "preserve"
   },
-  "include": ["packages/*"],
+  "include": ["packages/*/src/**/*"],
   "exclude": ["node_modules"]
 }

@@ -6,9 +6,14 @@ parserOptions:
   ecmaFeatures:
     jsx: true
     impliedStrict: true
-  project: ./tsconfig-eslint.json
+  project: ./tsconfig.json
 plugins:
   - '@typescript-eslint/eslint-plugin'
+  - import
+settings:
+  import/resolver:
+    typescript: true
+    node: true
 env:
   browser: true
   node: true
@@ -19,10 +24,11 @@ extends:
   - eslint:recommended
   - plugin:@typescript-eslint/recommended
   - prettier
+  - plugin:import/recommended
+  - plugin:import/typescript
 rules:
   # built-in
   semi: [2, 'always']
-  no-await-in-loop: 2
   no-shadow: 2
 
   #typescript
@@ -38,6 +44,8 @@ rules:
       ignoreRestSiblings: true
       argsIgnorePattern: ^_
   '@typescript-eslint/member-delimiter-style': 0
+
+  'import/no-cycle': 2
 overrides:
   - files:
       - bin/**/*.js

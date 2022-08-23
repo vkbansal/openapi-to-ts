@@ -1,0 +1,36 @@
+{
+  "name": "@oa2ts/plugin-react-query",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "author": {
+    "name": "Vivek Kumar Bansal",
+    "email": "vkb0310@gmail.com"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./config": "./dist/config.js"
+  },
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc --outDir dist"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "peerDependencies": {
+    "@oa2ts/cli": "^0.1.0",
+    "@tanstack/react-query": "^4.0.0",
+    "react": ">=16.8.0 <17.0.0 || >=17.0.0 <18.0.0 || >=18.0.0 <19.0.0"
+  },
+  "dependencies": {
+    "pascal-case": "^3.1.2"
+  },
+  "devDependencies": {
+    "@oa2ts/cli": "^0.1.0",
+    "@tanstack/react-query": "^4.2.1",
+    "openapi3-ts": "^3.0.1",
+    "react": "^18.2.0",
+    "rimraf": "^3.0.2"
+  }
+}
