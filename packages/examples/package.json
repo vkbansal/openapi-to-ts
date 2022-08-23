@@ -5,6 +5,7 @@
   "type": "module",
   "private": "true",
   "scripts": {
+    "prebuild": "rm -rf petstore-swagger petstore-openapi-v3.0",
     "build": "oa2ts import --config oa2ts.config.ts"
   },
   "engines": {
