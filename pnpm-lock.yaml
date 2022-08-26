@@ -36,6 +36,22 @@ importers:
       typescript: 4.8.2
       vitest: 0.22.1
 
+  examples:
+    specifiers:
+      '@oa2ts/cli': ^0.1.0
+      '@oa2ts/plugin-fetch': ^0.1.0
+      '@oa2ts/plugin-react-query': ^0.1.0
+      '@tanstack/react-query': ^4.2.1
+      react: ^18.2.0
+      typescript: ^4.8.2
+    dependencies:
+      '@oa2ts/cli': link:../packages/cli
+      '@oa2ts/plugin-fetch': link:../packages/plugin-fetch
+      '@oa2ts/plugin-react-query': link:../packages/plugin-react-query
+      '@tanstack/react-query': 4.2.1_react@18.2.0
+      react: 18.2.0
+      typescript: 4.8.2
+
   packages/cli:
     specifiers:
       '@types/prettier': ^2.7.0
@@ -67,22 +83,6 @@ importers:
       '@types/prettier': 2.7.0
       '@types/yargs': 17.0.11
       rimraf: 3.0.2
-      typescript: 4.8.2
-
-  packages/examples:
-    specifiers:
-      '@oa2ts/cli': ^0.1.0
-      '@oa2ts/plugin-fetch': ^0.1.0
-      '@oa2ts/plugin-react-query': ^0.1.0
-      '@tanstack/react-query': ^4.2.1
-      react: ^18.2.0
-      typescript: ^4.8.2
-    dependencies:
-      '@oa2ts/cli': link:../cli
-      '@oa2ts/plugin-fetch': link:../plugin-fetch
-      '@oa2ts/plugin-react-query': link:../plugin-react-query
-      '@tanstack/react-query': 4.2.1_react@18.2.0
-      react: 18.2.0
       typescript: 4.8.2
 
   packages/plugin-fetch:
