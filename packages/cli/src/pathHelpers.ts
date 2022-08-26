@@ -97,6 +97,10 @@ export function processPaths(
 				if (!paramDef) {
 					throw new Error(`Could not find parameter definition for ${pathParam} in ${route}`);
 				}
+
+				if (!paramDef.required) {
+					throw new Error(`Path param ${pathParam} in ${route} must be a required field`);
+				}
 			});
 
 			callback(route, verb, operation, groupedParams);

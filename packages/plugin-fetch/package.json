@@ -1,0 +1,32 @@
+{
+  "name": "@oa2ts/plugin-fetch",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "author": {
+    "name": "Vivek Kumar Bansal",
+    "email": "vkb0310@gmail.com"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc --outDir dist"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "peerDependencies": {
+    "@oa2ts/cli": "^0.1.0"
+  },
+  "dependencies": {
+    "camel-case": "^4.1.2",
+    "pascal-case": "^3.1.2"
+  },
+  "devDependencies": {
+    "@oa2ts/cli": "^0.1.0",
+    "openapi3-ts": "^3.0.1",
+    "rimraf": "^3.0.2"
+  }
+}

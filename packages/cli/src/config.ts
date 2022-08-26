@@ -8,6 +8,8 @@ export interface CLIConfig {
 	file?: string;
 	url?: string;
 	config?: string;
+	clean: boolean;
+	service: string[];
 }
 
 export const getServiceConfigSchema = (): Yup.AnyObjectSchema =>

@@ -9,7 +9,7 @@ import { generateQueryHook } from './generateQueryHook.js';
 import { generateMutationHook } from './generateMutationHook.js';
 
 export function generateReactQueryHooks(
-	config: Config,
+	config?: Config,
 ): (spec: OpenAPIObject) => Promise<PluginReturn> {
 	const useUseQueryForMutation = config?.overrides?.useUseQueryForMutation || [];
 

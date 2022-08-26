@@ -1,10 +1,12 @@
-import type { ReferenceObject, SchemaObject } from 'openapi3-ts';
+import type { ParameterObject, ReferenceObject, SchemaObject } from 'openapi3-ts';
 
 import {
 	getNameForType,
 	getNameForResponse,
 	getNameForRequestBody,
 	getNameForParameter,
+	getNameForQueryParams,
+	getNameForPathParams,
 } from './nameHelpers.js';
 
 export interface ObjectProps {
@@ -248,4 +250,57 @@ export function createTypeDeclaration(
 	const value = resolveValue(schema, imports);
 
 	return [...imports, addMetadata(schema), `export type ${name} = ${value};`].join('\n');
+}
+
+export interface ParamsReturn {
+	code: string;
+	name: string;
+	imports: string[];
+}
+
+export function createQueryParamsInterface(
+	operationId: string,
+	params: ParameterObject[],
+): ParamsReturn {
+	const code: string[] = [];
+	const imports: string[] = [];
+
+	const name = getNameForQueryParams(operationId);
+
+	code.push(`export interface ${name} {`);
+
+	params.forEach((param) => {
+		const questionMark = param.required ? '' : '?';
+		code.push(
+			`  ${param.name}${questionMark}: ${
+				param.schema ? resolveValue(param.schema, imports) : 'unknown'
+			};`,
+		);
+	});
+
+	code.push(`}`, ``);
+
+	return { code: code.join('\n'), imports, name };
+}
+
+export function createPathParamsInterface(
+	operationId: string,
+	params: ParameterObject[],
+): ParamsReturn {
+	const code: string[] = [];
+	const imports: string[] = [];
+
+	const name = getNameForPathParams(operationId);
+
+	code.push(`export interface ${name} {`);
+
+	params.forEach((param) => {
+		code.push(
+			`  ${param.name}: ${param.schema ? resolveValue(param.schema, imports) : 'unknown'};`,
+		);
+	});
+
+	code.push(`}`, ``);
+
+	return { code: code.join('\n'), imports, name };
 }
