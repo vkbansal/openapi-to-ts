@@ -11,7 +11,7 @@ export interface Customer {
 	 */
 	id?: number;
 	/**
-	 * @example fehguy
+	 * @example "fehguy"
 	 */
 	username?: string;
 }

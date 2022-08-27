@@ -3,35 +3,39 @@
 // Please do not modify this code directly.
 import { SimpleUser } from '../schemas/SimpleUser';
 import { Integration } from '../schemas/Integration';
+
 /**
  * The status of a deployment.
  */
 export interface DeploymentStatus {
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2012-07-20T01:19:13Z"
 	 */
 	created_at: string;
 	creator: SimpleUser | null;
 	/**
 	 * @format uri
-	 * @example https://api.github.com/repos/octocat/example/deployments/42
+	 * @example "https://api.github.com/repos/octocat/example/deployments/42"
 	 */
 	deployment_url: string;
 	/**
 	 * A short description of the status.
-	 * @example Deployment finished successfully.
+	 * @default ""
+	 * @example "Deployment finished successfully."
 	 */
 	description: string;
 	/**
 	 * The environment of the deployment that the status is for.
-	 * @example production
+	 * @default ""
+	 * @example "production"
 	 */
 	environment?: string;
 	/**
 	 * The URL for accessing your environment.
 	 * @format uri
-	 * @example https://staging.example.com/
+	 * @default ""
+	 * @example "https://staging.example.com/"
 	 */
 	environment_url?: string;
 	/**
@@ -41,38 +45,40 @@ export interface DeploymentStatus {
 	/**
 	 * The URL to associate with this status.
 	 * @format uri
-	 * @example https://example.com/deployment/42/output
+	 * @default ""
+	 * @example "https://example.com/deployment/42/output"
 	 */
 	log_url?: string;
 	/**
-	 * @example MDE2OkRlcGxveW1lbnRTdGF0dXMx
+	 * @example "MDE2OkRlcGxveW1lbnRTdGF0dXMx"
 	 */
 	node_id: string;
 	performed_via_github_app?: Integration | null;
 	/**
 	 * @format uri
-	 * @example https://api.github.com/repos/octocat/example
+	 * @example "https://api.github.com/repos/octocat/example"
 	 */
 	repository_url: string;
 	/**
 	 * The state of the status.
-	 * @example success
+	 * @example "success"
 	 */
 	state: 'error' | 'failure' | 'in_progress' | 'inactive' | 'pending' | 'queued' | 'success';
 	/**
 	 * Deprecated: the URL to associate with this status.
 	 * @format uri
-	 * @example https://example.com/deployment/42/output
+	 * @default ""
+	 * @example "https://example.com/deployment/42/output"
 	 */
 	target_url: string;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2012-07-20T01:19:13Z"
 	 */
 	updated_at: string;
 	/**
 	 * @format uri
-	 * @example https://api.github.com/repos/octocat/example/deployments/42/statuses/1
+	 * @example "https://api.github.com/repos/octocat/example/deployments/42/statuses/1"
 	 */
 	url: string;
 }

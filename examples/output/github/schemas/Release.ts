@@ -3,6 +3,7 @@
 // Please do not modify this code directly.
 import { ReleaseAsset } from '../schemas/ReleaseAsset';
 import { SimpleUser } from '../schemas/SimpleUser';
+
 /**
  * A release.
  */
@@ -41,7 +42,7 @@ export interface Release {
 	published_at: string | null;
 	/**
 	 * The name of the tag.
-	 * @example v1.0.0
+	 * @example "v1.0.0"
 	 */
 	tag_name: string;
 	/**
@@ -50,7 +51,7 @@ export interface Release {
 	tarball_url: string | null;
 	/**
 	 * Specifies the commitish value that determines where the Git tag is created from.
-	 * @example master
+	 * @example "master"
 	 */
 	target_commitish: string;
 	upload_url: string;

@@ -3,6 +3,7 @@
 // Please do not modify this code directly.
 import { ScopedInstallation } from '../schemas/ScopedInstallation';
 import { SimpleUser } from '../schemas/SimpleUser';
+
 /**
  * The authorization for an OAuth app, GitHub App, or a Personal Access Token.
  */

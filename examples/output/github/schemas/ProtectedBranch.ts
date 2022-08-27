@@ -5,6 +5,7 @@ import { Team } from '../schemas/Team';
 import { SimpleUser } from '../schemas/SimpleUser';
 import { StatusCheckPolicy } from '../schemas/StatusCheckPolicy';
 import { BranchRestrictionPolicy } from '../schemas/BranchRestrictionPolicy';
+
 /**
  * Branch protections protect branches
  */
@@ -57,7 +58,7 @@ export interface ProtectedBranch {
 		enabled: boolean;
 		/**
 		 * @format uri
-		 * @example https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_signatures
+		 * @example "https://api.github.com/repos/octocat/Hello-World/branches/master/protection/required_signatures"
 		 */
 		url: string;
 	};

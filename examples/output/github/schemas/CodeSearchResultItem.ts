@@ -3,6 +3,7 @@
 // Please do not modify this code directly.
 import { MinimalRepository } from '../schemas/MinimalRepository';
 import { SearchResultTextMatches } from '../schemas/SearchResultTextMatches';
+
 /**
  * Code Search Result Item
  */
@@ -22,7 +23,7 @@ export interface CodeSearchResultItem {
 	 */
 	last_modified_at?: string;
 	/**
-	 * @example 73..77,77..78
+	 * @example ["73..77","77..78"]
 	 */
 	line_numbers?: string[];
 	name: string;

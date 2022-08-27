@@ -4,6 +4,7 @@
 import { LicenseSimple } from '../schemas/LicenseSimple';
 import { SimpleUser } from '../schemas/SimpleUser';
 import { SearchResultTextMatches } from '../schemas/SearchResultTextMatches';
+
 /**
  * Repo Search Result Item
  */

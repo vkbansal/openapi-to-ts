@@ -1,19 +1,18 @@
 import type { OpenAPIObject } from 'openapi3-ts';
-import type { PluginReturn, CodeOutput } from '@oa2ts/cli/plugin';
+import type { PluginReturn, CodeOutput, Plugin } from '@oa2ts/cli/plugin';
 import { processPaths } from '@oa2ts/cli/pathHelpers';
 // import { isReferenceObject, createTypeDeclaration } from '@oa2ts/cli/codegen';
 // import { getNameForResponse, getNameForType } from '@oa2ts/cli/nameHelpers';
+import type { Codegen } from '@oa2ts/cli/codegen';
 
 import type { Config } from './config.js';
 import { generateQueryHook } from './generateQueryHook.js';
 import { generateMutationHook } from './generateMutationHook.js';
 
-export function generateReactQueryHooks(
-	config?: Config,
-): (spec: OpenAPIObject) => Promise<PluginReturn> {
+export function generateReactQueryHooks(config?: Config): Plugin['generate'] {
 	const useUseQueryForMutation = config?.overrides?.useUseQueryForMutation || [];
 
-	return async (spec: OpenAPIObject): Promise<PluginReturn> => {
+	return async (spec: OpenAPIObject, _codegen: Codegen): Promise<PluginReturn> => {
 		const files: CodeOutput[] = [];
 		const includes: string[] = [];
 

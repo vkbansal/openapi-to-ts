@@ -3,6 +3,7 @@
 // Please do not modify this code directly.
 import { Integration } from '../schemas/Integration';
 import { DeploymentSimple } from '../schemas/DeploymentSimple';
+
 /**
  * A check performed on the code of a given code change
  */
@@ -13,11 +14,11 @@ export interface CheckRun {
 	} | null;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2018-05-04T01:14:52Z"
 	 */
 	completed_at: string | null;
 	/**
-	 * @example neutral
+	 * @example "neutral"
 	 */
 	conclusion:
 		| 'action_required'
@@ -30,20 +31,20 @@ export interface CheckRun {
 		| null;
 	deployment?: DeploymentSimple;
 	/**
-	 * @example https://example.com
+	 * @example "https://example.com"
 	 */
 	details_url: string | null;
 	/**
-	 * @example 42
+	 * @example "42"
 	 */
 	external_id: string | null;
 	/**
 	 * The SHA of the commit that is being checked.
-	 * @example 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
+	 * @example "009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d"
 	 */
 	head_sha: string;
 	/**
-	 * @example https://github.com/github/hello-world/runs/4
+	 * @example "https://github.com/github/hello-world/runs/4"
 	 */
 	html_url: string | null;
 	/**
@@ -53,11 +54,11 @@ export interface CheckRun {
 	id: number;
 	/**
 	 * The name of the check.
-	 * @example test-coverage
+	 * @example "test-coverage"
 	 */
 	name: string;
 	/**
-	 * @example MDg6Q2hlY2tSdW40
+	 * @example "MDg6Q2hlY2tSdW40"
 	 */
 	node_id: string;
 	output: {
@@ -73,16 +74,16 @@ export interface CheckRun {
 	pull_requests: {};
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2018-05-04T01:14:52Z"
 	 */
 	started_at: string | null;
 	/**
 	 * The phase of the lifecycle that the check is currently in.
-	 * @example queued
+	 * @example "queued"
 	 */
 	status: 'completed' | 'in_progress' | 'queued';
 	/**
-	 * @example https://api.github.com/repos/github/hello-world/check-runs/4
+	 * @example "https://api.github.com/repos/github/hello-world/check-runs/4"
 	 */
 	url: string;
 }

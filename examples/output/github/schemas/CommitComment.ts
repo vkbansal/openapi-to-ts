@@ -4,6 +4,7 @@
 import { AuthorAssociation } from '../schemas/AuthorAssociation';
 import { ReactionRollup } from '../schemas/ReactionRollup';
 import { SimpleUser } from '../schemas/SimpleUser';
+
 /**
  * Commit Comment
  */

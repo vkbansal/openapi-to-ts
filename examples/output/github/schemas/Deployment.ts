@@ -3,23 +3,24 @@
 // Please do not modify this code directly.
 import { SimpleUser } from '../schemas/SimpleUser';
 import { Integration } from '../schemas/Integration';
+
 /**
  * A request for a specific ref(branch,sha,tag) to be deployed
  */
 export interface Deployment {
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2012-07-20T01:19:13Z"
 	 */
 	created_at: string;
 	creator: SimpleUser | null;
 	/**
-	 * @example Deploy request from hubot
+	 * @example "Deploy request from hubot"
 	 */
 	description: string | null;
 	/**
 	 * Name for the target deployment environment.
-	 * @example production
+	 * @example "production"
 	 */
 	environment: string;
 	/**
@@ -28,11 +29,11 @@ export interface Deployment {
 	 */
 	id: number;
 	/**
-	 * @example MDEwOkRlcGxveW1lbnQx
+	 * @example "MDEwOkRlcGxveW1lbnQx"
 	 */
 	node_id: string;
 	/**
-	 * @example staging
+	 * @example "staging"
 	 */
 	original_environment?: string;
 	payload: {};
@@ -44,26 +45,26 @@ export interface Deployment {
 	production_environment?: boolean;
 	/**
 	 * The ref to deploy. This can be a branch, tag, or sha.
-	 * @example topic-branch
+	 * @example "topic-branch"
 	 */
 	ref: string;
 	/**
 	 * @format uri
-	 * @example https://api.github.com/repos/octocat/example
+	 * @example "https://api.github.com/repos/octocat/example"
 	 */
 	repository_url: string;
 	/**
-	 * @example a84d88e7554fc1fa21bcbc4efae3c782a70d2b9d
+	 * @example "a84d88e7554fc1fa21bcbc4efae3c782a70d2b9d"
 	 */
 	sha: string;
 	/**
 	 * @format uri
-	 * @example https://api.github.com/repos/octocat/example/deployments/1/statuses
+	 * @example "https://api.github.com/repos/octocat/example/deployments/1/statuses"
 	 */
 	statuses_url: string;
 	/**
 	 * Parameter to specify a task to execute
-	 * @example deploy
+	 * @example "deploy"
 	 */
 	task: string;
 	/**
@@ -73,12 +74,12 @@ export interface Deployment {
 	transient_environment?: boolean;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2012-07-20T01:19:13Z"
 	 */
 	updated_at: string;
 	/**
 	 * @format uri
-	 * @example https://api.github.com/repos/octocat/example/deployments/1
+	 * @example "https://api.github.com/repos/octocat/example/deployments/1"
 	 */
 	url: string;
 }

@@ -13,7 +13,7 @@ export interface ScopedInstallation {
 	permissions: AppPermissions;
 	/**
 	 * @format uri
-	 * @example https://api.github.com/users/octocat/repos
+	 * @example "https://api.github.com/users/octocat/repos"
 	 */
 	repositories_url: string;
 	/**
@@ -21,11 +21,11 @@ export interface ScopedInstallation {
 	 */
 	repository_selection: 'all' | 'selected';
 	/**
-	 * @example config.yaml
+	 * @example "config.yaml"
 	 */
 	single_file_name: string | null;
 	/**
-	 * @example config.yml,.github/issue_TEMPLATE.md
+	 * @example ["config.yml",".github/issue_TEMPLATE.md"]
 	 */
 	single_file_paths?: string[];
 }

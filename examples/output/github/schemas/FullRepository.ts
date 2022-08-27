@@ -4,10 +4,8 @@
 import { CodeOfConductSimple } from '../schemas/CodeOfConductSimple';
 import { LicenseSimple } from '../schemas/LicenseSimple';
 import { SimpleUser } from '../schemas/SimpleUser';
-import { SimpleUser } from '../schemas/SimpleUser';
 import { Repository } from '../schemas/Repository';
-import { Repository } from '../schemas/Repository';
-import { Repository } from '../schemas/Repository';
+
 /**
  * Full Repository
  */
@@ -30,69 +28,69 @@ export interface FullRepository {
 	 */
 	anonymous_access_enabled?: boolean;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}"
 	 */
 	archive_url: string;
 	archived: boolean;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/assignees{/user}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/assignees{/user}"
 	 */
 	assignees_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}"
 	 */
 	blobs_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/branches{/branch}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/branches{/branch}"
 	 */
 	branches_url: string;
 	/**
-	 * @example https://github.com/octocat/Hello-World.git
+	 * @example "https://github.com/octocat/Hello-World.git"
 	 */
 	clone_url: string;
 	code_of_conduct?: CodeOfConductSimple;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}"
 	 */
 	collaborators_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/comments{/number}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/comments{/number}"
 	 */
 	comments_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/commits{/sha}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/commits{/sha}"
 	 */
 	commits_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}"
 	 */
 	compare_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/contents/{+path}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/contents/{+path}"
 	 */
 	contents_url: string;
 	/**
 	 * @format uri
-	 * @example http://api.github.com/repos/octocat/Hello-World/contributors
+	 * @example "http://api.github.com/repos/octocat/Hello-World/contributors"
 	 */
 	contributors_url: string;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2011-01-26T19:01:12Z"
 	 */
 	created_at: string;
 	/**
-	 * @example master
+	 * @example "master"
 	 */
 	default_branch: string;
 	delete_branch_on_merge?: boolean;
 	/**
 	 * @format uri
-	 * @example http://api.github.com/repos/octocat/Hello-World/deployments
+	 * @example "http://api.github.com/repos/octocat/Hello-World/deployments"
 	 */
 	deployments_url: string;
 	/**
-	 * @example This your first repo!
+	 * @example "This your first repo!"
 	 */
 	description: string | null;
 	/**
@@ -101,12 +99,12 @@ export interface FullRepository {
 	disabled: boolean;
 	/**
 	 * @format uri
-	 * @example http://api.github.com/repos/octocat/Hello-World/downloads
+	 * @example "http://api.github.com/repos/octocat/Hello-World/downloads"
 	 */
 	downloads_url: string;
 	/**
 	 * @format uri
-	 * @example http://api.github.com/repos/octocat/Hello-World/events
+	 * @example "http://api.github.com/repos/octocat/Hello-World/events"
 	 */
 	events_url: string;
 	fork: boolean;
@@ -117,27 +115,27 @@ export interface FullRepository {
 	forks_count: number;
 	/**
 	 * @format uri
-	 * @example http://api.github.com/repos/octocat/Hello-World/forks
+	 * @example "http://api.github.com/repos/octocat/Hello-World/forks"
 	 */
 	forks_url: string;
 	/**
-	 * @example octocat/Hello-World
+	 * @example "octocat/Hello-World"
 	 */
 	full_name: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}"
 	 */
 	git_commits_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}"
 	 */
 	git_refs_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/git/tags{/sha}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/git/tags{/sha}"
 	 */
 	git_tags_url: string;
 	/**
-	 * @example git:github.com/octocat/Hello-World.git
+	 * @example "git:github.com/octocat/Hello-World.git"
 	 */
 	git_url: string;
 	/**
@@ -159,17 +157,17 @@ export interface FullRepository {
 	has_wiki: boolean;
 	/**
 	 * @format uri
-	 * @example https://github.com
+	 * @example "https://github.com"
 	 */
 	homepage: string | null;
 	/**
 	 * @format uri
-	 * @example http://api.github.com/repos/octocat/Hello-World/hooks
+	 * @example "http://api.github.com/repos/octocat/Hello-World/hooks"
 	 */
 	hooks_url: string;
 	/**
 	 * @format uri
-	 * @example https://github.com/octocat/Hello-World
+	 * @example "https://github.com/octocat/Hello-World"
 	 */
 	html_url: string;
 	/**
@@ -181,61 +179,67 @@ export interface FullRepository {
 	 */
 	is_template?: boolean;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/issues/comments{/number}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/issues/comments{/number}"
 	 */
 	issue_comment_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/issues/events{/number}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/issues/events{/number}"
 	 */
 	issue_events_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/issues{/number}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/issues{/number}"
 	 */
 	issues_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/keys{/key_id}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/keys{/key_id}"
 	 */
 	keys_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/labels{/name}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/labels{/name}"
 	 */
 	labels_url: string;
 	language: string | null;
 	/**
 	 * @format uri
-	 * @example http://api.github.com/repos/octocat/Hello-World/languages
+	 * @example "http://api.github.com/repos/octocat/Hello-World/languages"
 	 */
 	languages_url: string;
 	license: LicenseSimple | null;
 	master_branch?: string;
 	/**
 	 * @format uri
-	 * @example http://api.github.com/repos/octocat/Hello-World/merges
+	 * @example "http://api.github.com/repos/octocat/Hello-World/merges"
 	 */
 	merges_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/milestones{/number}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/milestones{/number}"
 	 */
 	milestones_url: string;
 	/**
 	 * @format uri
-	 * @example git:git.example.com/octocat/Hello-World
+	 * @example "git:git.example.com/octocat/Hello-World"
 	 */
 	mirror_url: string | null;
 	/**
-	 * @example Hello-World
+	 * @example "Hello-World"
 	 */
 	name: string;
+	/**
+	 * @example 0
+	 */
 	network_count: number;
 	/**
-	 * @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5
+	 * @example "MDEwOlJlcG9zaXRvcnkxMjk2MjY5"
 	 */
 	node_id: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/notifications{?since,all,participating}"
 	 */
 	notifications_url: string;
 	open_issues: number;
+	/**
+	 * @example 0
+	 */
 	open_issues_count: number;
 	organization?: SimpleUser | null;
 	owner: SimpleUser | null;
@@ -247,16 +251,16 @@ export interface FullRepository {
 	};
 	private: boolean;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/pulls{/number}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/pulls{/number}"
 	 */
 	pulls_url: string;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2011-01-26T19:06:43Z"
 	 */
 	pushed_at: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/releases{/id}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/releases{/id}"
 	 */
 	releases_url: string;
 	/**
@@ -265,7 +269,7 @@ export interface FullRepository {
 	size: number;
 	source?: Repository;
 	/**
-	 * @example git@github.com:octocat/Hello-World.git
+	 * @example "git@github.com:octocat/Hello-World.git"
 	 */
 	ssh_url: string;
 	/**
@@ -274,11 +278,11 @@ export interface FullRepository {
 	stargazers_count: number;
 	/**
 	 * @format uri
-	 * @example http://api.github.com/repos/octocat/Hello-World/stargazers
+	 * @example "http://api.github.com/repos/octocat/Hello-World/stargazers"
 	 */
 	stargazers_url: string;
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/statuses/{sha}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/statuses/{sha}"
 	 */
 	statuses_url: string;
 	/**
@@ -287,52 +291,52 @@ export interface FullRepository {
 	subscribers_count: number;
 	/**
 	 * @format uri
-	 * @example http://api.github.com/repos/octocat/Hello-World/subscribers
+	 * @example "http://api.github.com/repos/octocat/Hello-World/subscribers"
 	 */
 	subscribers_url: string;
 	/**
 	 * @format uri
-	 * @example http://api.github.com/repos/octocat/Hello-World/subscription
+	 * @example "http://api.github.com/repos/octocat/Hello-World/subscription"
 	 */
 	subscription_url: string;
 	/**
 	 * @format uri
-	 * @example https://svn.github.com/octocat/Hello-World
+	 * @example "https://svn.github.com/octocat/Hello-World"
 	 */
 	svn_url: string;
 	/**
 	 * @format uri
-	 * @example http://api.github.com/repos/octocat/Hello-World/tags
+	 * @example "http://api.github.com/repos/octocat/Hello-World/tags"
 	 */
 	tags_url: string;
 	/**
 	 * @format uri
-	 * @example http://api.github.com/repos/octocat/Hello-World/teams
+	 * @example "http://api.github.com/repos/octocat/Hello-World/teams"
 	 */
 	teams_url: string;
 	temp_clone_token?: string | null;
 	template_repository?: Repository | null;
 	/**
-	 * @example octocat,atom,electron,API
+	 * @example ["octocat","atom","electron","API"]
 	 */
 	topics?: string[];
 	/**
-	 * @example http://api.github.com/repos/octocat/Hello-World/git/trees{/sha}
+	 * @example "http://api.github.com/repos/octocat/Hello-World/git/trees{/sha}"
 	 */
 	trees_url: string;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2011-01-26T19:14:43Z"
 	 */
 	updated_at: string;
 	/**
 	 * @format uri
-	 * @example https://api.github.com/repos/octocat/Hello-World
+	 * @example "https://api.github.com/repos/octocat/Hello-World"
 	 */
 	url: string;
 	/**
 	 * The repository visibility: public, private, or internal.
-	 * @example public
+	 * @example "public"
 	 */
 	visibility?: string;
 	watchers: number;

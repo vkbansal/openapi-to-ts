@@ -3,23 +3,24 @@
 // Please do not modify this code directly.
 import { MarketplaceAccount } from '../schemas/MarketplaceAccount';
 import { MarketplaceListingPlan } from '../schemas/MarketplaceListingPlan';
+
 /**
  * User Marketplace Purchase
  */
 export interface UserMarketplacePurchase {
 	account: MarketplaceAccount;
 	/**
-	 * @example monthly
+	 * @example "monthly"
 	 */
 	billing_cycle: string;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2017-11-11T00:00:00Z"
 	 */
 	free_trial_ends_on: string | null;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2017-11-11T00:00:00Z"
 	 */
 	next_billing_date: string | null;
 	/**
@@ -30,7 +31,7 @@ export interface UserMarketplacePurchase {
 	unit_count: number | null;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2017-11-02T01:12:12Z"
 	 */
 	updated_at: string | null;
 }

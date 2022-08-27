@@ -1,0 +1,45 @@
+{% assign has_path_params = pathParams.props.length > 0 %}
+{% assign has_query_params = queryParams.props.length > 0 %}
+{% if has_path_params %}
+{% render 'interface.liquid', name: pathParams.name, props: pathParams.props %}
+{% endif %}
+
+{% if queryParams.props.length > 0 %}
+{% render 'interface.liquid', name: queryParams.name, props: queryParams.props %}
+{% endif %}
+
+export interface {{propsName}}
+  extends Omit<RequestInit, 'method' | 'body'>
+  {%- if has_path_params -%}, {{pathParams.name}}{%- endif -%}
+  {
+    {% if has_query_params -%}
+    queryParams: {{queryParams.name}};
+    {%- endif %}
+  }
+
+export async function {{fnName}}(props: {{propsName}}) {
+  const {
+  {% if has_path_params -%}
+    {% for prop in pathParams.props -%}
+    {{prop.key}},
+    {%- endfor %}
+  {%- endif -%}
+  {% if has_query_params -%}
+  queryParams,
+  {%- endif -%}
+    ...rest
+  } = props;
+
+  const response = await fetch(`{{ route | path_to_template }}`, {
+    method: {{ verb | upcase | json }},
+    ...rest,
+    headers: {
+      'Content-Type': 'application/json',
+      ...rest.headers
+    }
+  });
+
+  const json = await response.json();
+
+  return json;
+}

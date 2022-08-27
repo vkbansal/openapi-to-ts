@@ -1,6 +1,8 @@
 import type { OpenAPIObject } from 'openapi3-ts';
 import * as Yup from 'yup';
 
+import type { Codegen } from './codegen.js';
+
 export const getCodeOutputSchema = (): Yup.AnyObjectSchema =>
 	Yup.object({
 		code: Yup.string().required(),
@@ -41,5 +43,6 @@ export interface PluginReturn {
 
 export interface Plugin {
 	name: string;
-	generate: (spec: Readonly<OpenAPIObject>) => Promise<PluginReturn>;
+	generate: (spec: Readonly<OpenAPIObject>, codegen: Codegen) => Promise<PluginReturn>;
+	templatesPath?: string;
 }

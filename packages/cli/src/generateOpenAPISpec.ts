@@ -1,20 +1,26 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import type { OpenAPIObject } from 'openapi3-ts';
 
-import { createSchemaDefinitions } from './createSchemaDefinitions.js';
 import type { PluginReturn, Plugin } from './plugin.js';
 import { getPluginReturnSchema } from './plugin.js';
 import { logInfo } from './helpers.js';
-import { createRequestBodyDefinitions } from './createRequestBodyDefinitions.js';
+import { Codegen } from './codegen.js';
+
+const DIR_NAME = path.dirname(fileURLToPath(import.meta.url));
 
 export async function generateOpenAPISpec(
 	spec: OpenAPIObject,
-	plugins?: Plugin[],
+	plugins: Plugin[] = [],
 ): Promise<PluginReturn> {
 	const allData: PluginReturn = { files: [], indexInclude: '' };
+	const templatePaths = plugins.map((p) => p.templatesPath).filter((p) => p) as string[];
+	const codegen = new Codegen([path.resolve(DIR_NAME, 'templates'), ...templatePaths]);
 
 	if (spec.components?.schemas) {
 		logInfo('Generating schema definitions');
-		const schemaDefs = createSchemaDefinitions(spec.components.schemas);
+		const schemaDefs = codegen.createSchemaDefinitions(spec.components.schemas);
 		allData.files.push(...schemaDefs.files);
 
 		if (schemaDefs.indexInclude) {
@@ -25,7 +31,7 @@ export async function generateOpenAPISpec(
 
 	if (spec.components?.requestBodies) {
 		logInfo('Generating request body definitions');
-		const requestBodyDefs = createRequestBodyDefinitions(spec.components.requestBodies);
+		const requestBodyDefs = codegen.createRequestBodyDefinitions(spec.components.requestBodies);
 
 		allData.files.push(...requestBodyDefs.files);
 
@@ -38,7 +44,7 @@ export async function generateOpenAPISpec(
 	if (Array.isArray(plugins)) {
 		for (const plugin of plugins) {
 			logInfo(`Executing plugin: ${plugin.name}`);
-			const pluginData = await plugin.generate(spec);
+			const pluginData = await plugin.generate(spec, codegen);
 
 			// validate plugin data
 			await getPluginReturnSchema().validate(pluginData);

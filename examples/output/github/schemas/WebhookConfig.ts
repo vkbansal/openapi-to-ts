@@ -5,6 +5,7 @@ import { WebhookConfigContentType } from '../schemas/WebhookConfigContentType';
 import { WebhookConfigInsecureSsl } from '../schemas/WebhookConfigInsecureSsl';
 import { WebhookConfigSecret } from '../schemas/WebhookConfigSecret';
 import { WebhookConfigUrl } from '../schemas/WebhookConfigUrl';
+
 /**
  * Configuration object of the webhook
  */

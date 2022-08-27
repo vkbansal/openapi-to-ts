@@ -3,6 +3,7 @@
 // Please do not modify this code directly.
 import { Team } from '../schemas/Team';
 import { SimpleUser } from '../schemas/SimpleUser';
+
 /**
  * Protected Branch Pull Request Review
  */
@@ -17,11 +18,11 @@ export interface ProtectedBranchPullRequestReview {
 		 */
 		teams?: Team[];
 		/**
-		 * @example "https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions/teams"
+		 * @example "\"https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions/teams\""
 		 */
 		teams_url?: string;
 		/**
-		 * @example "https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions"
+		 * @example "\"https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions\""
 		 */
 		url?: string;
 		/**
@@ -29,7 +30,7 @@ export interface ProtectedBranchPullRequestReview {
 		 */
 		users?: SimpleUser[];
 		/**
-		 * @example "https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions/users"
+		 * @example "\"https://api.github.com/repos/the-org/an-org-repo/branches/master/protection/dismissal_restrictions/users\""
 		 */
 		users_url?: string;
 	};
@@ -43,7 +44,7 @@ export interface ProtectedBranchPullRequestReview {
 	required_approving_review_count?: number;
 	/**
 	 * @format uri
-	 * @example https://api.github.com/repos/octocat/Hello-World/branches/master/protection/dismissal_restrictions
+	 * @example "https://api.github.com/repos/octocat/Hello-World/branches/master/protection/dismissal_restrictions"
 	 */
 	url?: string;
 }

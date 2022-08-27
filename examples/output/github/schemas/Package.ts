@@ -3,6 +3,7 @@
 // Please do not modify this code directly.
 import { SimpleUser } from '../schemas/SimpleUser';
 import { MinimalRepository } from '../schemas/MinimalRepository';
+
 /**
  * A software package
  */
@@ -12,7 +13,7 @@ export interface Package {
 	 */
 	created_at: string;
 	/**
-	 * @example https://github.com/orgs/github/packages/container/package/super-linter
+	 * @example "https://github.com/orgs/github/packages/container/package/super-linter"
 	 */
 	html_url: string;
 	/**
@@ -22,12 +23,12 @@ export interface Package {
 	id: number;
 	/**
 	 * The name of the package.
-	 * @example super-linter
+	 * @example "super-linter"
 	 */
 	name: string;
 	owner?: SimpleUser | null;
 	/**
-	 * @example docker
+	 * @example "docker"
 	 */
 	package_type: 'container' | 'docker' | 'maven' | 'npm' | 'nuget' | 'rubygems';
 	repository?: MinimalRepository | null;
@@ -36,7 +37,7 @@ export interface Package {
 	 */
 	updated_at: string;
 	/**
-	 * @example https://api.github.com/orgs/github/packages/container/super-linter
+	 * @example "https://api.github.com/orgs/github/packages/container/super-linter"
 	 */
 	url: string;
 	/**
@@ -45,7 +46,7 @@ export interface Package {
 	 */
 	version_count: number;
 	/**
-	 * @example private
+	 * @example "private"
 	 */
 	visibility: 'private' | 'public';
 }

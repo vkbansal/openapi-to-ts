@@ -3,6 +3,7 @@
 // Please do not modify this code directly.
 import { Commit } from '../schemas/Commit';
 import { BranchProtection } from '../schemas/BranchProtection';
+
 /**
  * Branch With Protection
  */
@@ -17,7 +18,7 @@ export interface BranchWithProtection {
 	commit: Commit;
 	name: string;
 	/**
-	 * @example "mas*"
+	 * @example "\"mas*\""
 	 */
 	pattern?: string;
 	protected: boolean;

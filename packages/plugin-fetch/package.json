@@ -12,7 +12,7 @@
   },
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc --outDir dist"
+    "build": "tsc --outDir dist && cp -R src/templates dist/"
   },
   "engines": {
     "node": ">=16.0.0"

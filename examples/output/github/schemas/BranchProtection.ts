@@ -4,6 +4,7 @@
 import { ProtectedBranchAdminEnforced } from '../schemas/ProtectedBranchAdminEnforced';
 import { ProtectedBranchPullRequestReview } from '../schemas/ProtectedBranchPullRequestReview';
 import { BranchRestrictionPolicy } from '../schemas/BranchRestrictionPolicy';
+
 /**
  * Branch Protection
  */
@@ -17,11 +18,11 @@ export interface BranchProtection {
 	enabled: boolean;
 	enforce_admins?: ProtectedBranchAdminEnforced;
 	/**
-	 * @example "branch/with/protection"
+	 * @example "\"branch/with/protection\""
 	 */
 	name?: string;
 	/**
-	 * @example "https://api.github.com/repos/owner-79e94e2d36b3fd06a32bb213/AAA_Public_Repo/branches/branch/with/protection/protection"
+	 * @example "\"https://api.github.com/repos/owner-79e94e2d36b3fd06a32bb213/AAA_Public_Repo/branches/branch/with/protection/protection\""
 	 */
 	protection_url?: string;
 	required_linear_history?: {
