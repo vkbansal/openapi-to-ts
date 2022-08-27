@@ -13,5 +13,9 @@ export default defineConfig({
 			output: './output/petstore-openapi-v3.0',
 			file: './schemas/petstore-v3.yaml',
 		},
+		github: {
+			output: './output/github',
+			url: 'https://api.apis.guru/v2/specs/github.com/1.1.4/openapi.yaml',
+		},
 	},
 });

@@ -74,14 +74,20 @@ export function processPaths(
 			const paramsInPath = getParamsInPath(route);
 
 			const resolvedParams = [...(routeObj.parameters || []), ...(operation.parameters || [])]
-				.map((param) => {
+				.map((param): ParameterObject => {
 					if (isReferenceObject(param)) {
-						// const ref = param.$ref.replace('#/components/parameters/', '');
-						// if (spec.components && ref in spec.components) {
-						// 	return spec.components[ref];
-						// }
+						const ref = param.$ref.replace('#/components/parameters/', '');
+						if (spec.components?.parameters && ref in spec.components.parameters) {
+							const resolved = spec.components.parameters[ref];
 
-						throw new Error(`This version of plugin does not support parameter refs`);
+							if (isReferenceObject(resolved)) {
+								throw new Error(`$ref inside #/components/parameters/* is not supported`);
+							}
+
+							return resolved;
+						}
+
+						throw new Error(`Could not resolve ${param.$ref}`);
 					}
 
 					return param;
