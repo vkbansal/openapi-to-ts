@@ -4,6 +4,9 @@
 
 export interface AddPetProps extends Omit<RequestInit, 'method' | 'body'> {}
 
+/**
+ *
+ */
 export async function addPet(props: AddPetProps) {
 	const { ...rest } = props;
 

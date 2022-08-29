@@ -13,6 +13,9 @@ export interface GetOrderByIdProps
 	extends Omit<RequestInit, 'method' | 'body'>,
 		GetOrderByIdPathParams {}
 
+/**
+ * For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
+ */
 export async function getOrderById(props: GetOrderByIdProps) {
 	const { orderId, ...rest } = props;
 

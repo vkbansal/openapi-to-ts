@@ -1,11 +1,16 @@
 {% assign has_path_params = pathParams.props.length > 0 %}
 {% assign has_query_params = queryParams.props.length > 0 %}
+
 {% if has_path_params %}
 {% render 'interface.liquid', name: pathParams.name, props: pathParams.props %}
 {% endif %}
 
 {% if queryParams.props.length > 0 %}
 {% render 'interface.liquid', name: queryParams.name, props: queryParams.props %}
+{% endif %}
+
+{% if bodyCode %}
+{{bodyCode}}
 {% endif %}
 
 export interface {{propsName}}
@@ -15,8 +20,12 @@ export interface {{propsName}}
     {% if has_query_params -%}
     queryParams: {{queryParams.name}};
     {%- endif %}
+    {% if bodyCode %}
+    body: {{requestBodyName}};
+    {%- endif %}
   }
 
+{% render 'comments.liquid', schema: operation -%}
 export async function {{fnName}}(props: {{propsName}}) {
   const {
   {% if has_path_params -%}
@@ -27,11 +36,17 @@ export async function {{fnName}}(props: {{propsName}}) {
   {% if has_query_params -%}
   queryParams,
   {%- endif -%}
+  {% if bodyCode %}
+  body,
+  {%- endif %}
     ...rest
   } = props;
 
   const response = await fetch(`{{ route | path_to_template }}`, {
     method: {{ verb | upcase | json }},
+    {% if bodyCode -%}
+    body: JSON.stringify(body),
+    {%- endif -%}
     ...rest,
     headers: {
       'Content-Type': 'application/json',

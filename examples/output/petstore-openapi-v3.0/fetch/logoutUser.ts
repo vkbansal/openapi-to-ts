@@ -4,6 +4,9 @@
 
 export interface LogoutUserProps extends Omit<RequestInit, 'method' | 'body'> {}
 
+/**
+ *
+ */
 export async function logoutUser(props: LogoutUserProps) {
 	const { ...rest } = props;
 

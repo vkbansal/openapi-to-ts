@@ -348,7 +348,7 @@ export { useAppsRevokeInstallationAccessTokenMutation } from './hooks/useAppsRev
 export { useIssuesListQuery } from './hooks/useIssuesListQuery';
 export { useLicensesGetAllCommonlyUsedQuery } from './hooks/useLicensesGetAllCommonlyUsedQuery';
 export { useLicensesGetQuery } from './hooks/useLicensesGetQuery';
-export { useMarkdownRenderMutation } from './hooks/useMarkdownRenderMutation';
+export { useMarkdownRenderQuery } from './hooks/useMarkdownRenderQuery';
 export { useMarkdownRenderRawMutation } from './hooks/useMarkdownRenderRawMutation';
 export { useAppsGetSubscriptionPlanForAccountQuery } from './hooks/useAppsGetSubscriptionPlanForAccountQuery';
 export { useAppsListPlansQuery } from './hooks/useAppsListPlansQuery';

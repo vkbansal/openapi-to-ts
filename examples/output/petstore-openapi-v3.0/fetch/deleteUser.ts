@@ -10,6 +10,9 @@ export interface DeleteUserProps
 	extends Omit<RequestInit, 'method' | 'body'>,
 		DeleteUserPathParams {}
 
+/**
+ * This can only be done by the logged in user.
+ */
 export async function deleteUser(props: DeleteUserProps) {
 	const { username, ...rest } = props;
 

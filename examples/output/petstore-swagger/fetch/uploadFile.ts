@@ -13,6 +13,9 @@ export interface UploadFileProps
 	extends Omit<RequestInit, 'method' | 'body'>,
 		UploadFilePathParams {}
 
+/**
+ *
+ */
 export async function uploadFile(props: UploadFileProps) {
 	const { petId, ...rest } = props;
 

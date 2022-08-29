@@ -13,6 +13,9 @@ export interface DeleteOrderProps
 	extends Omit<RequestInit, 'method' | 'body'>,
 		DeleteOrderPathParams {}
 
+/**
+ * For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+ */
 export async function deleteOrder(props: DeleteOrderProps) {
 	const { orderId, ...rest } = props;
 

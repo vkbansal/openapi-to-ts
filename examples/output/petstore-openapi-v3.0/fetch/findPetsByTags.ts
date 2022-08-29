@@ -10,6 +10,9 @@ export interface FindPetsByTagsProps extends Omit<RequestInit, 'method' | 'body'
 	queryParams: FindPetsByTagsQueryParams;
 }
 
+/**
+ * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+ */
 export async function findPetsByTags(props: FindPetsByTagsProps) {
 	const { queryParams, ...rest } = props;
 

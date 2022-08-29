@@ -4,6 +4,9 @@
 
 export interface GetInventoryProps extends Omit<RequestInit, 'method' | 'body'> {}
 
+/**
+ * Returns a map of status codes to quantities
+ */
 export async function getInventory(props: GetInventoryProps) {
 	const { ...rest } = props;
 

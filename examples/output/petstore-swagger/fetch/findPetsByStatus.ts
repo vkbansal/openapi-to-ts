@@ -10,6 +10,9 @@ export interface FindPetsByStatusProps extends Omit<RequestInit, 'method' | 'bod
 	queryParams: FindPetsByStatusQueryParams;
 }
 
+/**
+ * Multiple status values can be provided with comma separated strings
+ */
 export async function findPetsByStatus(props: FindPetsByStatusProps) {
 	const { queryParams, ...rest } = props;
 

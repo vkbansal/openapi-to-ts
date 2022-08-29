@@ -10,6 +10,9 @@ export interface GetUserByNameProps
 	extends Omit<RequestInit, 'method' | 'body'>,
 		GetUserByNamePathParams {}
 
+/**
+ *
+ */
 export async function getUserByName(props: GetUserByNameProps) {
 	const { username, ...rest } = props;
 

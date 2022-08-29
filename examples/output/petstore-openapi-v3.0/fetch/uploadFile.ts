@@ -13,17 +13,28 @@ export interface UploadFileQueryParams {
 	additionalMetadata?: string;
 }
 
+/**
+ * @format binary
+ */
+export interface UploadFileRequestBody {}
+
 export interface UploadFileProps
 	extends Omit<RequestInit, 'method' | 'body'>,
 		UploadFilePathParams {
 	queryParams: UploadFileQueryParams;
+
+	body: UploadFileRequestBody;
 }
 
+/**
+ *
+ */
 export async function uploadFile(props: UploadFileProps) {
-	const { petId, queryParams, ...rest } = props;
+	const { petId, queryParams, body, ...rest } = props;
 
 	const response = await fetch(`/pet/${petId}/uploadImage`, {
 		method: 'POST',
+		body: JSON.stringify(body),
 		...rest,
 		headers: {
 			'Content-Type': 'application/json',

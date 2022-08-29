@@ -7,8 +7,9 @@ import {
 	getNameForType,
 	getNameForPathParams,
 	getNameForQueryParams,
+	getNameForRequestBody,
 } from '@oa2ts/cli/nameHelpers';
-// import { isReferenceObject } from '@oa2ts/cli/helpers';
+import { isReferenceObject } from '@oa2ts/cli/helpers';
 
 export interface GenerateFetchCodeProps {
 	route: string;
@@ -17,8 +18,7 @@ export interface GenerateFetchCodeProps {
 	params: Record<ParameterLocation, ParameterObject[]>;
 }
 
-// const REST_PARAM = '...rest';
-// const METHODS_WITH_BODY = ['post', 'put', 'patch'];
+const METHODS_WITH_BODY = ['post', 'put', 'patch'];
 
 export function generateFetchCode(
 	props: GenerateFetchCodeProps,
@@ -26,52 +26,49 @@ export function generateFetchCode(
 	codegen: Codegen,
 ): CodeOutput {
 	const { route, verb, operation, params } = props;
-	const imports = new Set<string>();
 
 	// check for operationId
 	if (!operation.operationId) {
 		throw new Error(`Every path must have a operationId - No operationId set for ${verb} ${route}`);
 	}
 
+	const imports = new Set<string>();
 	const fnName = camelCase(operation.operationId);
 	const typeName = getNameForType(operation.operationId);
 	const propsName = `${typeName}Props`;
+	const requestBodyName = getNameForRequestBody(operation.operationId);
+	let bodyCode: string | null = null;
 
-	// if (METHODS_WITH_BODY.includes(verb) && operation.requestBody) {
-	// 	if (isReferenceObject(operation.requestBody)) {
-	// 		//
-	// 	} else {
-	// 		const mediaObj =
-	// 			operation.requestBody.content['application/json'] ||
-	// 			operation.requestBody.content['default'];
+	if (METHODS_WITH_BODY.includes(verb) && operation.requestBody) {
+		if (isReferenceObject(operation.requestBody)) {
+			//
+		} else {
+			const mediaObj =
+				operation.requestBody.content['application/json'] ||
+				operation.requestBody.content['application/octet-stream'] ||
+				operation.requestBody.content['default'];
+			if (mediaObj && mediaObj.schema) {
+				const resolvedValue = isReferenceObject(mediaObj.schema)
+					? codegen.createTypeDeclaration(requestBodyName, mediaObj.schema)
+					: codegen.createInterface(requestBodyName, mediaObj.schema);
+				if (resolvedValue.code) {
+					bodyCode = resolvedValue.code;
 
-	// 		if (mediaObj && mediaObj.schema) {
-	// 			hasBody = true;
-	// 			const bodyCode = isReferenceObject(mediaObj.schema)
-	// 				? codegen.createTypeDeclaration(requestBodyName, mediaObj.schema)
-	// 				: codegen.createInterface(requestBodyName, mediaObj.schema);
-
-	// 			if (bodyCode.code) {
-	// 				code.push(bodyCode.code, ``);
-	// 				// imports.push(...bodyCode.imports);
-	// 			}
-	// 		}
-	// 	}
-	// }
-
-	// if (hasBody) {
-	// 	const paramName = 'body';
-	// 	spreadParams.push(paramName);
-	// 	code.push(`  ${paramName}: ${requestBodyName};`);
-	// }
+					resolvedValue.imports.forEach((i) => imports.add(i));
+				}
+			}
+		}
+	}
 
 	const code = codegen.renderTemplate('fetch.liquid', {
 		fnName,
+		requestBodyName,
+		propsName,
+		bodyCode,
 		route,
 		verb,
 		operation,
 		params,
-		propsName,
 		pathParams: {
 			name: getNameForPathParams(operation.operationId),
 			props: params.path.map(
@@ -95,6 +92,7 @@ export function generateFetchCode(
 			),
 		},
 	});
+
 	indexIncludes.push(`export { ${fnName} } from './fetch/${fnName}'`);
 
 	return {

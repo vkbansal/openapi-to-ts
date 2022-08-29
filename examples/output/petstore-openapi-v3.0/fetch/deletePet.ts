@@ -11,6 +11,9 @@ export interface DeletePetPathParams {
 
 export interface DeletePetProps extends Omit<RequestInit, 'method' | 'body'>, DeletePetPathParams {}
 
+/**
+ *
+ */
 export async function deletePet(props: DeletePetProps) {
 	const { petId, ...rest } = props;
 

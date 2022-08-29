@@ -13,6 +13,9 @@ export interface GetPetByIdProps
 	extends Omit<RequestInit, 'method' | 'body'>,
 		GetPetByIdPathParams {}
 
+/**
+ * Returns a single pet
+ */
 export async function getPetById(props: GetPetByIdProps) {
 	const { petId, ...rest } = props;
 

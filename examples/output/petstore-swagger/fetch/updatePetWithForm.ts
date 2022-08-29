@@ -13,6 +13,9 @@ export interface UpdatePetWithFormProps
 	extends Omit<RequestInit, 'method' | 'body'>,
 		UpdatePetWithFormPathParams {}
 
+/**
+ *
+ */
 export async function updatePetWithForm(props: UpdatePetWithFormProps) {
 	const { petId, ...rest } = props;
 

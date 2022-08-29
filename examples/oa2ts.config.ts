@@ -16,6 +16,16 @@ export default defineConfig({
 		github: {
 			output: './output/github',
 			file: './schemas/github.yaml',
+			plugins: [
+				reactQueryPlugin({
+					overrides: {
+						'markdown/render': {
+							useQuery: true,
+						},
+					},
+				}),
+				fetchPlugin(),
+			],
 		},
 	},
 });

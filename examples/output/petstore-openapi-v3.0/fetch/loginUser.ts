@@ -11,6 +11,9 @@ export interface LoginUserProps extends Omit<RequestInit, 'method' | 'body'> {
 	queryParams: LoginUserQueryParams;
 }
 
+/**
+ *
+ */
 export async function loginUser(props: LoginUserProps) {
 	const { queryParams, ...rest } = props;
 
