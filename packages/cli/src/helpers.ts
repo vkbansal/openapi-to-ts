@@ -1,6 +1,7 @@
 import swagger2openapi from 'swagger2openapi';
-import type { OpenAPIObject } from 'openapi3-ts';
+import type { OpenAPIObject, ReferenceObject } from 'openapi3-ts';
 import chalk from 'chalk';
+import { has } from 'lodash-es';
 
 export function convertToOpenAPI(schema: unknown): Promise<OpenAPIObject> {
 	return new Promise((resolve, reject) => {
@@ -12,6 +13,10 @@ export function convertToOpenAPI(schema: unknown): Promise<OpenAPIObject> {
 			}
 		});
 	});
+}
+
+export function isReferenceObject(data: unknown): data is ReferenceObject {
+	return typeof data === 'object' && data !== null && has(data, '$ref');
 }
 
 export function logInfo(msg: string): void {

@@ -28,7 +28,10 @@ export async function generateSpecFromFileOrUrl(config: ServiceConfig): Promise<
 
 		logInfo('Parsing data from file');
 		try {
-			spec = format === 'yaml' ? yaml.load(content) : JSON.parse(content);
+			spec =
+				format === 'yaml'
+					? yaml.load(content, { json: true, schema: yaml.JSON_SCHEMA })
+					: JSON.parse(content);
 		} catch (_) {
 			throw new Error('Something went wrong while trying to parse contents');
 		}

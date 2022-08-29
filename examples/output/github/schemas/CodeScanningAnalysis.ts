@@ -17,7 +17,7 @@ export interface CodeScanningAnalysis {
 	deletable: boolean;
 	environment: CodeScanningAnalysisEnvironment;
 	/**
-	 * @example error reading field xyz
+	 * @example "error reading field xyz"
 	 */
 	error: string;
 	/**

@@ -1,11 +1,12 @@
 import type { OpenAPIObject } from 'openapi3-ts';
-import type { PluginReturn, CodeOutput } from '@oa2ts/cli/plugin';
+import type { PluginReturn, CodeOutput, Plugin } from '@oa2ts/cli/plugin';
 import { processPaths } from '@oa2ts/cli/pathHelpers';
+import type { Codegen } from '@oa2ts/cli/codegen';
 
 import { generateFetchCode } from './generateFetchCode.js';
 
-export function generateFetchCalls(): (spec: OpenAPIObject) => Promise<PluginReturn> {
-	return async (spec: OpenAPIObject): Promise<PluginReturn> => {
+export function generateFetchCalls(): Plugin['generate'] {
+	return async function generate(spec: OpenAPIObject, codegen: Codegen): Promise<PluginReturn> {
 		const files: CodeOutput[] = [];
 		const includes: string[] = [];
 
@@ -17,7 +18,7 @@ export function generateFetchCalls(): (spec: OpenAPIObject) => Promise<PluginRet
 				);
 			}
 
-			files.push(generateFetchCode({ route, verb, operation, params }, includes));
+			files.push(generateFetchCode({ route, verb, operation, params }, includes, codegen));
 		});
 
 		return { files, indexInclude: includes.join('\n') };

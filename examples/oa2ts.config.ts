@@ -15,7 +15,17 @@ export default defineConfig({
 		},
 		github: {
 			output: './output/github',
-			url: 'https://api.apis.guru/v2/specs/github.com/1.1.4/openapi.yaml',
+			file: './schemas/github.yaml',
+			plugins: [
+				reactQueryPlugin({
+					overrides: {
+						'markdown/render': {
+							useQuery: true,
+						},
+					},
+				}),
+				fetchPlugin(),
+			],
 		},
 	},
 });

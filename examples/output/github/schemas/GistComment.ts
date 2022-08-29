@@ -3,6 +3,7 @@
 // Please do not modify this code directly.
 import { AuthorAssociation } from '../schemas/AuthorAssociation';
 import { SimpleUser } from '../schemas/SimpleUser';
+
 /**
  * A comment made to a gist.
  */
@@ -10,12 +11,12 @@ export interface GistComment {
 	author_association: AuthorAssociation;
 	/**
 	 * The comment text.
-	 * @example Body of the attachment
+	 * @example "Body of the attachment"
 	 */
 	body: string;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2011-04-18T23:23:56Z"
 	 */
 	created_at: string;
 	/**
@@ -23,17 +24,17 @@ export interface GistComment {
 	 */
 	id: number;
 	/**
-	 * @example MDExOkdpc3RDb21tZW50MQ==
+	 * @example "MDExOkdpc3RDb21tZW50MQ=="
 	 */
 	node_id: string;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2011-04-18T23:23:56Z"
 	 */
 	updated_at: string;
 	/**
 	 * @format uri
-	 * @example https://api.github.com/gists/a6db0bec360bb87e9418/comments/1
+	 * @example "https://api.github.com/gists/a6db0bec360bb87e9418/comments/1"
 	 */
 	url: string;
 	user: SimpleUser | null;

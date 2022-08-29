@@ -1,13 +1,25 @@
-import type { ParameterObject, ReferenceObject, SchemaObject } from 'openapi3-ts';
+import type {
+	ReferenceObject,
+	SchemaObject,
+	ComponentsObject,
+	RequestBodyObject,
+} from 'openapi3-ts';
+import { Liquid } from 'liquidjs';
+import { has, isPlainObject, isEmpty } from 'lodash-es';
 
+import type { PluginReturn, CodeOutput } from './plugin.js';
 import {
 	getNameForType,
 	getNameForResponse,
 	getNameForRequestBody,
 	getNameForParameter,
-	getNameForQueryParams,
-	getNameForPathParams,
 } from './nameHelpers.js';
+import { isReferenceObject } from './helpers.js';
+
+export interface CodeWithImports {
+	code: string;
+	imports: Set<string>;
+}
 
 export interface ObjectProps {
 	key: string;
@@ -16,291 +28,302 @@ export interface ObjectProps {
 	required?: boolean;
 }
 
-export function has(obj: object, key: string): boolean {
-	return Object.prototype.hasOwnProperty.call(obj, key);
-}
-
-export function objectPropsToStr({ comment, key, value, required }: ObjectProps): string {
-	const str = [JSON.stringify(key), required ? '' : '?', ': ', value, ';'].join('');
-
-	return comment ? `${comment}\n${str}` : str;
-}
-
-export function addMetadata(schema: SchemaObject | ReferenceObject): string {
-	const comments: string[] = [];
-
-	if (!isReferenceObject(schema)) {
-		if (schema.description) {
-			comments.push(`  * ${schema.description}`);
-		}
-
-		if (schema.format) {
-			comments.push(`  * @format ${schema.format}`);
-		}
-
-		if (schema.default) {
-			comments.push(`  * @default ${schema.default}`);
-		}
-
-		if (schema.example) {
-			comments.push(`  * @example ${schema.example}`);
-		}
-
-		if (schema.deprecated) {
-			comments.push('@deprecated');
-		}
-	}
-
-	if (comments.length > 0) {
-		return ['  /**', ...comments, '  */'].join('\n');
-	}
-
-	return '';
-}
-
-export function isReferenceObject(data: unknown): data is ReferenceObject {
-	return typeof data === 'object' && data !== null && has(data, '$ref');
-}
-
-export function isEmptyObject(obj: unknown): boolean {
-	return typeof obj === 'object' && obj !== null && Object.keys(obj).length === 0;
-}
-
-export function formatDescription(description: string, tabSize = 0): string {
-	return `*
-${description
-	.split('\n')
-	.map((str) => `${' '.repeat(tabSize)} * ${str}`)
-	.join('\n')}
-
-  `;
-}
-
-export function createObjectProperties(item: SchemaObject, imports: string[]): ObjectProps[] {
-	if (!item.type && !has(item, 'properties') && !has(item, 'additionalProperties')) {
-		return [];
-	}
-
-	if (item.type === 'object' && !has(item, 'properties')) {
-		if (
-			!has(item, 'additionalProperties') ||
-			isEmptyObject(item.additionalProperties) ||
-			item.additionalProperties === true
-		) {
-			return [createFreeFormProperty()];
-		}
-
-		if (item.additionalProperties === false) {
-			return [];
-		}
-
-		if (item.additionalProperties) {
-			return [createFreeFormProperty(resolveValue(item.additionalProperties, imports))];
-		}
-	}
-
-	if (item.properties) {
-		const props = Object.keys(item.properties)
-			.sort()
-			.map((name): ObjectProps => {
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				const schema = item.properties![name];
-
-				return {
-					key: name,
-					value: resolveValue(schema, imports),
-					comment: addMetadata(schema),
-					required: item.required?.includes(name),
-				};
-			});
-
-		if (item.additionalProperties) {
-			props.push(
-				createFreeFormProperty(
-					item.additionalProperties === true
-						? undefined
-						: resolveValue(item.additionalProperties, imports),
-				),
-			);
-		}
-
-		return props;
-	}
-
-	return [];
-}
-
-export function createFreeFormProperty(valueType = 'any'): ObjectProps {
-	return { key: '[key: string]', value: valueType };
-}
-
-export function resolveValue(schema: SchemaObject | ReferenceObject, imports: string[]): string {
-	return isReferenceObject(schema)
-		? createReferenceNode(schema.$ref, imports)
-		: createScalarNode(schema, imports);
-}
-
-export function createArray(item: SchemaObject, imports: string[]): string {
-	if (item.items) {
-		const value = resolveValue(item.items, imports);
-		return value.match(/\W/) ? `Array<${value}>` : `${value}[]`;
-	} else {
-		throw new Error('All arrays must have an `items` key define');
-	}
-}
-
-export function createObject(item: SchemaObject, imports: string[]): string {
-	if (isReferenceObject(item)) {
-		return createReferenceNode(item.$ref, imports);
-	}
-
-	if (Array.isArray(item.allOf)) {
-		return item.allOf.map((entry) => resolveValue(entry, imports)).join(' | ');
-	}
-
-	if (Array.isArray(item.oneOf)) {
-		return item.oneOf.map((entry) => resolveValue(entry, imports)).join(' & ');
-	}
-
-	const props = createObjectProperties(item, imports).map(objectPropsToStr).join('\n');
-
-	return '{\n' + props + `\n}`;
-}
-
-export function createReferenceNode($ref: string, imports: string[]): string {
-	let type = '';
-
-	if ($ref.startsWith('#/components/schemas')) {
-		type = getNameForType($ref.replace('#/components/schemas/', ''));
-		imports.push(`import { ${type} } from '../schemas/${type}'`);
-	} else if ($ref.startsWith('#/components/responses')) {
-		type = getNameForResponse($ref.replace('#/components/responses/', ''));
-		imports.push(`import { ${type} } from '../responses/${type}'`);
-	} else if ($ref.startsWith('#/components/parameters')) {
-		type = getNameForParameter($ref.replace('#/components/parameters/', ''));
-		imports.push(`import { ${type} } from '../parameters/${type}'`);
-	} else if ($ref.startsWith('#/components/requestBodies')) {
-		type = getNameForRequestBody($ref.replace('#/components/requestBodies/', ''));
-		imports.push(`import { ${type} } from '../requestBodies/${type}'`);
-	} else {
-		throw new Error(
-			'This library only resolve $ref that are include into `#/components/*` for now',
-		);
-	}
-
-	return type;
-}
-
-export function createScalarNode(item: SchemaObject, imports: string[]): string {
-	let type = 'unknown';
-
-	switch (item.type) {
-		case 'number':
-		case 'integer':
-			type = 'number';
-			break;
-		case 'boolean':
-			type = 'boolean';
-			break;
-		case 'array': {
-			type = createArray(item, imports);
-			break;
-		}
-		case 'string':
-			type = item.enum
-				? item.enum
-						.sort()
-						.map((name: string) => JSON.stringify(name))
-						.join(' | ')
-				: 'string';
-			break;
-		case 'object':
-		default: {
-			type = createObject(item, imports);
-		}
-	}
-
-	if (item.nullable) {
-		type = `${type} | null`;
-	}
-
-	return type;
-}
-
-export function createInterface(name: string, schema: SchemaObject): string {
-	const imports: string[] = [];
-	const properties = createObjectProperties(schema, imports);
-
-	return [
-		...imports,
-		addMetadata(schema),
-		`export interface ${name} {`,
-		...properties.map(objectPropsToStr),
-		'}',
-	]
-		.join('\n')
-		.trim();
-}
-
-export function createTypeDeclaration(
-	name: string,
-	schema: SchemaObject | ReferenceObject,
-): string {
-	const imports: string[] = [];
-	const value = resolveValue(schema, imports);
-
-	return [...imports, addMetadata(schema), `export type ${name} = ${value};`].join('\n');
-}
-
 export interface ParamsReturn {
 	code: string;
 	name: string;
-	imports: string[];
+	imports: Set<string>;
 }
 
-export function createQueryParamsInterface(
-	operationId: string,
-	params: ParameterObject[],
-): ParamsReturn {
-	const code: string[] = [];
-	const imports: string[] = [];
+export class Codegen {
+	private liquidEngine: Liquid;
 
-	const name = getNameForQueryParams(operationId);
+	constructor(templateDirs: string[]) {
+		this.liquidEngine = new Liquid({
+			cache: true,
+			root: templateDirs,
+		});
 
-	code.push(`export interface ${name} {`);
-
-	params.forEach((param) => {
-		const questionMark = param.required ? '' : '?';
-		code.push(
-			`  ${param.name}${questionMark}: ${
-				param.schema ? resolveValue(param.schema, imports) : 'unknown'
-			};`,
+		this.liquidEngine.registerFilter('js_comment', (val: string, indent = 2) =>
+			val
+				.split('\n')
+				.map((c) => `* ${c}`.padStart(indent + c.length + 2, ''))
+				.join('\n'),
 		);
-	});
 
-	code.push(`}`, ``);
+		this.liquidEngine.registerFilter('path_to_template', (val: string) => val.replace(/\{/g, '${'));
+		this.liquidEngine.registerFilter('name_type', getNameForType);
+		this.liquidEngine.registerFilter('name_response', getNameForResponse);
+		this.liquidEngine.registerFilter('name_request_body', getNameForRequestBody);
+		this.liquidEngine.registerFilter('name_parameter', getNameForParameter);
+	}
 
-	return { code: code.join('\n'), imports, name };
-}
+	renderTemplate(name: string, data?: object): string {
+		return this.liquidEngine.renderFileSync(name, data);
+	}
 
-export function createPathParamsInterface(
-	operationId: string,
-	params: ParameterObject[],
-): ParamsReturn {
-	const code: string[] = [];
-	const imports: string[] = [];
+	createObjectProperties(item: SchemaObject, $imports: Set<string>): ObjectProps[] {
+		if (!item.type && !has(item, 'properties') && !has(item, 'additionalProperties')) {
+			return [];
+		}
 
-	const name = getNameForPathParams(operationId);
+		if (item.type === 'object' && !has(item, 'properties')) {
+			if (
+				!has(item, 'additionalProperties') ||
+				(isPlainObject(item.additionalProperties) && isEmpty(item.additionalProperties)) ||
+				item.additionalProperties === true
+			) {
+				return [this.createFreeFormProperty()];
+			}
 
-	code.push(`export interface ${name} {`);
+			if (item.additionalProperties === false) {
+				return [];
+			}
 
-	params.forEach((param) => {
-		code.push(
-			`  ${param.name}: ${param.schema ? resolveValue(param.schema, imports) : 'unknown'};`,
-		);
-	});
+			if (item.additionalProperties) {
+				return [
+					this.createFreeFormProperty(this.resolveValue(item.additionalProperties, $imports)),
+				];
+			}
+		}
 
-	code.push(`}`, ``);
+		if (item.properties) {
+			const props = Object.keys(item.properties)
+				.sort()
+				.map((name): ObjectProps => {
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					const schema = item.properties![name];
 
-	return { code: code.join('\n'), imports, name };
+					return {
+						key: name,
+						value: this.resolveValue(schema, $imports),
+						comment: this.renderTemplate('comments.liquid', { schema }),
+						required: item.required?.includes(name),
+					};
+				});
+
+			if (item.additionalProperties) {
+				props.push(
+					this.createFreeFormProperty(
+						item.additionalProperties === true
+							? undefined
+							: this.resolveValue(item.additionalProperties, $imports),
+					),
+				);
+			}
+
+			return props;
+		}
+
+		return [];
+	}
+
+	createObject(item: SchemaObject, $imports: Set<string>): string {
+		if (isReferenceObject(item)) {
+			return this.createReferenceNode(item.$ref, $imports);
+		}
+
+		if (Array.isArray(item.allOf)) {
+			return item.allOf.map((entry) => this.resolveValue(entry, $imports)).join(' | ');
+		}
+
+		if (Array.isArray(item.oneOf)) {
+			return item.oneOf.map((entry) => this.resolveValue(entry, $imports)).join(' & ');
+		}
+
+		const props = this.createObjectProperties(item, $imports);
+
+		return this.renderTemplate('object.liquid', { props });
+	}
+
+	createFreeFormProperty(valueType = 'any'): ObjectProps {
+		return { key: '[key: string]', value: valueType };
+	}
+
+	resolveValue(schema: SchemaObject | ReferenceObject, $imports: Set<string>): string {
+		return isReferenceObject(schema)
+			? this.createReferenceNode(schema.$ref, $imports)
+			: this.createScalarNode(schema, $imports);
+	}
+
+	createArray(item: SchemaObject, imports: Set<string>): string {
+		if (item.items) {
+			const value = this.resolveValue(item.items, imports);
+			return value.match(/\W/) ? `Array<${value}>` : `${value}[]`;
+		} else {
+			throw new Error('All arrays must have an `items` key define');
+		}
+	}
+
+	createReferenceNode(ref: string, $imports: Set<string>): string {
+		let type = '';
+
+		if (ref.startsWith('#/components/schemas')) {
+			type = getNameForType(ref.replace('#/components/schemas/', ''));
+			$imports.add(`import { ${type} } from '../schemas/${type}'`);
+		} else if (ref.startsWith('#/components/responses')) {
+			type = getNameForResponse(ref.replace('#/components/responses/', ''));
+			$imports.add(`import { ${type} } from '../responses/${type}'`);
+		} else if (ref.startsWith('#/components/parameters')) {
+			type = getNameForParameter(ref.replace('#/components/parameters/', ''));
+			$imports.add(`import { ${type} } from '../parameters/${type}'`);
+		} else if (ref.startsWith('#/components/requestBodies')) {
+			type = getNameForRequestBody(ref.replace('#/components/requestBodies/', ''));
+			$imports.add(`import { ${type} } from '../requestBodies/${type}'`);
+		} else {
+			throw new Error(
+				'This library only resolve $ref that are include into `#/components/*` for now',
+			);
+		}
+
+		return type;
+	}
+
+	createScalarNode(item: SchemaObject, $imports: Set<string>): string {
+		let type = 'unknown';
+
+		switch (item.type) {
+			case 'number':
+			case 'integer':
+				type = 'number';
+				break;
+			case 'boolean':
+				type = 'boolean';
+				break;
+			case 'array': {
+				type = this.createArray(item, $imports);
+				break;
+			}
+			case 'string':
+				type = item.enum
+					? item.enum
+							.sort()
+							.map((name: string) => JSON.stringify(name))
+							.join(' | ')
+					: 'string';
+				break;
+			case 'object':
+			default: {
+				type = this.createObject(item, $imports);
+			}
+		}
+
+		if (item.nullable) {
+			type = `${type} | null`;
+		}
+
+		return type;
+	}
+
+	createInterface(name: string, schema: SchemaObject): CodeWithImports {
+		const imports = new Set<string>();
+		const props = this.createObjectProperties(schema, imports);
+
+		return {
+			imports,
+			code: this.renderTemplate('interface.liquid', { name, props, schema }),
+		};
+	}
+
+	createTypeDeclaration(name: string, schema: SchemaObject | ReferenceObject): CodeWithImports {
+		const imports = new Set<string>();
+		const value = this.resolveValue(schema, imports);
+
+		return {
+			imports,
+			code: this.renderTemplate('typeDeclaration.liquid', { name, value, schema }),
+		};
+	}
+
+	getRequestResponseSchema(
+		schema: RequestBodyObject | ReferenceObject,
+	): ReferenceObject | SchemaObject | undefined {
+		if (isReferenceObject(schema)) {
+			return schema;
+		}
+
+		if (schema.content) {
+			const content = Object.entries(schema.content).find(
+				([mediaType, contentObj]) =>
+					mediaType.startsWith('*/*') ||
+					mediaType.startsWith('application/json') ||
+					(mediaType.startsWith('application/octet-stream') && contentObj.schema),
+			);
+
+			return content?.[1].schema;
+		}
+	}
+
+	createRequestBodyDefinitions(schemas: ComponentsObject['requestBodies'] = {}): PluginReturn {
+		const files: CodeOutput[] = [];
+		const includes: string[] = [];
+		const data = Object.entries(schemas);
+
+		data.forEach(([name, schema]) => {
+			const finalName = getNameForRequestBody(name);
+			let code = '';
+
+			const response = this.getRequestResponseSchema(schema);
+
+			if (!response) {
+				return;
+			}
+
+			if (
+				!isReferenceObject(response) &&
+				(!response.type || response.type === 'object') &&
+				!response.allOf &&
+				!response.oneOf &&
+				!response.nullable
+			) {
+				code = this.renderTemplate(
+					'codeWithImports.liquid',
+					this.createInterface(finalName, response),
+				);
+			} else {
+				code = this.renderTemplate(
+					'codeWithImports.liquid',
+					this.createTypeDeclaration(finalName, response),
+				);
+			}
+
+			files.push({ code, file: `requestBodies/${finalName}.ts` });
+			includes.push(`export { ${finalName} } from './requestBodies/${finalName}';`);
+		});
+
+		return { files, indexInclude: includes.join('\n') };
+	}
+
+	createSchemaDefinitions(schemas: ComponentsObject['schemas'] = {}): PluginReturn {
+		const files: CodeOutput[] = [];
+		const includes: string[] = [];
+		const data = Object.entries(schemas);
+
+		data.forEach(([name, schema]) => {
+			const finalName = getNameForType(name);
+			let code = '';
+
+			if (
+				!isReferenceObject(schema) &&
+				(!schema.type || schema.type === 'object') &&
+				!schema.allOf &&
+				!schema.oneOf &&
+				!schema.nullable
+			) {
+				code = this.renderTemplate(
+					'codeWithImports.liquid',
+					this.createInterface(finalName, schema),
+				);
+			} else {
+				code = this.renderTemplate(
+					'codeWithImports.liquid',
+					this.createTypeDeclaration(finalName, schema),
+				);
+			}
+
+			files.push({ code, file: `schemas/${finalName}.ts` });
+			includes.push(`export { ${finalName} } from './schemas/${finalName}';`);
+		});
+
+		return { files, indexInclude: includes.join('\n') };
+	}
 }

@@ -3,6 +3,7 @@
 // Please do not modify this code directly.
 import { MinimalRepository } from '../schemas/MinimalRepository';
 import { SimpleCommitStatus } from '../schemas/SimpleCommitStatus';
+
 /**
  * Combined Commit Status
  */

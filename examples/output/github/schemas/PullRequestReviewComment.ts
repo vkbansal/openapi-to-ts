@@ -4,6 +4,7 @@
 import { AuthorAssociation } from '../schemas/AuthorAssociation';
 import { ReactionRollup } from '../schemas/ReactionRollup';
 import { SimpleUser } from '../schemas/SimpleUser';
+
 /**
  * Pull Request Review Comments are comments on a portion of the Pull Request's diff.
  */
@@ -12,21 +13,21 @@ export interface PullRequestReviewComment {
 		html: {
 			/**
 			 * @format uri
-			 * @example https://github.com/octocat/Hello-World/pull/1#discussion-diff-1
+			 * @example "https://github.com/octocat/Hello-World/pull/1#discussion-diff-1"
 			 */
 			href: string;
 		};
 		pull_request: {
 			/**
 			 * @format uri
-			 * @example https://api.github.com/repos/octocat/Hello-World/pulls/1
+			 * @example "https://api.github.com/repos/octocat/Hello-World/pulls/1"
 			 */
 			href: string;
 		};
 		self: {
 			/**
 			 * @format uri
-			 * @example https://api.github.com/repos/octocat/Hello-World/pulls/comments/1
+			 * @example "https://api.github.com/repos/octocat/Hello-World/pulls/comments/1"
 			 */
 			href: string;
 		};
@@ -34,36 +35,36 @@ export interface PullRequestReviewComment {
 	author_association: AuthorAssociation;
 	/**
 	 * The text of the comment.
-	 * @example We should probably include a check for null values here.
+	 * @example "We should probably include a check for null values here."
 	 */
 	body: string;
 	/**
-	 * @example "<p>comment body</p>"
+	 * @example "\"<p>comment body</p>\""
 	 */
 	body_html?: string;
 	/**
-	 * @example "comment body"
+	 * @example "\"comment body\""
 	 */
 	body_text?: string;
 	/**
 	 * The SHA of the commit to which the comment applies.
-	 * @example 6dcb09b5b57875f334f61aebed695e2e4193db5e
+	 * @example "6dcb09b5b57875f334f61aebed695e2e4193db5e"
 	 */
 	commit_id: string;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2011-04-14T16:00:49Z"
 	 */
 	created_at: string;
 	/**
 	 * The diff of the line that the comment refers to.
-	 * @example @@ -16,33 +16,40 @@ public class Connection : IConnection...
+	 * @example "@@ -16,33 +16,40 @@ public class Connection : IConnection..."
 	 */
 	diff_hunk: string;
 	/**
 	 * HTML URL for the pull request review comment.
 	 * @format uri
-	 * @example https://github.com/octocat/Hello-World/pull/1#discussion-diff-1
+	 * @example "https://github.com/octocat/Hello-World/pull/1#discussion-diff-1"
 	 */
 	html_url: string;
 	/**
@@ -83,12 +84,12 @@ export interface PullRequestReviewComment {
 	line?: number;
 	/**
 	 * The node ID of the pull request review comment.
-	 * @example MDI0OlB1bGxSZXF1ZXN0UmV2aWV3Q29tbWVudDEw
+	 * @example "MDI0OlB1bGxSZXF1ZXN0UmV2aWV3Q29tbWVudDEw"
 	 */
 	node_id: string;
 	/**
 	 * The SHA of the original commit to which the comment applies.
-	 * @example 9c48853fa3dc5c1c3d6f1f1cd1f2743e72652840
+	 * @example "9c48853fa3dc5c1c3d6f1f1cd1f2743e72652840"
 	 */
 	original_commit_id: string;
 	/**
@@ -108,7 +109,7 @@ export interface PullRequestReviewComment {
 	original_start_line?: number | null;
 	/**
 	 * The relative path of the file to which the comment applies.
-	 * @example config/database.yaml
+	 * @example "config/database.yaml"
 	 */
 	path: string;
 	/**
@@ -124,13 +125,13 @@ export interface PullRequestReviewComment {
 	/**
 	 * URL for the pull request that the review comment belongs to.
 	 * @format uri
-	 * @example https://api.github.com/repos/octocat/Hello-World/pulls/1
+	 * @example "https://api.github.com/repos/octocat/Hello-World/pulls/1"
 	 */
 	pull_request_url: string;
 	reactions?: ReactionRollup;
 	/**
 	 * The side of the diff to which the comment applies. The side of the last line of the range for a multi-line comment
-	 * @default RIGHT
+	 * @default "RIGHT"
 	 */
 	side?: 'LEFT' | 'RIGHT';
 	/**
@@ -140,17 +141,17 @@ export interface PullRequestReviewComment {
 	start_line?: number | null;
 	/**
 	 * The side of the first line of the range for a multi-line comment.
-	 * @default RIGHT
+	 * @default "RIGHT"
 	 */
 	start_side?: 'LEFT' | 'RIGHT' | null;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2011-04-14T16:00:49Z"
 	 */
 	updated_at: string;
 	/**
 	 * URL for the pull request review comment
-	 * @example https://api.github.com/repos/octocat/Hello-World/pulls/comments/1
+	 * @example "https://api.github.com/repos/octocat/Hello-World/pulls/comments/1"
 	 */
 	url: string;
 	user: SimpleUser;

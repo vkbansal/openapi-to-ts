@@ -6,6 +6,7 @@ import { WebhookConfigInsecureSsl } from '../schemas/WebhookConfigInsecureSsl';
 import { WebhookConfigSecret } from '../schemas/WebhookConfigSecret';
 import { WebhookConfigUrl } from '../schemas/WebhookConfigUrl';
 import { HookResponse } from '../schemas/HookResponse';
+
 /**
  * Webhooks for repositories.
  */
@@ -18,41 +19,41 @@ export interface Hook {
 	config: {
 		content_type?: WebhookConfigContentType;
 		/**
-		 * @example "sha256"
+		 * @example "\"sha256\""
 		 */
 		digest?: string;
 		/**
-		 * @example "foo@bar.com"
+		 * @example "\"foo@bar.com\""
 		 */
 		email?: string;
 		insecure_ssl?: WebhookConfigInsecureSsl;
 		/**
-		 * @example "foo"
+		 * @example "\"foo\""
 		 */
 		password?: string;
 		/**
-		 * @example "roomer"
+		 * @example "\"roomer\""
 		 */
 		room?: string;
 		secret?: WebhookConfigSecret;
 		/**
-		 * @example "foo"
+		 * @example "\"foo\""
 		 */
 		subdomain?: string;
 		/**
-		 * @example "abc"
+		 * @example "\"abc\""
 		 */
 		token?: string;
 		url?: WebhookConfigUrl;
 	};
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2011-09-06T17:26:27Z"
 	 */
 	created_at: string;
 	/**
 	 * Determines what events the hook is triggered for. Default: ['push'].
-	 * @example push,pull_request
+	 * @example ["push","pull_request"]
 	 */
 	events: string[];
 	/**
@@ -63,28 +64,28 @@ export interface Hook {
 	last_response: HookResponse;
 	/**
 	 * The name of a valid service, use 'web' for a webhook.
-	 * @example web
+	 * @example "web"
 	 */
 	name: string;
 	/**
 	 * @format uri
-	 * @example https://api.github.com/repos/octocat/Hello-World/hooks/1/pings
+	 * @example "https://api.github.com/repos/octocat/Hello-World/hooks/1/pings"
 	 */
 	ping_url: string;
 	/**
 	 * @format uri
-	 * @example https://api.github.com/repos/octocat/Hello-World/hooks/1/test
+	 * @example "https://api.github.com/repos/octocat/Hello-World/hooks/1/test"
 	 */
 	test_url: string;
 	type: string;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2011-09-06T20:39:23Z"
 	 */
 	updated_at: string;
 	/**
 	 * @format uri
-	 * @example https://api.github.com/repos/octocat/Hello-World/hooks/1
+	 * @example "https://api.github.com/repos/octocat/Hello-World/hooks/1"
 	 */
 	url: string;
 }

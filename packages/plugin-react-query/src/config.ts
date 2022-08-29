@@ -1,12 +1,16 @@
 export interface CustomFetcher {
-	func: string;
+	path: string;
+	name: string;
+	props: string;
 	isReactHook?: boolean;
 }
 
 export type Fetcher = 'fetch' | CustomFetcher;
 
 export interface Overrides {
-	useUseQueryForMutation: string[];
+	[operationId: string]: {
+		useQuery?: boolean;
+	};
 }
 
 export interface Config {

@@ -13,7 +13,7 @@
   },
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc --outDir dist"
+    "build": "tsc --outDir dist && cp -R src/templates dist/"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@oa2ts/cli": "^0.1.0",
-    "@tanstack/react-query": "^4.2.1",
+    "@tanstack/react-query": "^4.2.3",
     "openapi3-ts": "^3.0.1",
     "react": "^18.2.0",
     "rimraf": "^3.0.2",

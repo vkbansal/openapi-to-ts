@@ -2,8 +2,14 @@ import type { OperationObject, ParameterLocation, ParameterObject } from 'openap
 import { camelCase } from 'camel-case';
 
 import type { CodeOutput } from '@oa2ts/cli/plugin';
-import { getNameForType } from '@oa2ts/cli/nameHelpers';
-import { createQueryParamsInterface, createPathParamsInterface } from '@oa2ts/cli/codegen';
+import type { Codegen, ObjectProps } from '@oa2ts/cli/codegen';
+import {
+	getNameForType,
+	getNameForPathParams,
+	getNameForQueryParams,
+	getNameForRequestBody,
+} from '@oa2ts/cli/nameHelpers';
+import { isReferenceObject } from '@oa2ts/cli/helpers';
 
 export interface GenerateFetchCodeProps {
 	route: string;
@@ -12,78 +18,85 @@ export interface GenerateFetchCodeProps {
 	params: Record<ParameterLocation, ParameterObject[]>;
 }
 
-const REST_PARAM = '...rest';
+const METHODS_WITH_BODY = ['post', 'put', 'patch'];
 
 export function generateFetchCode(
 	props: GenerateFetchCodeProps,
 	indexIncludes: string[],
+	codegen: Codegen,
 ): CodeOutput {
 	const { route, verb, operation, params } = props;
-
-	const code: string[] = [];
-	const imports: string[] = [];
 
 	// check for operationId
 	if (!operation.operationId) {
 		throw new Error(`Every path must have a operationId - No operationId set for ${verb} ${route}`);
 	}
 
-	const hasQueryParams = params.query.length > 0;
-	const queryParams = createQueryParamsInterface(operation.operationId, params.query);
-	const pathParams = createPathParamsInterface(operation.operationId, params.path);
-
-	if (hasQueryParams) {
-		code.push(queryParams.code, ``);
-		imports.push(...queryParams.imports);
-	}
-
-	const name = camelCase(operation.operationId);
+	const imports = new Set<string>();
+	const fnName = camelCase(operation.operationId);
 	const typeName = getNameForType(operation.operationId);
 	const propsName = `${typeName}Props`;
-	const spreadParams: string[] = [];
-	const extensions: string[] = [`Omit<RequestInit, 'method' | 'body'>`];
+	const requestBodyName = getNameForRequestBody(operation.operationId);
+	let bodyCode: string | null = null;
 
-	if (params.path.length > 0) {
-		code.push(pathParams.code, ``);
-		imports.push(...pathParams.imports);
-		extensions.push(pathParams.name);
-		params.path.forEach((param) => {
-			spreadParams.push(param.name);
-		});
+	if (METHODS_WITH_BODY.includes(verb) && operation.requestBody) {
+		if (isReferenceObject(operation.requestBody)) {
+			//
+		} else {
+			const mediaObj =
+				operation.requestBody.content['application/json'] ||
+				operation.requestBody.content['application/octet-stream'] ||
+				operation.requestBody.content['default'];
+			if (mediaObj && mediaObj.schema) {
+				const resolvedValue = isReferenceObject(mediaObj.schema)
+					? codegen.createTypeDeclaration(requestBodyName, mediaObj.schema)
+					: codegen.createInterface(requestBodyName, mediaObj.schema);
+				if (resolvedValue.code) {
+					bodyCode = resolvedValue.code;
+
+					resolvedValue.imports.forEach((i) => imports.add(i));
+				}
+			}
+		}
 	}
 
-	code.push(`export interface ${propsName} extends ${extensions.join(', ')} {`);
+	const code = codegen.renderTemplate('fetch.liquid', {
+		fnName,
+		requestBodyName,
+		propsName,
+		bodyCode,
+		route,
+		verb,
+		operation,
+		params,
+		pathParams: {
+			name: getNameForPathParams(operation.operationId),
+			props: params.path.map(
+				(param): ObjectProps => ({
+					key: param.name,
+					value: param.schema ? codegen.resolveValue(param.schema, imports) : 'unknown',
+					comment: codegen.renderTemplate('comments.liquid', { schema: param.schema }),
+					required: true,
+				}),
+			),
+		},
+		queryParams: {
+			name: getNameForQueryParams(operation.operationId),
+			props: params.query.map(
+				(param): ObjectProps => ({
+					key: param.name,
+					value: param.schema ? codegen.resolveValue(param.schema, imports) : 'unknown',
+					comment: codegen.renderTemplate('comments.liquid', { schema: param.schema }),
+					required: !!param.required,
+				}),
+			),
+		},
+	});
 
-	if (hasQueryParams) {
-		const paramName = 'queryParams';
-		spreadParams.push(paramName);
-		code.push(`  ${paramName}: ${queryParams.name};`);
-	}
+	indexIncludes.push(`export { ${fnName} } from './fetch/${fnName}'`);
 
-	code.push(`}`, ``);
-	spreadParams.push(REST_PARAM);
-
-	code.push(
-		``,
-		`export async function ${name} (props: ${propsName}) {`,
-		`  const { ${spreadParams.join(', ')} } = props;`,
-		``,
-		`  const response = await fetch( \`${route.replace(/\{/g, '${')}\` ,{`,
-		`    method: "${verb.toUpperCase()}",`,
-		`    ${REST_PARAM}`,
-		`  })`,
-		``,
-		// `  if (!response.ok) {`,
-		// `    return Promise.reject();`,
-		// `  }`,
-		// ``,
-		`  const json = await response.json()`,
-		``,
-		`  return json`,
-		`}`,
-	);
-
-	indexIncludes.push(`export { ${name} } from './fetch/${name}'`);
-
-	return { code: code.join('\n'), file: `./fetch/${name}.ts` };
+	return {
+		code: codegen.renderTemplate('codeWithImports.liquid', { imports, code }),
+		file: `./fetch/${fnName}.ts`,
+	};
 }

@@ -4,9 +4,9 @@
 import { SimpleUser } from '../schemas/SimpleUser';
 import { GitUser } from '../schemas/GitUser';
 import { Verification } from '../schemas/Verification';
-import { GitUser } from '../schemas/GitUser';
 import { MinimalRepository } from '../schemas/MinimalRepository';
 import { SearchResultTextMatches } from '../schemas/SearchResultTextMatches';
+
 /**
  * Commit Search Result Item
  */

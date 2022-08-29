@@ -3,10 +3,8 @@
 // Please do not modify this code directly.
 import { CodeOfConductSimple } from '../schemas/CodeOfConductSimple';
 import { CommunityHealthFile } from '../schemas/CommunityHealthFile';
-import { CommunityHealthFile } from '../schemas/CommunityHealthFile';
 import { LicenseSimple } from '../schemas/LicenseSimple';
-import { CommunityHealthFile } from '../schemas/CommunityHealthFile';
-import { CommunityHealthFile } from '../schemas/CommunityHealthFile';
+
 /**
  * Community Profile
  */
@@ -16,11 +14,11 @@ export interface CommunityProfile {
 	 */
 	content_reports_enabled?: boolean;
 	/**
-	 * @example My first repository on GitHub!
+	 * @example "My first repository on GitHub!"
 	 */
 	description: string | null;
 	/**
-	 * @example example.com
+	 * @example "example.com"
 	 */
 	documentation: string | null;
 	files: {
@@ -37,7 +35,7 @@ export interface CommunityProfile {
 	health_percentage: number;
 	/**
 	 * @format date-time
-	 * @example Sat Aug 27 2022 08:56:52 GMT+0530 (India Standard Time)
+	 * @example "2017-02-28T19:09:29Z"
 	 */
 	updated_at: string | null;
 }
