@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GetUserByNamePathParams {
+export interface UseGetUserByNameQueryPathParams {
 	username: string;
 }
 
-export interface UseGetUserByNameQueryProps extends GetUserByNamePathParams {}
+export interface UseGetUserByNameQueryProps extends UseGetUserByNameQueryPathParams {}
 
 /**
  *

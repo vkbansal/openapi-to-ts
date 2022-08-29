@@ -3,18 +3,18 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetContentPathParams {
+export interface UseReposGetContentQueryPathParams {
 	owner: string;
 	repo: string;
 	path: string;
 }
 
-export interface ReposGetContentQueryParams {
+export interface UseReposGetContentQueryQueryParams {
 	ref?: string;
 }
 
-export interface UseReposGetContentQueryProps extends ReposGetContentPathParams {
-	queryParams: ReposGetContentQueryParams;
+export interface UseReposGetContentQueryProps extends UseReposGetContentQueryPathParams {
+	queryParams: UseReposGetContentQueryQueryParams;
 }
 
 /**

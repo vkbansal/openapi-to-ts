@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface SearchCommitsQueryParams {
+export interface UseSearchCommitsQueryQueryParams {
 	q: string;
 	sort?: 'author-date' | 'committer-date';
 	/**
@@ -21,7 +21,7 @@ export interface SearchCommitsQueryParams {
 }
 
 export interface UseSearchCommitsQueryProps {
-	queryParams: SearchCommitsQueryParams;
+	queryParams: UseSearchCommitsQueryQueryParams;
 }
 
 /**

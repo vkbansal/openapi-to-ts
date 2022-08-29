@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface SearchIssuesAndPullRequestsQueryParams {
+export interface UseSearchIssuesAndPullRequestsQueryQueryParams {
 	q: string;
 	sort?:
 		| 'comments'
@@ -32,7 +32,7 @@ export interface SearchIssuesAndPullRequestsQueryParams {
 }
 
 export interface UseSearchIssuesAndPullRequestsQueryProps {
-	queryParams: SearchIssuesAndPullRequestsQueryParams;
+	queryParams: UseSearchIssuesAndPullRequestsQueryQueryParams;
 }
 
 /**

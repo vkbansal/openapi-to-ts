@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReactionsListForTeamDiscussionInOrgPathParams {
+export interface UseReactionsListForTeamDiscussionInOrgQueryPathParams {
 	org: string;
 	team_slug: string;
 	discussion_number: number;
 }
 
-export interface ReactionsListForTeamDiscussionInOrgQueryParams {
+export interface UseReactionsListForTeamDiscussionInOrgQueryQueryParams {
 	content?: '+1' | '-1' | 'confused' | 'eyes' | 'heart' | 'hooray' | 'laugh' | 'rocket';
 	/**
 	 * @default 30
@@ -22,8 +22,8 @@ export interface ReactionsListForTeamDiscussionInOrgQueryParams {
 }
 
 export interface UseReactionsListForTeamDiscussionInOrgQueryProps
-	extends ReactionsListForTeamDiscussionInOrgPathParams {
-	queryParams: ReactionsListForTeamDiscussionInOrgQueryParams;
+	extends UseReactionsListForTeamDiscussionInOrgQueryPathParams {
+	queryParams: UseReactionsListForTeamDiscussionInOrgQueryQueryParams;
 }
 
 /**

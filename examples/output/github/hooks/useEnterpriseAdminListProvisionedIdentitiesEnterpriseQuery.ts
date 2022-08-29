@@ -3,19 +3,19 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface EnterpriseAdminListProvisionedIdentitiesEnterprisePathParams {
+export interface UseEnterpriseAdminListProvisionedIdentitiesEnterpriseQueryPathParams {
 	enterprise: string;
 }
 
-export interface EnterpriseAdminListProvisionedIdentitiesEnterpriseQueryParams {
+export interface UseEnterpriseAdminListProvisionedIdentitiesEnterpriseQueryQueryParams {
 	startIndex?: number;
 	count?: number;
 	filter?: string;
 }
 
 export interface UseEnterpriseAdminListProvisionedIdentitiesEnterpriseQueryProps
-	extends EnterpriseAdminListProvisionedIdentitiesEnterprisePathParams {
-	queryParams: EnterpriseAdminListProvisionedIdentitiesEnterpriseQueryParams;
+	extends UseEnterpriseAdminListProvisionedIdentitiesEnterpriseQueryPathParams {
+	queryParams: UseEnterpriseAdminListProvisionedIdentitiesEnterpriseQueryQueryParams;
 }
 
 /**

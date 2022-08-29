@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListDeployKeysPathParams {
+export interface UseReposListDeployKeysQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ReposListDeployKeysQueryParams {
+export interface UseReposListDeployKeysQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface ReposListDeployKeysQueryParams {
 	page?: number;
 }
 
-export interface UseReposListDeployKeysQueryProps extends ReposListDeployKeysPathParams {
-	queryParams: ReposListDeployKeysQueryParams;
+export interface UseReposListDeployKeysQueryProps extends UseReposListDeployKeysQueryPathParams {
+	queryParams: UseReposListDeployKeysQueryQueryParams;
 }
 
 /**

@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface PullsListPathParams {
+export interface UsePullsListQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface PullsListQueryParams {
+export interface UsePullsListQueryQueryParams {
 	/**
 	 * @default "open"
 	 */
@@ -30,8 +30,8 @@ export interface PullsListQueryParams {
 	page?: number;
 }
 
-export interface UsePullsListQueryProps extends PullsListPathParams {
-	queryParams: PullsListQueryParams;
+export interface UsePullsListQueryProps extends UsePullsListQueryPathParams {
+	queryParams: UsePullsListQueryQueryParams;
 }
 
 /**

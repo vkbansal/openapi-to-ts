@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsCheckMembershipForUserPathParams {
+export interface UseOrgsCheckMembershipForUserQueryPathParams {
 	org: string;
 	username: string;
 }
 
 export interface UseOrgsCheckMembershipForUserQueryProps
-	extends OrgsCheckMembershipForUserPathParams {}
+	extends UseOrgsCheckMembershipForUserQueryPathParams {}
 
 /**
  * Check if a user is, publicly or privately, a member of the organization.

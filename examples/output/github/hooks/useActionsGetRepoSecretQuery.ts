@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsGetRepoSecretPathParams {
+export interface UseActionsGetRepoSecretQueryPathParams {
 	owner: string;
 	repo: string;
 	secret_name: string;
 }
 
-export interface UseActionsGetRepoSecretQueryProps extends ActionsGetRepoSecretPathParams {}
+export interface UseActionsGetRepoSecretQueryProps extends UseActionsGetRepoSecretQueryPathParams {}
 
 /**
  * Gets a single repository secret without revealing its encrypted value. You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `secrets` repository permission to use this endpoint.

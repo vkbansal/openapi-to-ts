@@ -3,12 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetLatestReleasePathParams {
+export interface UseReposGetLatestReleaseQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface UseReposGetLatestReleaseQueryProps extends ReposGetLatestReleasePathParams {}
+export interface UseReposGetLatestReleaseQueryProps
+	extends UseReposGetLatestReleaseQueryPathParams {}
 
 /**
  * View the latest published full release for the repository.

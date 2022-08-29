@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsGetGithubActionsPermissionsOrganizationPathParams {
+export interface UseActionsGetGithubActionsPermissionsOrganizationQueryPathParams {
 	org: string;
 }
 
 export interface UseActionsGetGithubActionsPermissionsOrganizationQueryProps
-	extends ActionsGetGithubActionsPermissionsOrganizationPathParams {}
+	extends UseActionsGetGithubActionsPermissionsOrganizationQueryPathParams {}
 
 /**
  * Gets the GitHub Actions permissions policy for repositories and allowed actions in an organization.

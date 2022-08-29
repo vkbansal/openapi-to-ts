@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesGetEventPathParams {
+export interface UseIssuesGetEventQueryPathParams {
 	owner: string;
 	repo: string;
 	event_id: number;
 }
 
-export interface UseIssuesGetEventQueryProps extends IssuesGetEventPathParams {}
+export interface UseIssuesGetEventQueryProps extends UseIssuesGetEventQueryPathParams {}
 
 /**
  *

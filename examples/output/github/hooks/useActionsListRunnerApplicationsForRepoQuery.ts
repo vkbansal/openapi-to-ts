@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsListRunnerApplicationsForRepoPathParams {
+export interface UseActionsListRunnerApplicationsForRepoQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
 export interface UseActionsListRunnerApplicationsForRepoQueryProps
-	extends ActionsListRunnerApplicationsForRepoPathParams {}
+	extends UseActionsListRunnerApplicationsForRepoQueryPathParams {}
 
 /**
  * Lists binaries for the runner application that you can download and run.

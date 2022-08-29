@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReactionsListForPullRequestReviewCommentPathParams {
+export interface UseReactionsListForPullRequestReviewCommentQueryPathParams {
 	owner: string;
 	repo: string;
 	comment_id: number;
 }
 
-export interface ReactionsListForPullRequestReviewCommentQueryParams {
+export interface UseReactionsListForPullRequestReviewCommentQueryQueryParams {
 	content?: '+1' | '-1' | 'confused' | 'eyes' | 'heart' | 'hooray' | 'laugh' | 'rocket';
 	/**
 	 * @default 30
@@ -22,8 +22,8 @@ export interface ReactionsListForPullRequestReviewCommentQueryParams {
 }
 
 export interface UseReactionsListForPullRequestReviewCommentQueryProps
-	extends ReactionsListForPullRequestReviewCommentPathParams {
-	queryParams: ReactionsListForPullRequestReviewCommentQueryParams;
+	extends UseReactionsListForPullRequestReviewCommentQueryPathParams {
+	queryParams: UseReactionsListForPullRequestReviewCommentQueryQueryParams;
 }
 
 /**

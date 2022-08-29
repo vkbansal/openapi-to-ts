@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface UsersListGpgKeysForAuthenticatedQueryParams {
+export interface UseUsersListGpgKeysForAuthenticatedQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -15,7 +15,7 @@ export interface UsersListGpgKeysForAuthenticatedQueryParams {
 }
 
 export interface UseUsersListGpgKeysForAuthenticatedQueryProps {
-	queryParams: UsersListGpgKeysForAuthenticatedQueryParams;
+	queryParams: UseUsersListGpgKeysForAuthenticatedQueryQueryParams;
 }
 
 /**

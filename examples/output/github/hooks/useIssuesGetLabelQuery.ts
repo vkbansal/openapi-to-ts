@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesGetLabelPathParams {
+export interface UseIssuesGetLabelQueryPathParams {
 	owner: string;
 	repo: string;
 	name: string;
 }
 
-export interface UseIssuesGetLabelQueryProps extends IssuesGetLabelPathParams {}
+export interface UseIssuesGetLabelQueryProps extends UseIssuesGetLabelQueryPathParams {}
 
 /**
  *

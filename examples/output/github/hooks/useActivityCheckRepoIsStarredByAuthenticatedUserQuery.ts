@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActivityCheckRepoIsStarredByAuthenticatedUserPathParams {
+export interface UseActivityCheckRepoIsStarredByAuthenticatedUserQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
 export interface UseActivityCheckRepoIsStarredByAuthenticatedUserQueryProps
-	extends ActivityCheckRepoIsStarredByAuthenticatedUserPathParams {}
+	extends UseActivityCheckRepoIsStarredByAuthenticatedUserQueryPathParams {}
 
 /**
  *

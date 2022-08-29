@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface AppsGetSubscriptionPlanForAccountPathParams {
+export interface UseAppsGetSubscriptionPlanForAccountQueryPathParams {
 	account_id: number;
 }
 
 export interface UseAppsGetSubscriptionPlanForAccountQueryProps
-	extends AppsGetSubscriptionPlanForAccountPathParams {}
+	extends UseAppsGetSubscriptionPlanForAccountQueryPathParams {}
 
 /**
  * Shows whether the user or organization account actively subscribes to a plan listed by the authenticated GitHub App. When someone submits a plan change that won't be processed until the end of their billing cycle, you will also see the upcoming pending change.

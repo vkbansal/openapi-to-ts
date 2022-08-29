@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GitGetCommitPathParams {
+export interface UseGitGetCommitQueryPathParams {
 	owner: string;
 	repo: string;
 	commit_sha: string;
 }
 
-export interface UseGitGetCommitQueryProps extends GitGetCommitPathParams {}
+export interface UseGitGetCommitQueryProps extends UseGitGetCommitQueryPathParams {}
 
 /**
  * Gets a Git [commit object](https://git-scm.com/book/en/v1/Git-Internals-Git-Objects#Commit-Objects).

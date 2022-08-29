@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface CodesOfConductGetConductCodePathParams {
+export interface UseCodesOfConductGetConductCodeQueryPathParams {
 	key: string;
 }
 
 export interface UseCodesOfConductGetConductCodeQueryProps
-	extends CodesOfConductGetConductCodePathParams {}
+	extends UseCodesOfConductGetConductCodeQueryPathParams {}
 
 /**
  *

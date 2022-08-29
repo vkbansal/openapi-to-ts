@@ -3,12 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsGetRepoPublicKeyPathParams {
+export interface UseActionsGetRepoPublicKeyQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface UseActionsGetRepoPublicKeyQueryProps extends ActionsGetRepoPublicKeyPathParams {}
+export interface UseActionsGetRepoPublicKeyQueryProps
+	extends UseActionsGetRepoPublicKeyQueryPathParams {}
 
 /**
  * Gets your public key, which you need to encrypt secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `secrets` repository permission to use this endpoint.

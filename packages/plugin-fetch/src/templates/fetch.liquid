@@ -1,6 +1,12 @@
 {% assign has_path_params = pathParams.props.length > 0 %}
 {% assign has_query_params = queryParams.props.length > 0 %}
 
+{% if config.customFetcher %}
+import { {{config.customFetcher.name}} as _fetcher } from '{{config.customFetcher.path}}';
+{% else %}
+import { fetcher as _fetcher } from './fetcher';
+{% endif %}
+
 {% if has_path_params %}
 {% render 'interface.liquid', name: pathParams.name, props: pathParams.props %}
 {% endif %}
@@ -19,6 +25,7 @@ export interface {{propsName}}
   {
     {% if has_query_params -%}
     queryParams: {{queryParams.name}};
+    paramsSerializer?: (params: {{queryParams.name}}) => string;
     {%- endif %}
     {% if bodyCode %}
     body: {{requestBodyName}};
@@ -32,29 +39,19 @@ export async function {{fnName}}(props: {{propsName}}) {
     {% for prop in pathParams.props -%}
     {{prop.key}},
     {%- endfor %}
-  {%- endif -%}
-  {% if has_query_params -%}
-  queryParams,
-  {%- endif -%}
-  {% if bodyCode %}
-  body,
   {%- endif %}
     ...rest
   } = props;
 
-  const response = await fetch(`{{ route | path_to_template }}`, {
+
+
+  return _fetcher<
+    unknown,
+    {% if has_query_params %}{{queryParams.name}}{% else %}unknown{% endif %},
+    {% if bodyCode %}{{requestBodyName}}{% else %}unknown{% endif %}
+  >({
+    path: `{{ route | path_to_template }}`,
     method: {{ verb | upcase | json }},
-    {% if bodyCode -%}
-    body: JSON.stringify(body),
-    {%- endif -%}
-    ...rest,
-    headers: {
-      'Content-Type': 'application/json',
-      ...rest.headers
-    }
+    ...rest
   });
-
-  const json = await response.json();
-
-  return json;
 }

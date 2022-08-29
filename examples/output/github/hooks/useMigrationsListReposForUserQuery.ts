@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface MigrationsListReposForUserPathParams {
+export interface UseMigrationsListReposForUserQueryPathParams {
 	migration_id: number;
 }
 
-export interface MigrationsListReposForUserQueryParams {
+export interface UseMigrationsListReposForUserQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface MigrationsListReposForUserQueryParams {
 }
 
 export interface UseMigrationsListReposForUserQueryProps
-	extends MigrationsListReposForUserPathParams {
-	queryParams: MigrationsListReposForUserQueryParams;
+	extends UseMigrationsListReposForUserQueryPathParams {
+	queryParams: UseMigrationsListReposForUserQueryQueryParams;
 }
 
 /**

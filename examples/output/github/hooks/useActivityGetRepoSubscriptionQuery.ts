@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActivityGetRepoSubscriptionPathParams {
+export interface UseActivityGetRepoSubscriptionQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
 export interface UseActivityGetRepoSubscriptionQueryProps
-	extends ActivityGetRepoSubscriptionPathParams {}
+	extends UseActivityGetRepoSubscriptionQueryPathParams {}
 
 /**
  *

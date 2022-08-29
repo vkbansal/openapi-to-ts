@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface PackagesGetPackageForUserPathParams {
+export interface UsePackagesGetPackageForUserQueryPathParams {
 	package_type: 'container' | 'docker' | 'maven' | 'npm' | 'nuget' | 'rubygems';
 	package_name: string;
 	username: string;
 }
 
 export interface UsePackagesGetPackageForUserQueryProps
-	extends PackagesGetPackageForUserPathParams {}
+	extends UsePackagesGetPackageForUserQueryPathParams {}
 
 /**
  * Gets a specific package metadata for a public package owned by a user.

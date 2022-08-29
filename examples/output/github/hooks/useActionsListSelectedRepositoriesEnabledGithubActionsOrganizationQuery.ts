@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationPathParams {
+export interface UseActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQueryPathParams {
 	org: string;
 }
 
-export interface ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQueryParams {
+export interface UseActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface ActionsListSelectedRepositoriesEnabledGithubActionsOrganization
 }
 
 export interface UseActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQueryProps
-	extends ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationPathParams {
-	queryParams: ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQueryParams;
+	extends UseActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQueryPathParams {
+	queryParams: UseActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQueryQueryParams;
 }
 
 /**

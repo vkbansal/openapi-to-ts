@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetContributorsStatsPathParams {
+export interface UseReposGetContributorsStatsQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
 export interface UseReposGetContributorsStatsQueryProps
-	extends ReposGetContributorsStatsPathParams {}
+	extends UseReposGetContributorsStatsQueryPathParams {}
 
 /**
  *

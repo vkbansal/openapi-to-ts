@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsListRunnerApplicationsForOrgPathParams {
+export interface UseActionsListRunnerApplicationsForOrgQueryPathParams {
 	org: string;
 }
 
 export interface UseActionsListRunnerApplicationsForOrgQueryProps
-	extends ActionsListRunnerApplicationsForOrgPathParams {}
+	extends UseActionsListRunnerApplicationsForOrgQueryPathParams {}
 
 /**
  * Lists binaries for the runner application that you can download and run.

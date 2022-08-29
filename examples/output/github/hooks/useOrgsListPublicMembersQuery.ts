@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsListPublicMembersPathParams {
+export interface UseOrgsListPublicMembersQueryPathParams {
 	org: string;
 }
 
-export interface OrgsListPublicMembersQueryParams {
+export interface UseOrgsListPublicMembersQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -18,8 +18,9 @@ export interface OrgsListPublicMembersQueryParams {
 	page?: number;
 }
 
-export interface UseOrgsListPublicMembersQueryProps extends OrgsListPublicMembersPathParams {
-	queryParams: OrgsListPublicMembersQueryParams;
+export interface UseOrgsListPublicMembersQueryProps
+	extends UseOrgsListPublicMembersQueryPathParams {
+	queryParams: UseOrgsListPublicMembersQueryQueryParams;
 }
 
 /**

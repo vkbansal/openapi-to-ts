@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetWebhookPathParams {
+export interface UseReposGetWebhookQueryPathParams {
 	owner: string;
 	repo: string;
 	hook_id: number;
 }
 
-export interface UseReposGetWebhookQueryProps extends ReposGetWebhookPathParams {}
+export interface UseReposGetWebhookQueryProps extends UseReposGetWebhookQueryPathParams {}
 
 /**
  * Returns a webhook configured in a repository. To get only the webhook `config` properties, see "[Get a webhook configuration for a repository](/rest/reference/repos#get-a-webhook-configuration-for-a-repository)."

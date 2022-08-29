@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActivityGetThreadSubscriptionForAuthenticatedUserPathParams {
+export interface UseActivityGetThreadSubscriptionForAuthenticatedUserQueryPathParams {
 	thread_id: number;
 }
 
 export interface UseActivityGetThreadSubscriptionForAuthenticatedUserQueryProps
-	extends ActivityGetThreadSubscriptionForAuthenticatedUserPathParams {}
+	extends UseActivityGetThreadSubscriptionForAuthenticatedUserQueryPathParams {}
 
 /**
  * This checks to see if the current user is subscribed to a thread. You can also [get a repository subscription](https://docs.github.com/rest/reference/activity#get-a-repository-subscription).

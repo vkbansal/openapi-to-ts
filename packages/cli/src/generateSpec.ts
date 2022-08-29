@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import * as esbuild from 'esbuild';
 import prettier from 'prettier';
+import ts from 'typescript';
 
 import type { CLIConfig, Config } from './config.js';
 import type { PluginReturn } from './plugin.js';
@@ -76,6 +77,20 @@ async function writeData(
 export async function generateSpec(argv: CLIConfig): Promise<void> {
 	const cwd = process.cwd();
 	const prettierConfig = await prettier.resolveConfig(cwd);
+
+	const configFile = ts.findConfigFile(cwd, ts.sys.fileExists, 'tsconfig.json');
+	let moduleResolution = 'NodeJs';
+
+	if (configFile) {
+		const { config } = ts.readConfigFile(configFile, ts.sys.readFile);
+		const { options } = ts.parseJsonConfigFileContent(config, ts.sys, cwd);
+
+		if (options.moduleResolution) {
+			moduleResolution = ts.ModuleResolutionKind[options.moduleResolution];
+		}
+	}
+
+	logInfo(`using module resolution: ${moduleResolution}`);
 
 	if (argv.config) {
 		logInfo(`using config file: ${argv.config}`);

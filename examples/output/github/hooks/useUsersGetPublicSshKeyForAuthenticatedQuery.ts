@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface UsersGetPublicSshKeyForAuthenticatedPathParams {
+export interface UseUsersGetPublicSshKeyForAuthenticatedQueryPathParams {
 	key_id: number;
 }
 
 export interface UseUsersGetPublicSshKeyForAuthenticatedQueryProps
-	extends UsersGetPublicSshKeyForAuthenticatedPathParams {}
+	extends UseUsersGetPublicSshKeyForAuthenticatedQueryPathParams {}
 
 /**
  * View extended details for a single public SSH key. Requires that you are authenticated via Basic Auth or via OAuth with at least `read:public_key` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).

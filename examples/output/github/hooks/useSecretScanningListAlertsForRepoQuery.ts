@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface SecretScanningListAlertsForRepoPathParams {
+export interface UseSecretScanningListAlertsForRepoQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface SecretScanningListAlertsForRepoQueryParams {
+export interface UseSecretScanningListAlertsForRepoQueryQueryParams {
 	state?: 'open' | 'resolved';
 	/**
 	 * @default 1
@@ -21,8 +21,8 @@ export interface SecretScanningListAlertsForRepoQueryParams {
 }
 
 export interface UseSecretScanningListAlertsForRepoQueryProps
-	extends SecretScanningListAlertsForRepoPathParams {
-	queryParams: SecretScanningListAlertsForRepoQueryParams;
+	extends UseSecretScanningListAlertsForRepoQueryPathParams {
+	queryParams: UseSecretScanningListAlertsForRepoQueryQueryParams;
 }
 
 /**

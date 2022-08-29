@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface MigrationsDownloadArchiveForOrgPathParams {
+export interface UseMigrationsDownloadArchiveForOrgQueryPathParams {
 	org: string;
 	migration_id: number;
 }
 
 export interface UseMigrationsDownloadArchiveForOrgQueryProps
-	extends MigrationsDownloadArchiveForOrgPathParams {}
+	extends UseMigrationsDownloadArchiveForOrgQueryPathParams {}
 
 /**
  * Fetches the URL to a migration archive.

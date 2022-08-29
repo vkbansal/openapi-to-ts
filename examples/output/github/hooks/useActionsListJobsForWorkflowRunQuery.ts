@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsListJobsForWorkflowRunPathParams {
+export interface UseActionsListJobsForWorkflowRunQueryPathParams {
 	owner: string;
 	repo: string;
 	run_id: number;
 }
 
-export interface ActionsListJobsForWorkflowRunQueryParams {
+export interface UseActionsListJobsForWorkflowRunQueryQueryParams {
 	/**
 	 * @default "latest"
 	 */
@@ -25,8 +25,8 @@ export interface ActionsListJobsForWorkflowRunQueryParams {
 }
 
 export interface UseActionsListJobsForWorkflowRunQueryProps
-	extends ActionsListJobsForWorkflowRunPathParams {
-	queryParams: ActionsListJobsForWorkflowRunQueryParams;
+	extends UseActionsListJobsForWorkflowRunQueryPathParams {
+	queryParams: UseActionsListJobsForWorkflowRunQueryQueryParams;
 }
 
 /**

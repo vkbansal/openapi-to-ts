@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetCommitPathParams {
+export interface UseReposGetCommitQueryPathParams {
 	owner: string;
 	repo: string;
 	ref: string;
 }
 
-export interface ReposGetCommitQueryParams {
+export interface UseReposGetCommitQueryQueryParams {
 	/**
 	 * @default 1
 	 */
@@ -20,8 +20,8 @@ export interface ReposGetCommitQueryParams {
 	per_page?: number;
 }
 
-export interface UseReposGetCommitQueryProps extends ReposGetCommitPathParams {
-	queryParams: ReposGetCommitQueryParams;
+export interface UseReposGetCommitQueryProps extends UseReposGetCommitQueryPathParams {
+	queryParams: UseReposGetCommitQueryQueryParams;
 }
 
 /**

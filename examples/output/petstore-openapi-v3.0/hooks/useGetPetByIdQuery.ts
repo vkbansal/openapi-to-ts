@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GetPetByIdPathParams {
+export interface UseGetPetByIdQueryPathParams {
 	/**
 	 * @format int64
 	 */
 	petId: number;
 }
 
-export interface UseGetPetByIdQueryProps extends GetPetByIdPathParams {}
+export interface UseGetPetByIdQueryProps extends UseGetPetByIdQueryPathParams {}
 
 /**
  * Returns a single pet

@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListForOrgPathParams {
+export interface UseReposListForOrgQueryPathParams {
 	org: string;
 }
 
-export interface ReposListForOrgQueryParams {
+export interface UseReposListForOrgQueryQueryParams {
 	type?: 'all' | 'forks' | 'internal' | 'member' | 'private' | 'public' | 'sources';
 	/**
 	 * @default "created"
@@ -24,8 +24,8 @@ export interface ReposListForOrgQueryParams {
 	page?: number;
 }
 
-export interface UseReposListForOrgQueryProps extends ReposListForOrgPathParams {
-	queryParams: ReposListForOrgQueryParams;
+export interface UseReposListForOrgQueryProps extends UseReposListForOrgQueryPathParams {
+	queryParams: UseReposListForOrgQueryQueryParams;
 }
 
 /**

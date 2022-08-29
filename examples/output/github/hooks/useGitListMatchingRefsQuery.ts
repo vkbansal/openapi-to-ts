@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GitListMatchingRefsPathParams {
+export interface UseGitListMatchingRefsQueryPathParams {
 	owner: string;
 	repo: string;
 	ref: string;
 }
 
-export interface GitListMatchingRefsQueryParams {
+export interface UseGitListMatchingRefsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -20,8 +20,8 @@ export interface GitListMatchingRefsQueryParams {
 	page?: number;
 }
 
-export interface UseGitListMatchingRefsQueryProps extends GitListMatchingRefsPathParams {
-	queryParams: GitListMatchingRefsQueryParams;
+export interface UseGitListMatchingRefsQueryProps extends UseGitListMatchingRefsQueryPathParams {
+	queryParams: UseGitListMatchingRefsQueryQueryParams;
 }
 
 /**

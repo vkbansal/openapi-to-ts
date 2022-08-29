@@ -3,11 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface AppsGetOrgInstallationPathParams {
+export interface UseAppsGetOrgInstallationQueryPathParams {
 	org: string;
 }
 
-export interface UseAppsGetOrgInstallationQueryProps extends AppsGetOrgInstallationPathParams {}
+export interface UseAppsGetOrgInstallationQueryProps
+	extends UseAppsGetOrgInstallationQueryPathParams {}
 
 /**
  * Enables an authenticated GitHub App to find the organization's installation information.

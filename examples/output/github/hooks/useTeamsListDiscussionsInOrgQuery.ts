@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsListDiscussionsInOrgPathParams {
+export interface UseTeamsListDiscussionsInOrgQueryPathParams {
 	org: string;
 	team_slug: string;
 }
 
-export interface TeamsListDiscussionsInOrgQueryParams {
+export interface UseTeamsListDiscussionsInOrgQueryQueryParams {
 	/**
 	 * @default "desc"
 	 */
@@ -25,8 +25,8 @@ export interface TeamsListDiscussionsInOrgQueryParams {
 }
 
 export interface UseTeamsListDiscussionsInOrgQueryProps
-	extends TeamsListDiscussionsInOrgPathParams {
-	queryParams: TeamsListDiscussionsInOrgQueryParams;
+	extends UseTeamsListDiscussionsInOrgQueryPathParams {
+	queryParams: UseTeamsListDiscussionsInOrgQueryQueryParams;
 }
 
 /**

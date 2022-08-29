@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetReleaseByTagPathParams {
+export interface UseReposGetReleaseByTagQueryPathParams {
 	owner: string;
 	repo: string;
 	tag: string;
 }
 
-export interface UseReposGetReleaseByTagQueryProps extends ReposGetReleaseByTagPathParams {}
+export interface UseReposGetReleaseByTagQueryProps extends UseReposGetReleaseByTagQueryPathParams {}
 
 /**
  * Get a published release with the specified tag.

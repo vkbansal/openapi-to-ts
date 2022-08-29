@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsGetWebhookConfigForOrgPathParams {
+export interface UseOrgsGetWebhookConfigForOrgQueryPathParams {
 	org: string;
 	hook_id: number;
 }
 
 export interface UseOrgsGetWebhookConfigForOrgQueryProps
-	extends OrgsGetWebhookConfigForOrgPathParams {}
+	extends UseOrgsGetWebhookConfigForOrgQueryPathParams {}
 
 /**
  * Returns the webhook configuration for an organization. To get more information about the webhook, including the `active` state and `events`, use "[Get an organization webhook ](/rest/reference/orgs#get-an-organization-webhook)."

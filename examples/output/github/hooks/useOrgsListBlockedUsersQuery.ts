@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsListBlockedUsersPathParams {
+export interface UseOrgsListBlockedUsersQueryPathParams {
 	org: string;
 }
 
-export interface UseOrgsListBlockedUsersQueryProps extends OrgsListBlockedUsersPathParams {}
+export interface UseOrgsListBlockedUsersQueryProps extends UseOrgsListBlockedUsersQueryPathParams {}
 
 /**
  * List the users blocked by an organization.

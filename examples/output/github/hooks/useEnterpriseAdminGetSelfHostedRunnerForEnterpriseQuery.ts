@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface EnterpriseAdminGetSelfHostedRunnerForEnterprisePathParams {
+export interface UseEnterpriseAdminGetSelfHostedRunnerForEnterpriseQueryPathParams {
 	enterprise: string;
 	runner_id: number;
 }
 
 export interface UseEnterpriseAdminGetSelfHostedRunnerForEnterpriseQueryProps
-	extends EnterpriseAdminGetSelfHostedRunnerForEnterprisePathParams {}
+	extends UseEnterpriseAdminGetSelfHostedRunnerForEnterpriseQueryPathParams {}
 
 /**
  * Gets a specific self-hosted runner configured in an enterprise.

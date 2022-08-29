@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ChecksListForSuitePathParams {
+export interface UseChecksListForSuiteQueryPathParams {
 	owner: string;
 	repo: string;
 	check_suite_id: number;
 }
 
-export interface ChecksListForSuiteQueryParams {
+export interface UseChecksListForSuiteQueryQueryParams {
 	check_name?: string;
 	status?: 'completed' | 'in_progress' | 'queued';
 	/**
@@ -26,8 +26,8 @@ export interface ChecksListForSuiteQueryParams {
 	page?: number;
 }
 
-export interface UseChecksListForSuiteQueryProps extends ChecksListForSuitePathParams {
-	queryParams: ChecksListForSuiteQueryParams;
+export interface UseChecksListForSuiteQueryProps extends UseChecksListForSuiteQueryPathParams {
+	queryParams: UseChecksListForSuiteQueryQueryParams;
 }
 
 /**

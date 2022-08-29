@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface SearchLabelsQueryParams {
+export interface UseSearchLabelsQueryQueryParams {
 	repository_id: number;
 	q: string;
 	sort?: 'created' | 'updated';
@@ -14,7 +14,7 @@ export interface SearchLabelsQueryParams {
 }
 
 export interface UseSearchLabelsQueryProps {
-	queryParams: SearchLabelsQueryParams;
+	queryParams: UseSearchLabelsQueryQueryParams;
 }
 
 /**

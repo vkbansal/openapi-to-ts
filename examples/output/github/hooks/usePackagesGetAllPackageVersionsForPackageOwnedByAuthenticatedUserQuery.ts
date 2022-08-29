@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserPathParams {
+export interface UsePackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQueryPathParams {
 	package_type: 'container' | 'docker' | 'maven' | 'npm' | 'nuget' | 'rubygems';
 	package_name: string;
 }
 
-export interface PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQueryParams {
+export interface UsePackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQueryQueryParams {
 	/**
 	 * @default 1
 	 */
@@ -24,8 +24,8 @@ export interface PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUser
 }
 
 export interface UsePackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQueryProps
-	extends PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserPathParams {
-	queryParams: PackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQueryParams;
+	extends UsePackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQueryPathParams {
+	queryParams: UsePackagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQueryQueryParams;
 }
 
 /**

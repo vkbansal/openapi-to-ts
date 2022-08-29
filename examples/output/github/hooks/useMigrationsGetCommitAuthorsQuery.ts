@@ -3,18 +3,18 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface MigrationsGetCommitAuthorsPathParams {
+export interface UseMigrationsGetCommitAuthorsQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface MigrationsGetCommitAuthorsQueryParams {
+export interface UseMigrationsGetCommitAuthorsQueryQueryParams {
 	since?: number;
 }
 
 export interface UseMigrationsGetCommitAuthorsQueryProps
-	extends MigrationsGetCommitAuthorsPathParams {
-	queryParams: MigrationsGetCommitAuthorsQueryParams;
+	extends UseMigrationsGetCommitAuthorsQueryPathParams {
+	queryParams: UseMigrationsGetCommitAuthorsQueryQueryParams;
 }
 
 /**

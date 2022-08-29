@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface MigrationsListForAuthenticatedUserQueryParams {
+export interface UseMigrationsListForAuthenticatedUserQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -15,7 +15,7 @@ export interface MigrationsListForAuthenticatedUserQueryParams {
 }
 
 export interface UseMigrationsListForAuthenticatedUserQueryProps {
-	queryParams: MigrationsListForAuthenticatedUserQueryParams;
+	queryParams: UseMigrationsListForAuthenticatedUserQueryQueryParams;
 }
 
 /**

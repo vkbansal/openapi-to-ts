@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface PackagesGetAllPackageVersionsForPackageOwnedByUserPathParams {
+export interface UsePackagesGetAllPackageVersionsForPackageOwnedByUserQueryPathParams {
 	package_type: 'container' | 'docker' | 'maven' | 'npm' | 'nuget' | 'rubygems';
 	package_name: string;
 	username: string;
 }
 
 export interface UsePackagesGetAllPackageVersionsForPackageOwnedByUserQueryProps
-	extends PackagesGetAllPackageVersionsForPackageOwnedByUserPathParams {}
+	extends UsePackagesGetAllPackageVersionsForPackageOwnedByUserQueryPathParams {}
 
 /**
  * Returns all package versions for a public package owned by a specified user.

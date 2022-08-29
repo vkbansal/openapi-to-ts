@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsListSelfHostedRunnersForRepoPathParams {
+export interface UseActionsListSelfHostedRunnersForRepoQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ActionsListSelfHostedRunnersForRepoQueryParams {
+export interface UseActionsListSelfHostedRunnersForRepoQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -20,8 +20,8 @@ export interface ActionsListSelfHostedRunnersForRepoQueryParams {
 }
 
 export interface UseActionsListSelfHostedRunnersForRepoQueryProps
-	extends ActionsListSelfHostedRunnersForRepoPathParams {
-	queryParams: ActionsListSelfHostedRunnersForRepoQueryParams;
+	extends UseActionsListSelfHostedRunnersForRepoQueryPathParams {
+	queryParams: UseActionsListSelfHostedRunnersForRepoQueryQueryParams;
 }
 
 /**

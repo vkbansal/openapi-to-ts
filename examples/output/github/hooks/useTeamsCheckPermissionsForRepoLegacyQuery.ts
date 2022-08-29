@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsCheckPermissionsForRepoLegacyPathParams {
+export interface UseTeamsCheckPermissionsForRepoLegacyQueryPathParams {
 	team_id: number;
 	owner: string;
 	repo: string;
 }
 
 export interface UseTeamsCheckPermissionsForRepoLegacyQueryProps
-	extends TeamsCheckPermissionsForRepoLegacyPathParams {}
+	extends UseTeamsCheckPermissionsForRepoLegacyQueryPathParams {}
 
 /**
  * **Note**: Repositories inherited through a parent team will also be checked.

@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesListQueryParams {
+export interface UseIssuesListQueryQueryParams {
 	/**
 	 * @default "assigned"
 	 */
@@ -37,7 +37,7 @@ export interface IssuesListQueryParams {
 }
 
 export interface UseIssuesListQueryProps {
-	queryParams: IssuesListQueryParams;
+	queryParams: UseIssuesListQueryQueryParams;
 }
 
 /**

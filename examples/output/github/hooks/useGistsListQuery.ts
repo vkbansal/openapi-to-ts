@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GistsListQueryParams {
+export interface UseGistsListQueryQueryParams {
 	since?: string;
 	/**
 	 * @default 30
@@ -16,7 +16,7 @@ export interface GistsListQueryParams {
 }
 
 export interface UseGistsListQueryProps {
-	queryParams: GistsListQueryParams;
+	queryParams: UseGistsListQueryQueryParams;
 }
 
 /**

@@ -3,18 +3,18 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GitGetTreePathParams {
+export interface UseGitGetTreeQueryPathParams {
 	owner: string;
 	repo: string;
 	tree_sha: string;
 }
 
-export interface GitGetTreeQueryParams {
+export interface UseGitGetTreeQueryQueryParams {
 	recursive?: string;
 }
 
-export interface UseGitGetTreeQueryProps extends GitGetTreePathParams {
-	queryParams: GitGetTreeQueryParams;
+export interface UseGitGetTreeQueryProps extends UseGitGetTreeQueryPathParams {
+	queryParams: UseGitGetTreeQueryQueryParams;
 }
 
 /**

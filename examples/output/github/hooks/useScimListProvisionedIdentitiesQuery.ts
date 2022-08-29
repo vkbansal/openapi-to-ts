@@ -3,19 +3,19 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ScimListProvisionedIdentitiesPathParams {
+export interface UseScimListProvisionedIdentitiesQueryPathParams {
 	org: string;
 }
 
-export interface ScimListProvisionedIdentitiesQueryParams {
+export interface UseScimListProvisionedIdentitiesQueryQueryParams {
 	startIndex?: number;
 	count?: number;
 	filter?: string;
 }
 
 export interface UseScimListProvisionedIdentitiesQueryProps
-	extends ScimListProvisionedIdentitiesPathParams {
-	queryParams: ScimListProvisionedIdentitiesQueryParams;
+	extends UseScimListProvisionedIdentitiesQueryPathParams {
+	queryParams: UseScimListProvisionedIdentitiesQueryQueryParams;
 }
 
 /**

@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsGetMemberLegacyPathParams {
+export interface UseTeamsGetMemberLegacyQueryPathParams {
 	team_id: number;
 	username: string;
 }
 
-export interface UseTeamsGetMemberLegacyQueryProps extends TeamsGetMemberLegacyPathParams {}
+export interface UseTeamsGetMemberLegacyQueryProps extends UseTeamsGetMemberLegacyQueryPathParams {}
 
 /**
  * The "Get team member" endpoint (described below) is deprecated.

@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsListAppInstallationsPathParams {
+export interface UseOrgsListAppInstallationsQueryPathParams {
 	org: string;
 }
 
-export interface OrgsListAppInstallationsQueryParams {
+export interface UseOrgsListAppInstallationsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -18,8 +18,9 @@ export interface OrgsListAppInstallationsQueryParams {
 	page?: number;
 }
 
-export interface UseOrgsListAppInstallationsQueryProps extends OrgsListAppInstallationsPathParams {
-	queryParams: OrgsListAppInstallationsQueryParams;
+export interface UseOrgsListAppInstallationsQueryProps
+	extends UseOrgsListAppInstallationsQueryPathParams {
+	queryParams: UseOrgsListAppInstallationsQueryQueryParams;
 }
 
 /**

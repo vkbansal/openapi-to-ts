@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsListMembersLegacyPathParams {
+export interface UseTeamsListMembersLegacyQueryPathParams {
 	team_id: number;
 }
 
-export interface TeamsListMembersLegacyQueryParams {
+export interface UseTeamsListMembersLegacyQueryQueryParams {
 	/**
 	 * @default "all"
 	 */
@@ -22,8 +22,9 @@ export interface TeamsListMembersLegacyQueryParams {
 	page?: number;
 }
 
-export interface UseTeamsListMembersLegacyQueryProps extends TeamsListMembersLegacyPathParams {
-	queryParams: TeamsListMembersLegacyQueryParams;
+export interface UseTeamsListMembersLegacyQueryProps
+	extends UseTeamsListMembersLegacyQueryPathParams {
+	queryParams: UseTeamsListMembersLegacyQueryQueryParams;
 }
 
 /**

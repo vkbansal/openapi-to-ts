@@ -29,6 +29,9 @@
   "engines": {
     "node": ">=16.0.0"
   },
+  "peerDependencies": {
+    "typescript": "^4.0.0"
+  },
   "dependencies": {
     "chalk": "^5.0.1",
     "esbuild": "^0.15.5",

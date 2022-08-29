@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListInvitationsPathParams {
+export interface UseReposListInvitationsQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ReposListInvitationsQueryParams {
+export interface UseReposListInvitationsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface ReposListInvitationsQueryParams {
 	page?: number;
 }
 
-export interface UseReposListInvitationsQueryProps extends ReposListInvitationsPathParams {
-	queryParams: ReposListInvitationsQueryParams;
+export interface UseReposListInvitationsQueryProps extends UseReposListInvitationsQueryPathParams {
+	queryParams: UseReposListInvitationsQueryQueryParams;
 }
 
 /**

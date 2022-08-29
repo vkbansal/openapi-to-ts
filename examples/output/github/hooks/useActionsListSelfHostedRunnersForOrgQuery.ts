@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsListSelfHostedRunnersForOrgPathParams {
+export interface UseActionsListSelfHostedRunnersForOrgQueryPathParams {
 	org: string;
 }
 
-export interface ActionsListSelfHostedRunnersForOrgQueryParams {
+export interface UseActionsListSelfHostedRunnersForOrgQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface ActionsListSelfHostedRunnersForOrgQueryParams {
 }
 
 export interface UseActionsListSelfHostedRunnersForOrgQueryProps
-	extends ActionsListSelfHostedRunnersForOrgPathParams {
-	queryParams: ActionsListSelfHostedRunnersForOrgQueryParams;
+	extends UseActionsListSelfHostedRunnersForOrgQueryPathParams {
+	queryParams: UseActionsListSelfHostedRunnersForOrgQueryQueryParams;
 }
 
 /**

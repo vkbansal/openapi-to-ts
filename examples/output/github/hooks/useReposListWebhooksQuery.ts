@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListWebhooksPathParams {
+export interface UseReposListWebhooksQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ReposListWebhooksQueryParams {
+export interface UseReposListWebhooksQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface ReposListWebhooksQueryParams {
 	page?: number;
 }
 
-export interface UseReposListWebhooksQueryProps extends ReposListWebhooksPathParams {
-	queryParams: ReposListWebhooksQueryParams;
+export interface UseReposListWebhooksQueryProps extends UseReposListWebhooksQueryPathParams {
+	queryParams: UseReposListWebhooksQueryQueryParams;
 }
 
 /**

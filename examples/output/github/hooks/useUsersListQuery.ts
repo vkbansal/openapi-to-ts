@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface UsersListQueryParams {
+export interface UseUsersListQueryQueryParams {
 	since?: number;
 	/**
 	 * @default 30
@@ -12,7 +12,7 @@ export interface UsersListQueryParams {
 }
 
 export interface UseUsersListQueryProps {
-	queryParams: UsersListQueryParams;
+	queryParams: UseUsersListQueryQueryParams;
 }
 
 /**

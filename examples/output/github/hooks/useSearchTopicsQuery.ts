@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface SearchTopicsQueryParams {
+export interface UseSearchTopicsQueryQueryParams {
 	q: string;
 }
 
 export interface UseSearchTopicsQueryProps {
-	queryParams: SearchTopicsQueryParams;
+	queryParams: UseSearchTopicsQueryQueryParams;
 }
 
 /**

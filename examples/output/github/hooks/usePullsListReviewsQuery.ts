@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface PullsListReviewsPathParams {
+export interface UsePullsListReviewsQueryPathParams {
 	owner: string;
 	repo: string;
 	pull_number: number;
 }
 
-export interface PullsListReviewsQueryParams {
+export interface UsePullsListReviewsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -20,8 +20,8 @@ export interface PullsListReviewsQueryParams {
 	page?: number;
 }
 
-export interface UsePullsListReviewsQueryProps extends PullsListReviewsPathParams {
-	queryParams: PullsListReviewsQueryParams;
+export interface UsePullsListReviewsQueryProps extends UsePullsListReviewsQueryPathParams {
+	queryParams: UsePullsListReviewsQueryQueryParams;
 }
 
 /**

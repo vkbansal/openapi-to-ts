@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActivityListPublicEventsQueryParams {
+export interface UseActivityListPublicEventsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -15,7 +15,7 @@ export interface ActivityListPublicEventsQueryParams {
 }
 
 export interface UseActivityListPublicEventsQueryProps {
-	queryParams: ActivityListPublicEventsQueryParams;
+	queryParams: UseActivityListPublicEventsQueryQueryParams;
 }
 
 /**

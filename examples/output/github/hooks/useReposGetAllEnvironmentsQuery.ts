@@ -3,12 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetAllEnvironmentsPathParams {
+export interface UseReposGetAllEnvironmentsQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface UseReposGetAllEnvironmentsQueryProps extends ReposGetAllEnvironmentsPathParams {}
+export interface UseReposGetAllEnvironmentsQueryProps
+	extends UseReposGetAllEnvironmentsQueryPathParams {}
 
 /**
  * Get all environments for a repository.

@@ -3,17 +3,17 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetReadmePathParams {
+export interface UseReposGetReadmeQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ReposGetReadmeQueryParams {
+export interface UseReposGetReadmeQueryQueryParams {
 	ref?: string;
 }
 
-export interface UseReposGetReadmeQueryProps extends ReposGetReadmePathParams {
-	queryParams: ReposGetReadmeQueryParams;
+export interface UseReposGetReadmeQueryProps extends UseReposGetReadmeQueryPathParams {
+	queryParams: UseReposGetReadmeQueryQueryParams;
 }
 
 /**

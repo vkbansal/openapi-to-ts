@@ -3,13 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsGetReviewsForRunPathParams {
+export interface UseActionsGetReviewsForRunQueryPathParams {
 	owner: string;
 	repo: string;
 	run_id: number;
 }
 
-export interface UseActionsGetReviewsForRunQueryProps extends ActionsGetReviewsForRunPathParams {}
+export interface UseActionsGetReviewsForRunQueryProps
+	extends UseActionsGetReviewsForRunQueryPathParams {}
 
 /**
  * Anyone with read access to the repository can use this endpoint. If the repository is private, you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.

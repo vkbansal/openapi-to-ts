@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsGetDiscussionCommentInOrgPathParams {
+export interface UseTeamsGetDiscussionCommentInOrgQueryPathParams {
 	org: string;
 	team_slug: string;
 	discussion_number: number;
@@ -11,7 +11,7 @@ export interface TeamsGetDiscussionCommentInOrgPathParams {
 }
 
 export interface UseTeamsGetDiscussionCommentInOrgQueryProps
-	extends TeamsGetDiscussionCommentInOrgPathParams {}
+	extends UseTeamsGetDiscussionCommentInOrgQueryPathParams {}
 
 /**
  * Get a specific comment on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://docs.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).

@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ChecksListForRefPathParams {
+export interface UseChecksListForRefQueryPathParams {
 	owner: string;
 	repo: string;
 	ref: string;
 }
 
-export interface ChecksListForRefQueryParams {
+export interface UseChecksListForRefQueryQueryParams {
 	check_name?: string;
 	status?: 'completed' | 'in_progress' | 'queued';
 	/**
@@ -27,8 +27,8 @@ export interface ChecksListForRefQueryParams {
 	app_id?: number;
 }
 
-export interface UseChecksListForRefQueryProps extends ChecksListForRefPathParams {
-	queryParams: ChecksListForRefQueryParams;
+export interface UseChecksListForRefQueryProps extends UseChecksListForRefQueryPathParams {
+	queryParams: UseChecksListForRefQueryQueryParams;
 }
 
 /**

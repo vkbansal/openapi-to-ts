@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface EnterpriseAdminListSelectedOrganizationsEnabledGithubActionsEnterprisePathParams {
+export interface UseEnterpriseAdminListSelectedOrganizationsEnabledGithubActionsEnterpriseQueryPathParams {
 	enterprise: string;
 }
 
-export interface EnterpriseAdminListSelectedOrganizationsEnabledGithubActionsEnterpriseQueryParams {
+export interface UseEnterpriseAdminListSelectedOrganizationsEnabledGithubActionsEnterpriseQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface EnterpriseAdminListSelectedOrganizationsEnabledGithubActionsEnt
 }
 
 export interface UseEnterpriseAdminListSelectedOrganizationsEnabledGithubActionsEnterpriseQueryProps
-	extends EnterpriseAdminListSelectedOrganizationsEnabledGithubActionsEnterprisePathParams {
-	queryParams: EnterpriseAdminListSelectedOrganizationsEnabledGithubActionsEnterpriseQueryParams;
+	extends UseEnterpriseAdminListSelectedOrganizationsEnabledGithubActionsEnterpriseQueryPathParams {
+	queryParams: UseEnterpriseAdminListSelectedOrganizationsEnabledGithubActionsEnterpriseQueryQueryParams;
 }
 
 /**

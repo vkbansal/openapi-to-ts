@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ChecksGetPathParams {
+export interface UseChecksGetQueryPathParams {
 	owner: string;
 	repo: string;
 	check_run_id: number;
 }
 
-export interface UseChecksGetQueryProps extends ChecksGetPathParams {}
+export interface UseChecksGetQueryProps extends UseChecksGetQueryPathParams {}
 
 /**
  * **Note:** The Checks API only looks for pushes in the repository where the check suite or check run were created. Pushes to a branch in a forked repository are not detected and return an empty `pull_requests` array.

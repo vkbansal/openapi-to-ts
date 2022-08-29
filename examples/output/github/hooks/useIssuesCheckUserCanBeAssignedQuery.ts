@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesCheckUserCanBeAssignedPathParams {
+export interface UseIssuesCheckUserCanBeAssignedQueryPathParams {
 	owner: string;
 	repo: string;
 	assignee: string;
 }
 
 export interface UseIssuesCheckUserCanBeAssignedQueryProps
-	extends IssuesCheckUserCanBeAssignedPathParams {}
+	extends UseIssuesCheckUserCanBeAssignedQueryPathParams {}
 
 /**
  * Checks if a user has permission to be assigned to an issue in this repository.

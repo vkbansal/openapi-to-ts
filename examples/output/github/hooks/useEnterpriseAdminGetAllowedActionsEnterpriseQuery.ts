@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface EnterpriseAdminGetAllowedActionsEnterprisePathParams {
+export interface UseEnterpriseAdminGetAllowedActionsEnterpriseQueryPathParams {
 	enterprise: string;
 }
 
 export interface UseEnterpriseAdminGetAllowedActionsEnterpriseQueryProps
-	extends EnterpriseAdminGetAllowedActionsEnterprisePathParams {}
+	extends UseEnterpriseAdminGetAllowedActionsEnterpriseQueryPathParams {}
 
 /**
  * Gets the selected actions that are allowed in an enterprise. To use this endpoint, the enterprise permission policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an enterprise](#set-github-actions-permissions-for-an-enterprise)."

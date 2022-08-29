@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsListMembersInOrgPathParams {
+export interface UseTeamsListMembersInOrgQueryPathParams {
 	org: string;
 	team_slug: string;
 }
 
-export interface TeamsListMembersInOrgQueryParams {
+export interface UseTeamsListMembersInOrgQueryQueryParams {
 	/**
 	 * @default "all"
 	 */
@@ -23,8 +23,9 @@ export interface TeamsListMembersInOrgQueryParams {
 	page?: number;
 }
 
-export interface UseTeamsListMembersInOrgQueryProps extends TeamsListMembersInOrgPathParams {
-	queryParams: TeamsListMembersInOrgQueryParams;
+export interface UseTeamsListMembersInOrgQueryProps
+	extends UseTeamsListMembersInOrgQueryPathParams {
+	queryParams: UseTeamsListMembersInOrgQueryQueryParams;
 }
 
 /**

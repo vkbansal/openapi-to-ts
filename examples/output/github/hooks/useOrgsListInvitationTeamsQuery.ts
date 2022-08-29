@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsListInvitationTeamsPathParams {
+export interface UseOrgsListInvitationTeamsQueryPathParams {
 	org: string;
 	invitation_id: number;
 }
 
-export interface OrgsListInvitationTeamsQueryParams {
+export interface UseOrgsListInvitationTeamsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,9 @@ export interface OrgsListInvitationTeamsQueryParams {
 	page?: number;
 }
 
-export interface UseOrgsListInvitationTeamsQueryProps extends OrgsListInvitationTeamsPathParams {
-	queryParams: OrgsListInvitationTeamsQueryParams;
+export interface UseOrgsListInvitationTeamsQueryProps
+	extends UseOrgsListInvitationTeamsQueryPathParams {
+	queryParams: UseOrgsListInvitationTeamsQueryQueryParams;
 }
 
 /**

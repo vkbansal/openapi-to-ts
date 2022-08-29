@@ -3,12 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsGetMembershipForUserPathParams {
+export interface UseOrgsGetMembershipForUserQueryPathParams {
 	org: string;
 	username: string;
 }
 
-export interface UseOrgsGetMembershipForUserQueryProps extends OrgsGetMembershipForUserPathParams {}
+export interface UseOrgsGetMembershipForUserQueryProps
+	extends UseOrgsGetMembershipForUserQueryPathParams {}
 
 /**
  * In order to get a user's membership with an organization, the authenticated user must be an organization member.

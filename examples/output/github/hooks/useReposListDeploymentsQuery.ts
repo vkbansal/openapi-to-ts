@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListDeploymentsPathParams {
+export interface UseReposListDeploymentsQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ReposListDeploymentsQueryParams {
+export interface UseReposListDeploymentsQueryQueryParams {
 	/**
 	 * @default "none"
 	 */
@@ -35,8 +35,8 @@ export interface ReposListDeploymentsQueryParams {
 	page?: number;
 }
 
-export interface UseReposListDeploymentsQueryProps extends ReposListDeploymentsPathParams {
-	queryParams: ReposListDeploymentsQueryParams;
+export interface UseReposListDeploymentsQueryProps extends UseReposListDeploymentsQueryPathParams {
+	queryParams: UseReposListDeploymentsQueryQueryParams;
 }
 
 /**

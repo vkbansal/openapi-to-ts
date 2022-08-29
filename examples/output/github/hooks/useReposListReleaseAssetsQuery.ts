@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListReleaseAssetsPathParams {
+export interface UseReposListReleaseAssetsQueryPathParams {
 	owner: string;
 	repo: string;
 	release_id: number;
 }
 
-export interface ReposListReleaseAssetsQueryParams {
+export interface UseReposListReleaseAssetsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -20,8 +20,9 @@ export interface ReposListReleaseAssetsQueryParams {
 	page?: number;
 }
 
-export interface UseReposListReleaseAssetsQueryProps extends ReposListReleaseAssetsPathParams {
-	queryParams: ReposListReleaseAssetsQueryParams;
+export interface UseReposListReleaseAssetsQueryProps
+	extends UseReposListReleaseAssetsQueryPathParams {
+	queryParams: UseReposListReleaseAssetsQueryQueryParams;
 }
 
 /**

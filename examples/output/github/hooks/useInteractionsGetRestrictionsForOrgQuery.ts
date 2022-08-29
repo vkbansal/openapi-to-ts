@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface InteractionsGetRestrictionsForOrgPathParams {
+export interface UseInteractionsGetRestrictionsForOrgQueryPathParams {
 	org: string;
 }
 
 export interface UseInteractionsGetRestrictionsForOrgQueryProps
-	extends InteractionsGetRestrictionsForOrgPathParams {}
+	extends UseInteractionsGetRestrictionsForOrgQueryPathParams {}
 
 /**
  * Shows which type of GitHub user can interact with this organization and when the restriction expires. If there is no restrictions, you will see an empty response.

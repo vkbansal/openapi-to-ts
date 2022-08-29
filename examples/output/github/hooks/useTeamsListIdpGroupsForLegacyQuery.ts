@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsListIdpGroupsForLegacyPathParams {
+export interface UseTeamsListIdpGroupsForLegacyQueryPathParams {
 	team_id: number;
 }
 
 export interface UseTeamsListIdpGroupsForLegacyQueryProps
-	extends TeamsListIdpGroupsForLegacyPathParams {}
+	extends UseTeamsListIdpGroupsForLegacyQueryPathParams {}
 
 /**
  * **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`List IdP groups for a team`](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team) endpoint.

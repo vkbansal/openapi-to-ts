@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ProjectsGetPermissionForUserPathParams {
+export interface UseProjectsGetPermissionForUserQueryPathParams {
 	project_id: number;
 	username: string;
 }
 
 export interface UseProjectsGetPermissionForUserQueryProps
-	extends ProjectsGetPermissionForUserPathParams {}
+	extends UseProjectsGetPermissionForUserQueryPathParams {}
 
 /**
  * Returns the collaborator's permission level for an organization project. Possible values for the `permission` key: `admin`, `write`, `read`, `none`. You must be an organization owner or a project `admin` to review a user's permission level.

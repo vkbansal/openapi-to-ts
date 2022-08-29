@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface UsersGetByUsernamePathParams {
+export interface UseUsersGetByUsernameQueryPathParams {
 	username: string;
 }
 
-export interface UseUsersGetByUsernameQueryProps extends UsersGetByUsernamePathParams {}
+export interface UseUsersGetByUsernameQueryProps extends UseUsersGetByUsernameQueryPathParams {}
 
 /**
  * Provides publicly available information about someone with a GitHub account.

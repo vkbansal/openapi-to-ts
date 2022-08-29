@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsListWebhooksPathParams {
+export interface UseOrgsListWebhooksQueryPathParams {
 	org: string;
 }
 
-export interface OrgsListWebhooksQueryParams {
+export interface UseOrgsListWebhooksQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -18,8 +18,8 @@ export interface OrgsListWebhooksQueryParams {
 	page?: number;
 }
 
-export interface UseOrgsListWebhooksQueryProps extends OrgsListWebhooksPathParams {
-	queryParams: OrgsListWebhooksQueryParams;
+export interface UseOrgsListWebhooksQueryProps extends UseOrgsListWebhooksQueryPathParams {
+	queryParams: UseOrgsListWebhooksQueryQueryParams;
 }
 
 /**

@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetTopReferrersPathParams {
+export interface UseReposGetTopReferrersQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface UseReposGetTopReferrersQueryProps extends ReposGetTopReferrersPathParams {}
+export interface UseReposGetTopReferrersQueryProps extends UseReposGetTopReferrersQueryPathParams {}
 
 /**
  * Get the top 10 referrers over the last 14 days.

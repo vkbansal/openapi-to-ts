@@ -3,12 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface CodesOfConductGetForRepoPathParams {
+export interface UseCodesOfConductGetForRepoQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface UseCodesOfConductGetForRepoQueryProps extends CodesOfConductGetForRepoPathParams {}
+export interface UseCodesOfConductGetForRepoQueryProps
+	extends UseCodesOfConductGetForRepoQueryPathParams {}
 
 /**
  * Returns the contents of the repository's code of conduct file, if one is detected.

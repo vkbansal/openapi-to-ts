@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface EnterpriseAdminGetGithubActionsPermissionsEnterprisePathParams {
+export interface UseEnterpriseAdminGetGithubActionsPermissionsEnterpriseQueryPathParams {
 	enterprise: string;
 }
 
 export interface UseEnterpriseAdminGetGithubActionsPermissionsEnterpriseQueryProps
-	extends EnterpriseAdminGetGithubActionsPermissionsEnterprisePathParams {}
+	extends UseEnterpriseAdminGetGithubActionsPermissionsEnterpriseQueryPathParams {}
 
 /**
  * Gets the GitHub Actions permissions policy for organizations and allowed actions in an enterprise.

@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsListForUserPathParams {
+export interface UseOrgsListForUserQueryPathParams {
 	username: string;
 }
 
-export interface OrgsListForUserQueryParams {
+export interface UseOrgsListForUserQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -18,8 +18,8 @@ export interface OrgsListForUserQueryParams {
 	page?: number;
 }
 
-export interface UseOrgsListForUserQueryProps extends OrgsListForUserPathParams {
-	queryParams: OrgsListForUserQueryParams;
+export interface UseOrgsListForUserQueryProps extends UseOrgsListForUserQueryPathParams {
+	queryParams: UseOrgsListForUserQueryQueryParams;
 }
 
 /**

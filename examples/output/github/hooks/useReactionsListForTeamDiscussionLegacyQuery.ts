@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReactionsListForTeamDiscussionLegacyPathParams {
+export interface UseReactionsListForTeamDiscussionLegacyQueryPathParams {
 	team_id: number;
 	discussion_number: number;
 }
 
-export interface ReactionsListForTeamDiscussionLegacyQueryParams {
+export interface UseReactionsListForTeamDiscussionLegacyQueryQueryParams {
 	content?: '+1' | '-1' | 'confused' | 'eyes' | 'heart' | 'hooray' | 'laugh' | 'rocket';
 	/**
 	 * @default 30
@@ -21,8 +21,8 @@ export interface ReactionsListForTeamDiscussionLegacyQueryParams {
 }
 
 export interface UseReactionsListForTeamDiscussionLegacyQueryProps
-	extends ReactionsListForTeamDiscussionLegacyPathParams {
-	queryParams: ReactionsListForTeamDiscussionLegacyQueryParams;
+	extends UseReactionsListForTeamDiscussionLegacyQueryPathParams {
+	queryParams: UseReactionsListForTeamDiscussionLegacyQueryQueryParams;
 }
 
 /**

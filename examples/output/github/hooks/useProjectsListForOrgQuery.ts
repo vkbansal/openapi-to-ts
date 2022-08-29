@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ProjectsListForOrgPathParams {
+export interface UseProjectsListForOrgQueryPathParams {
 	org: string;
 }
 
-export interface ProjectsListForOrgQueryParams {
+export interface UseProjectsListForOrgQueryQueryParams {
 	/**
 	 * @default "open"
 	 */
@@ -22,8 +22,8 @@ export interface ProjectsListForOrgQueryParams {
 	page?: number;
 }
 
-export interface UseProjectsListForOrgQueryProps extends ProjectsListForOrgPathParams {
-	queryParams: ProjectsListForOrgQueryParams;
+export interface UseProjectsListForOrgQueryProps extends UseProjectsListForOrgQueryPathParams {
+	queryParams: UseProjectsListForOrgQueryQueryParams;
 }
 
 /**

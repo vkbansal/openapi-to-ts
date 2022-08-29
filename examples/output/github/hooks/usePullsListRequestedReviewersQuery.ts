@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface PullsListRequestedReviewersPathParams {
+export interface UsePullsListRequestedReviewersQueryPathParams {
 	owner: string;
 	repo: string;
 	pull_number: number;
 }
 
-export interface PullsListRequestedReviewersQueryParams {
+export interface UsePullsListRequestedReviewersQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -21,8 +21,8 @@ export interface PullsListRequestedReviewersQueryParams {
 }
 
 export interface UsePullsListRequestedReviewersQueryProps
-	extends PullsListRequestedReviewersPathParams {
-	queryParams: PullsListRequestedReviewersQueryParams;
+	extends UsePullsListRequestedReviewersQueryPathParams {
+	queryParams: UsePullsListRequestedReviewersQueryQueryParams;
 }
 
 /**

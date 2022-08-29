@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GitGetTagPathParams {
+export interface UseGitGetTagQueryPathParams {
 	owner: string;
 	repo: string;
 	tag_sha: string;
 }
 
-export interface UseGitGetTagQueryProps extends GitGetTagPathParams {}
+export interface UseGitGetTagQueryProps extends UseGitGetTagQueryPathParams {}
 
 /**
  * **Signature verification object**

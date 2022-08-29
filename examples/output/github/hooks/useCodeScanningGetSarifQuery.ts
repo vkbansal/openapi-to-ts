@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface CodeScanningGetSarifPathParams {
+export interface UseCodeScanningGetSarifQueryPathParams {
 	owner: string;
 	repo: string;
 	sarif_id: string;
 }
 
-export interface UseCodeScanningGetSarifQueryProps extends CodeScanningGetSarifPathParams {}
+export interface UseCodeScanningGetSarifQueryProps extends UseCodeScanningGetSarifQueryPathParams {}
 
 /**
  * Gets information about a SARIF upload, including the status and the URL of the analysis that was uploaded so that you can retrieve details of the analysis. For more information, see "[Get a code scanning analysis for a repository](/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)." You must use an access token with the `security_events` scope to use this endpoint. GitHub Apps must have the `security_events` read permission to use this endpoint.

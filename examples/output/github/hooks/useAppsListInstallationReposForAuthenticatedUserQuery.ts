@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface AppsListInstallationReposForAuthenticatedUserPathParams {
+export interface UseAppsListInstallationReposForAuthenticatedUserQueryPathParams {
 	installation_id: number;
 }
 
-export interface AppsListInstallationReposForAuthenticatedUserQueryParams {
+export interface UseAppsListInstallationReposForAuthenticatedUserQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface AppsListInstallationReposForAuthenticatedUserQueryParams {
 }
 
 export interface UseAppsListInstallationReposForAuthenticatedUserQueryProps
-	extends AppsListInstallationReposForAuthenticatedUserPathParams {
-	queryParams: AppsListInstallationReposForAuthenticatedUserQueryParams;
+	extends UseAppsListInstallationReposForAuthenticatedUserQueryPathParams {
+	queryParams: UseAppsListInstallationReposForAuthenticatedUserQueryQueryParams;
 }
 
 /**

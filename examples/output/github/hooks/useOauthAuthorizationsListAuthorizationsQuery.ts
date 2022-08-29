@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OauthAuthorizationsListAuthorizationsQueryParams {
+export interface UseOauthAuthorizationsListAuthorizationsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -16,7 +16,7 @@ export interface OauthAuthorizationsListAuthorizationsQueryParams {
 }
 
 export interface UseOauthAuthorizationsListAuthorizationsQueryProps {
-	queryParams: OauthAuthorizationsListAuthorizationsQueryParams;
+	queryParams: UseOauthAuthorizationsListAuthorizationsQueryQueryParams;
 }
 
 /**

@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GistsListCommitsPathParams {
+export interface UseGistsListCommitsQueryPathParams {
 	gist_id: string;
 }
 
-export interface GistsListCommitsQueryParams {
+export interface UseGistsListCommitsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -18,8 +18,8 @@ export interface GistsListCommitsQueryParams {
 	page?: number;
 }
 
-export interface UseGistsListCommitsQueryProps extends GistsListCommitsPathParams {
-	queryParams: GistsListCommitsQueryParams;
+export interface UseGistsListCommitsQueryProps extends UseGistsListCommitsQueryPathParams {
+	queryParams: UseGistsListCommitsQueryQueryParams;
 }
 
 /**

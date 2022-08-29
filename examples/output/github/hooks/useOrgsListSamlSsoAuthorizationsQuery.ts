@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsListSamlSsoAuthorizationsPathParams {
+export interface UseOrgsListSamlSsoAuthorizationsQueryPathParams {
 	org: string;
 }
 
 export interface UseOrgsListSamlSsoAuthorizationsQueryProps
-	extends OrgsListSamlSsoAuthorizationsPathParams {}
+	extends UseOrgsListSamlSsoAuthorizationsQueryPathParams {}
 
 /**
  * Listing and deleting credential authorizations is available to organizations with GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products).

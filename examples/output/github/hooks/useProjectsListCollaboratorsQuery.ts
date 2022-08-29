@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ProjectsListCollaboratorsPathParams {
+export interface UseProjectsListCollaboratorsQueryPathParams {
 	project_id: number;
 }
 
-export interface ProjectsListCollaboratorsQueryParams {
+export interface UseProjectsListCollaboratorsQueryQueryParams {
 	/**
 	 * @default "all"
 	 */
@@ -23,8 +23,8 @@ export interface ProjectsListCollaboratorsQueryParams {
 }
 
 export interface UseProjectsListCollaboratorsQueryProps
-	extends ProjectsListCollaboratorsPathParams {
-	queryParams: ProjectsListCollaboratorsQueryParams;
+	extends UseProjectsListCollaboratorsQueryPathParams {
+	queryParams: UseProjectsListCollaboratorsQueryQueryParams;
 }
 
 /**

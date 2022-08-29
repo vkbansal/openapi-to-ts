@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface BillingGetSharedStorageBillingGhePathParams {
+export interface UseBillingGetSharedStorageBillingGheQueryPathParams {
 	enterprise: string;
 }
 
 export interface UseBillingGetSharedStorageBillingGheQueryProps
-	extends BillingGetSharedStorageBillingGhePathParams {}
+	extends UseBillingGetSharedStorageBillingGheQueryPathParams {}
 
 /**
  * Gets the estimated paid and estimated total storage used for GitHub Actions and Github Packages.

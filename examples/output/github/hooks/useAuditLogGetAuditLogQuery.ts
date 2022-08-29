@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface AuditLogGetAuditLogPathParams {
+export interface UseAuditLogGetAuditLogQueryPathParams {
 	enterprise: string;
 }
 
-export interface AuditLogGetAuditLogQueryParams {
+export interface UseAuditLogGetAuditLogQueryQueryParams {
 	phrase?: string;
 	include?: 'all' | 'git' | 'web';
 	after?: string;
@@ -23,8 +23,8 @@ export interface AuditLogGetAuditLogQueryParams {
 	per_page?: number;
 }
 
-export interface UseAuditLogGetAuditLogQueryProps extends AuditLogGetAuditLogPathParams {
-	queryParams: AuditLogGetAuditLogQueryParams;
+export interface UseAuditLogGetAuditLogQueryProps extends UseAuditLogGetAuditLogQueryPathParams {
+	queryParams: UseAuditLogGetAuditLogQueryQueryParams;
 }
 
 /**

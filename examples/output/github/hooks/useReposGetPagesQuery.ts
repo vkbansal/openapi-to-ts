@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetPagesPathParams {
+export interface UseReposGetPagesQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface UseReposGetPagesQueryProps extends ReposGetPagesPathParams {}
+export interface UseReposGetPagesQueryProps extends UseReposGetPagesQueryPathParams {}
 
 /**
  *

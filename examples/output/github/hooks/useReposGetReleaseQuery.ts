@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetReleasePathParams {
+export interface UseReposGetReleaseQueryPathParams {
 	owner: string;
 	repo: string;
 	release_id: number;
 }
 
-export interface UseReposGetReleaseQueryProps extends ReposGetReleasePathParams {}
+export interface UseReposGetReleaseQueryProps extends UseReposGetReleaseQueryPathParams {}
 
 /**
  * **Note:** This returns an `upload_url` key corresponding to the endpoint for uploading release assets. This key is a [hypermedia resource](https://docs.github.com/rest/overview/resources-in-the-rest-api#hypermedia).

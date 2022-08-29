@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesListAssigneesPathParams {
+export interface UseIssuesListAssigneesQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface IssuesListAssigneesQueryParams {
+export interface UseIssuesListAssigneesQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface IssuesListAssigneesQueryParams {
 	page?: number;
 }
 
-export interface UseIssuesListAssigneesQueryProps extends IssuesListAssigneesPathParams {
-	queryParams: IssuesListAssigneesQueryParams;
+export interface UseIssuesListAssigneesQueryProps extends UseIssuesListAssigneesQueryPathParams {
+	queryParams: UseIssuesListAssigneesQueryQueryParams;
 }
 
 /**

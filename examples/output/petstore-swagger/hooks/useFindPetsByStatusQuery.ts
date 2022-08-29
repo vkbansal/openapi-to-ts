@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface FindPetsByStatusQueryParams {
+export interface UseFindPetsByStatusQueryQueryParams {
 	status: Array<'available' | 'pending' | 'sold'>;
 }
 
 export interface UseFindPetsByStatusQueryProps {
-	queryParams: FindPetsByStatusQueryParams;
+	queryParams: UseFindPetsByStatusQueryQueryParams;
 }
 
 /**

@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface PullsGetReviewPathParams {
+export interface UsePullsGetReviewQueryPathParams {
 	owner: string;
 	repo: string;
 	pull_number: number;
 	review_id: number;
 }
 
-export interface UsePullsGetReviewQueryProps extends PullsGetReviewPathParams {}
+export interface UsePullsGetReviewQueryProps extends UsePullsGetReviewQueryPathParams {}
 
 /**
  *

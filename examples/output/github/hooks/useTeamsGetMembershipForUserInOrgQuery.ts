@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsGetMembershipForUserInOrgPathParams {
+export interface UseTeamsGetMembershipForUserInOrgQueryPathParams {
 	org: string;
 	team_slug: string;
 	username: string;
 }
 
 export interface UseTeamsGetMembershipForUserInOrgQueryProps
-	extends TeamsGetMembershipForUserInOrgPathParams {}
+	extends UseTeamsGetMembershipForUserInOrgQueryPathParams {}
 
 /**
  * Team members will include the members of child teams.

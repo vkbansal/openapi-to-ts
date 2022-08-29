@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsListPendingInvitationsPathParams {
+export interface UseOrgsListPendingInvitationsQueryPathParams {
 	org: string;
 }
 
-export interface OrgsListPendingInvitationsQueryParams {
+export interface UseOrgsListPendingInvitationsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface OrgsListPendingInvitationsQueryParams {
 }
 
 export interface UseOrgsListPendingInvitationsQueryProps
-	extends OrgsListPendingInvitationsPathParams {
-	queryParams: OrgsListPendingInvitationsQueryParams;
+	extends UseOrgsListPendingInvitationsQueryPathParams {
+	queryParams: UseOrgsListPendingInvitationsQueryQueryParams;
 }
 
 /**

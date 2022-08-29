@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface EnterpriseAdminListSelfHostedRunnersInGroupForEnterprisePathParams {
+export interface UseEnterpriseAdminListSelfHostedRunnersInGroupForEnterpriseQueryPathParams {
 	enterprise: string;
 	runner_group_id: number;
 }
 
-export interface EnterpriseAdminListSelfHostedRunnersInGroupForEnterpriseQueryParams {
+export interface UseEnterpriseAdminListSelfHostedRunnersInGroupForEnterpriseQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -20,8 +20,8 @@ export interface EnterpriseAdminListSelfHostedRunnersInGroupForEnterpriseQueryPa
 }
 
 export interface UseEnterpriseAdminListSelfHostedRunnersInGroupForEnterpriseQueryProps
-	extends EnterpriseAdminListSelfHostedRunnersInGroupForEnterprisePathParams {
-	queryParams: EnterpriseAdminListSelfHostedRunnersInGroupForEnterpriseQueryParams;
+	extends UseEnterpriseAdminListSelfHostedRunnersInGroupForEnterpriseQueryPathParams {
+	queryParams: UseEnterpriseAdminListSelfHostedRunnersInGroupForEnterpriseQueryQueryParams;
 }
 
 /**

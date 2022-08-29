@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListInvitationsForAuthenticatedUserQueryParams {
+export interface UseReposListInvitationsForAuthenticatedUserQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -15,7 +15,7 @@ export interface ReposListInvitationsForAuthenticatedUserQueryParams {
 }
 
 export interface UseReposListInvitationsForAuthenticatedUserQueryProps {
-	queryParams: ReposListInvitationsForAuthenticatedUserQueryParams;
+	queryParams: UseReposListInvitationsForAuthenticatedUserQueryQueryParams;
 }
 
 /**

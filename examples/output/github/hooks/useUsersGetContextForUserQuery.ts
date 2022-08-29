@@ -3,17 +3,18 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface UsersGetContextForUserPathParams {
+export interface UseUsersGetContextForUserQueryPathParams {
 	username: string;
 }
 
-export interface UsersGetContextForUserQueryParams {
+export interface UseUsersGetContextForUserQueryQueryParams {
 	subject_type?: 'issue' | 'organization' | 'pull_request' | 'repository';
 	subject_id?: string;
 }
 
-export interface UseUsersGetContextForUserQueryProps extends UsersGetContextForUserPathParams {
-	queryParams: UsersGetContextForUserQueryParams;
+export interface UseUsersGetContextForUserQueryProps
+	extends UseUsersGetContextForUserQueryPathParams {
+	queryParams: UseUsersGetContextForUserQueryQueryParams;
 }
 
 /**

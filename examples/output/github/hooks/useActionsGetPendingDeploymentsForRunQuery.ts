@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsGetPendingDeploymentsForRunPathParams {
+export interface UseActionsGetPendingDeploymentsForRunQueryPathParams {
 	owner: string;
 	repo: string;
 	run_id: number;
 }
 
 export interface UseActionsGetPendingDeploymentsForRunQueryProps
-	extends ActionsGetPendingDeploymentsForRunPathParams {}
+	extends UseActionsGetPendingDeploymentsForRunQueryPathParams {}
 
 /**
  * Get all deployment environments for a workflow run that are waiting for protection rules to pass.

@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsGetDiscussionCommentLegacyPathParams {
+export interface UseTeamsGetDiscussionCommentLegacyQueryPathParams {
 	team_id: number;
 	discussion_number: number;
 	comment_number: number;
 }
 
 export interface UseTeamsGetDiscussionCommentLegacyQueryProps
-	extends TeamsGetDiscussionCommentLegacyPathParams {}
+	extends UseTeamsGetDiscussionCommentLegacyQueryPathParams {}
 
 /**
  * **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Get a discussion comment](https://docs.github.com/rest/reference/teams#get-a-discussion-comment) endpoint.

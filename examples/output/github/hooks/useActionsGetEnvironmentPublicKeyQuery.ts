@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsGetEnvironmentPublicKeyPathParams {
+export interface UseActionsGetEnvironmentPublicKeyQueryPathParams {
 	repository_id: number;
 	environment_name: string;
 }
 
 export interface UseActionsGetEnvironmentPublicKeyQueryProps
-	extends ActionsGetEnvironmentPublicKeyPathParams {}
+	extends UseActionsGetEnvironmentPublicKeyQueryPathParams {}
 
 /**
  * Get the public key for an environment, which you need to encrypt environment secrets. You need to encrypt a secret before you can create or update secrets. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `secrets` repository permission to use this endpoint.

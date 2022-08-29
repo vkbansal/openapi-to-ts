@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GitGetBlobPathParams {
+export interface UseGitGetBlobQueryPathParams {
 	owner: string;
 	repo: string;
 	file_sha: string;
 }
 
-export interface UseGitGetBlobQueryProps extends GitGetBlobPathParams {}
+export interface UseGitGetBlobQueryProps extends UseGitGetBlobQueryPathParams {}
 
 /**
  * The `content` in the response will always be Base64 encoded.

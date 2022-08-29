@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface AppsGetBySlugPathParams {
+export interface UseAppsGetBySlugQueryPathParams {
 	app_slug: string;
 }
 
-export interface UseAppsGetBySlugQueryProps extends AppsGetBySlugPathParams {}
+export interface UseAppsGetBySlugQueryProps extends UseAppsGetBySlugQueryPathParams {}
 
 /**
  * **Note**: The `:app_slug` is just the URL-friendly name of your GitHub App. You can find this on the settings page for your GitHub App (e.g., `https://github.com/settings/apps/:app_slug`).

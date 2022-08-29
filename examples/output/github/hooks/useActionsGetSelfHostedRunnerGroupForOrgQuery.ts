@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsGetSelfHostedRunnerGroupForOrgPathParams {
+export interface UseActionsGetSelfHostedRunnerGroupForOrgQueryPathParams {
 	org: string;
 	runner_group_id: number;
 }
 
 export interface UseActionsGetSelfHostedRunnerGroupForOrgQueryProps
-	extends ActionsGetSelfHostedRunnerGroupForOrgPathParams {}
+	extends UseActionsGetSelfHostedRunnerGroupForOrgQueryPathParams {}
 
 /**
  * The self-hosted runner groups REST API is available with GitHub Enterprise Cloud. For more information, see "[GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)."

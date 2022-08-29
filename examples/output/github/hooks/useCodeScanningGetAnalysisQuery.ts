@@ -3,13 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface CodeScanningGetAnalysisPathParams {
+export interface UseCodeScanningGetAnalysisQueryPathParams {
 	owner: string;
 	repo: string;
 	analysis_id: number;
 }
 
-export interface UseCodeScanningGetAnalysisQueryProps extends CodeScanningGetAnalysisPathParams {}
+export interface UseCodeScanningGetAnalysisQueryProps
+	extends UseCodeScanningGetAnalysisQueryPathParams {}
 
 /**
  * Gets a specified code scanning analysis for a repository.

@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface SearchReposQueryParams {
+export interface UseSearchReposQueryQueryParams {
 	q: string;
 	sort?: 'forks' | 'help-wanted-issues' | 'stars' | 'updated';
 	/**
@@ -21,7 +21,7 @@ export interface SearchReposQueryParams {
 }
 
 export interface UseSearchReposQueryProps {
-	queryParams: SearchReposQueryParams;
+	queryParams: UseSearchReposQueryQueryParams;
 }
 
 /**

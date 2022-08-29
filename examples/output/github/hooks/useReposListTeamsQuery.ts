@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListTeamsPathParams {
+export interface UseReposListTeamsQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ReposListTeamsQueryParams {
+export interface UseReposListTeamsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface ReposListTeamsQueryParams {
 	page?: number;
 }
 
-export interface UseReposListTeamsQueryProps extends ReposListTeamsPathParams {
-	queryParams: ReposListTeamsQueryParams;
+export interface UseReposListTeamsQueryProps extends UseReposListTeamsQueryPathParams {
+	queryParams: UseReposListTeamsQueryQueryParams;
 }
 
 /**

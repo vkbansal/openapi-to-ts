@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActivityListRepoNotificationsForAuthenticatedUserPathParams {
+export interface UseActivityListRepoNotificationsForAuthenticatedUserQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ActivityListRepoNotificationsForAuthenticatedUserQueryParams {
+export interface UseActivityListRepoNotificationsForAuthenticatedUserQueryQueryParams {
 	all?: boolean;
 	participating?: boolean;
 	since?: string;
@@ -24,8 +24,8 @@ export interface ActivityListRepoNotificationsForAuthenticatedUserQueryParams {
 }
 
 export interface UseActivityListRepoNotificationsForAuthenticatedUserQueryProps
-	extends ActivityListRepoNotificationsForAuthenticatedUserPathParams {
-	queryParams: ActivityListRepoNotificationsForAuthenticatedUserQueryParams;
+	extends UseActivityListRepoNotificationsForAuthenticatedUserQueryPathParams {
+	queryParams: UseActivityListRepoNotificationsForAuthenticatedUserQueryQueryParams;
 }
 
 /**

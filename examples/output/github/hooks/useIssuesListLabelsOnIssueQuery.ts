@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesListLabelsOnIssuePathParams {
+export interface UseIssuesListLabelsOnIssueQueryPathParams {
 	owner: string;
 	repo: string;
 	issue_number: number;
 }
 
-export interface IssuesListLabelsOnIssueQueryParams {
+export interface UseIssuesListLabelsOnIssueQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -20,8 +20,9 @@ export interface IssuesListLabelsOnIssueQueryParams {
 	page?: number;
 }
 
-export interface UseIssuesListLabelsOnIssueQueryProps extends IssuesListLabelsOnIssuePathParams {
-	queryParams: IssuesListLabelsOnIssueQueryParams;
+export interface UseIssuesListLabelsOnIssueQueryProps
+	extends UseIssuesListLabelsOnIssueQueryPathParams {
+	queryParams: UseIssuesListLabelsOnIssueQueryQueryParams;
 }
 
 /**

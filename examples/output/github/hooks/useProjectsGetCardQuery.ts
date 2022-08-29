@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ProjectsGetCardPathParams {
+export interface UseProjectsGetCardQueryPathParams {
 	card_id: number;
 }
 
-export interface UseProjectsGetCardQueryProps extends ProjectsGetCardPathParams {}
+export interface UseProjectsGetCardQueryProps extends UseProjectsGetCardQueryPathParams {}
 
 /**
  *

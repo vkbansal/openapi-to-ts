@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsListWorkflowRunsForRepoPathParams {
+export interface UseActionsListWorkflowRunsForRepoQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ActionsListWorkflowRunsForRepoQueryParams {
+export interface UseActionsListWorkflowRunsForRepoQueryQueryParams {
 	actor?: string;
 	branch?: string;
 	event?: string;
@@ -37,8 +37,8 @@ export interface ActionsListWorkflowRunsForRepoQueryParams {
 }
 
 export interface UseActionsListWorkflowRunsForRepoQueryProps
-	extends ActionsListWorkflowRunsForRepoPathParams {
-	queryParams: ActionsListWorkflowRunsForRepoQueryParams;
+	extends UseActionsListWorkflowRunsForRepoQueryPathParams {
+	queryParams: UseActionsListWorkflowRunsForRepoQueryQueryParams;
 }
 
 /**

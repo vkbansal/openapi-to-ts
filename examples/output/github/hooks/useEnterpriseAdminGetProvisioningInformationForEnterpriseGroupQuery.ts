@@ -3,18 +3,18 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface EnterpriseAdminGetProvisioningInformationForEnterpriseGroupPathParams {
+export interface UseEnterpriseAdminGetProvisioningInformationForEnterpriseGroupQueryPathParams {
 	enterprise: string;
 	scim_group_id: string;
 }
 
-export interface EnterpriseAdminGetProvisioningInformationForEnterpriseGroupQueryParams {
+export interface UseEnterpriseAdminGetProvisioningInformationForEnterpriseGroupQueryQueryParams {
 	excludedAttributes?: string;
 }
 
 export interface UseEnterpriseAdminGetProvisioningInformationForEnterpriseGroupQueryProps
-	extends EnterpriseAdminGetProvisioningInformationForEnterpriseGroupPathParams {
-	queryParams: EnterpriseAdminGetProvisioningInformationForEnterpriseGroupQueryParams;
+	extends UseEnterpriseAdminGetProvisioningInformationForEnterpriseGroupQueryPathParams {
+	queryParams: UseEnterpriseAdminGetProvisioningInformationForEnterpriseGroupQueryQueryParams;
 }
 
 /**

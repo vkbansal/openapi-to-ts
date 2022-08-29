@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetTopPathsPathParams {
+export interface UseReposGetTopPathsQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface UseReposGetTopPathsQueryProps extends ReposGetTopPathsPathParams {}
+export interface UseReposGetTopPathsQueryProps extends UseReposGetTopPathsQueryPathParams {}
 
 /**
  * Get the top 10 popular contents over the last 14 days.

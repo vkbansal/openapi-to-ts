@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposDownloadTarballArchivePathParams {
+export interface UseReposDownloadTarballArchiveQueryPathParams {
 	owner: string;
 	repo: string;
 	ref: string;
 }
 
 export interface UseReposDownloadTarballArchiveQueryProps
-	extends ReposDownloadTarballArchivePathParams {}
+	extends UseReposDownloadTarballArchiveQueryPathParams {}
 
 /**
  * Gets a redirect URL to download a tar archive for a repository. If you omit `:ref`, the repository’s default branch (usually

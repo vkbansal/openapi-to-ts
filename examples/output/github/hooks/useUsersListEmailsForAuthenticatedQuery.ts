@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface UsersListEmailsForAuthenticatedQueryParams {
+export interface UseUsersListEmailsForAuthenticatedQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -15,7 +15,7 @@ export interface UsersListEmailsForAuthenticatedQueryParams {
 }
 
 export interface UseUsersListEmailsForAuthenticatedQueryProps {
-	queryParams: UsersListEmailsForAuthenticatedQueryParams;
+	queryParams: UseUsersListEmailsForAuthenticatedQueryQueryParams;
 }
 
 /**

@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface MetaGetOctocatQueryParams {
+export interface UseMetaGetOctocatQueryQueryParams {
 	s?: string;
 }
 
 export interface UseMetaGetOctocatQueryProps {
-	queryParams: MetaGetOctocatQueryParams;
+	queryParams: UseMetaGetOctocatQueryQueryParams;
 }
 
 /**

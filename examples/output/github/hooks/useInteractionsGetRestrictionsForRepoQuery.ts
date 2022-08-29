@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface InteractionsGetRestrictionsForRepoPathParams {
+export interface UseInteractionsGetRestrictionsForRepoQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
 export interface UseInteractionsGetRestrictionsForRepoQueryProps
-	extends InteractionsGetRestrictionsForRepoPathParams {}
+	extends UseInteractionsGetRestrictionsForRepoQueryPathParams {}
 
 /**
  * Shows which type of GitHub user can interact with this repository and when the restriction expires. If there are no restrictions, you will see an empty response.

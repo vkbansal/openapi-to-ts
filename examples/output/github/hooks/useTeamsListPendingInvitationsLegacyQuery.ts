@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsListPendingInvitationsLegacyPathParams {
+export interface UseTeamsListPendingInvitationsLegacyQueryPathParams {
 	team_id: number;
 }
 
-export interface TeamsListPendingInvitationsLegacyQueryParams {
+export interface UseTeamsListPendingInvitationsLegacyQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface TeamsListPendingInvitationsLegacyQueryParams {
 }
 
 export interface UseTeamsListPendingInvitationsLegacyQueryProps
-	extends TeamsListPendingInvitationsLegacyPathParams {
-	queryParams: TeamsListPendingInvitationsLegacyQueryParams;
+	extends UseTeamsListPendingInvitationsLegacyQueryPathParams {
+	queryParams: UseTeamsListPendingInvitationsLegacyQueryQueryParams;
 }
 
 /**

@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface MigrationsListReposForOrgPathParams {
+export interface UseMigrationsListReposForOrgQueryPathParams {
 	org: string;
 	migration_id: number;
 }
 
-export interface MigrationsListReposForOrgQueryParams {
+export interface UseMigrationsListReposForOrgQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -20,8 +20,8 @@ export interface MigrationsListReposForOrgQueryParams {
 }
 
 export interface UseMigrationsListReposForOrgQueryProps
-	extends MigrationsListReposForOrgPathParams {
-	queryParams: MigrationsListReposForOrgQueryParams;
+	extends UseMigrationsListReposForOrgQueryPathParams {
+	queryParams: UseMigrationsListReposForOrgQueryQueryParams;
 }
 
 /**

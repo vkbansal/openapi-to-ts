@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsListSelectedReposForOrgSecretPathParams {
+export interface UseActionsListSelectedReposForOrgSecretQueryPathParams {
 	org: string;
 	secret_name: string;
 }
 
-export interface ActionsListSelectedReposForOrgSecretQueryParams {
+export interface UseActionsListSelectedReposForOrgSecretQueryQueryParams {
 	/**
 	 * @default 1
 	 */
@@ -20,8 +20,8 @@ export interface ActionsListSelectedReposForOrgSecretQueryParams {
 }
 
 export interface UseActionsListSelectedReposForOrgSecretQueryProps
-	extends ActionsListSelectedReposForOrgSecretPathParams {
-	queryParams: ActionsListSelectedReposForOrgSecretQueryParams;
+	extends UseActionsListSelectedReposForOrgSecretQueryPathParams {
+	queryParams: UseActionsListSelectedReposForOrgSecretQueryQueryParams;
 }
 
 /**

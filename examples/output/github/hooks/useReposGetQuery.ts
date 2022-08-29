@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetPathParams {
+export interface UseReposGetQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface UseReposGetQueryProps extends ReposGetPathParams {}
+export interface UseReposGetQueryProps extends UseReposGetQueryPathParams {}
 
 /**
  * When you pass the `scarlet-witch-preview` media type, requests to get a repository will also return the repository's code of conduct if it can be detected from the repository's code of conduct file.

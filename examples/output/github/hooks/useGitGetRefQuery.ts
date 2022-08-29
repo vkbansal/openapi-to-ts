@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GitGetRefPathParams {
+export interface UseGitGetRefQueryPathParams {
 	owner: string;
 	repo: string;
 	ref: string;
 }
 
-export interface UseGitGetRefQueryProps extends GitGetRefPathParams {}
+export interface UseGitGetRefQueryProps extends UseGitGetRefQueryPathParams {}
 
 /**
  * Returns a single reference from your Git database. The `:ref` in the URL must be formatted as `heads/<branch name>` for branches and `tags/<tag name>` for tags. If the `:ref` doesn't match an existing ref, a `404` is returned.

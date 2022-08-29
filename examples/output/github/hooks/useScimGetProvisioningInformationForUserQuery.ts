@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ScimGetProvisioningInformationForUserPathParams {
+export interface UseScimGetProvisioningInformationForUserQueryPathParams {
 	org: string;
 	scim_user_id: string;
 }
 
 export interface UseScimGetProvisioningInformationForUserQueryProps
-	extends ScimGetProvisioningInformationForUserPathParams {}
+	extends UseScimGetProvisioningInformationForUserQueryPathParams {}
 
 /**
  *

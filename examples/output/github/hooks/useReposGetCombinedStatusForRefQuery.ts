@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetCombinedStatusForRefPathParams {
+export interface UseReposGetCombinedStatusForRefQueryPathParams {
 	owner: string;
 	repo: string;
 	ref: string;
 }
 
-export interface ReposGetCombinedStatusForRefQueryParams {
+export interface UseReposGetCombinedStatusForRefQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -21,8 +21,8 @@ export interface ReposGetCombinedStatusForRefQueryParams {
 }
 
 export interface UseReposGetCombinedStatusForRefQueryProps
-	extends ReposGetCombinedStatusForRefPathParams {
-	queryParams: ReposGetCombinedStatusForRefQueryParams;
+	extends UseReposGetCombinedStatusForRefQueryPathParams {
+	queryParams: UseReposGetCombinedStatusForRefQueryQueryParams;
 }
 
 /**

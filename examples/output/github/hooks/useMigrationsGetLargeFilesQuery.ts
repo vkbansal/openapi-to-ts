@@ -3,12 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface MigrationsGetLargeFilesPathParams {
+export interface UseMigrationsGetLargeFilesQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface UseMigrationsGetLargeFilesQueryProps extends MigrationsGetLargeFilesPathParams {}
+export interface UseMigrationsGetLargeFilesQueryProps
+	extends UseMigrationsGetLargeFilesQueryPathParams {}
 
 /**
  * List files larger than 100MB found during the import

@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface UsersListGpgKeysForUserPathParams {
+export interface UseUsersListGpgKeysForUserQueryPathParams {
 	username: string;
 }
 
-export interface UsersListGpgKeysForUserQueryParams {
+export interface UseUsersListGpgKeysForUserQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -18,8 +18,9 @@ export interface UsersListGpgKeysForUserQueryParams {
 	page?: number;
 }
 
-export interface UseUsersListGpgKeysForUserQueryProps extends UsersListGpgKeysForUserPathParams {
-	queryParams: UsersListGpgKeysForUserQueryParams;
+export interface UseUsersListGpgKeysForUserQueryProps
+	extends UseUsersListGpgKeysForUserQueryPathParams {
+	queryParams: UseUsersListGpgKeysForUserQueryQueryParams;
 }
 
 /**

@@ -3,12 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface AppsGetRepoInstallationPathParams {
+export interface UseAppsGetRepoInstallationQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface UseAppsGetRepoInstallationQueryProps extends AppsGetRepoInstallationPathParams {}
+export interface UseAppsGetRepoInstallationQueryProps
+	extends UseAppsGetRepoInstallationQueryPathParams {}
 
 /**
  * Enables an authenticated GitHub App to find the repository's installation information. The installation's account type will be either an organization or a user account, depending which account the repository belongs to.

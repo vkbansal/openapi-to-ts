@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetCodeFrequencyStatsPathParams {
+export interface UseReposGetCodeFrequencyStatsQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
 export interface UseReposGetCodeFrequencyStatsQueryProps
-	extends ReposGetCodeFrequencyStatsPathParams {}
+	extends UseReposGetCodeFrequencyStatsQueryPathParams {}
 
 /**
  * Returns a weekly aggregate of the number of additions and deletions pushed to a repository.

@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface UsersListFollowersForAuthenticatedUserQueryParams {
+export interface UseUsersListFollowersForAuthenticatedUserQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -15,7 +15,7 @@ export interface UsersListFollowersForAuthenticatedUserQueryParams {
 }
 
 export interface UseUsersListFollowersForAuthenticatedUserQueryProps {
-	queryParams: UsersListFollowersForAuthenticatedUserQueryParams;
+	queryParams: UseUsersListFollowersForAuthenticatedUserQueryQueryParams;
 }
 
 /**

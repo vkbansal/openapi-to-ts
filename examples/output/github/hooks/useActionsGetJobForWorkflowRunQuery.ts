@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsGetJobForWorkflowRunPathParams {
+export interface UseActionsGetJobForWorkflowRunQueryPathParams {
 	owner: string;
 	repo: string;
 	job_id: number;
 }
 
 export interface UseActionsGetJobForWorkflowRunQueryProps
-	extends ActionsGetJobForWorkflowRunPathParams {}
+	extends UseActionsGetJobForWorkflowRunQueryPathParams {}
 
 /**
  * Gets a specific job in a workflow run. Anyone with read access to the repository can use this endpoint. If the repository is private you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.

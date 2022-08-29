@@ -3,13 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposCheckCollaboratorPathParams {
+export interface UseReposCheckCollaboratorQueryPathParams {
 	owner: string;
 	repo: string;
 	username: string;
 }
 
-export interface UseReposCheckCollaboratorQueryProps extends ReposCheckCollaboratorPathParams {}
+export interface UseReposCheckCollaboratorQueryProps
+	extends UseReposCheckCollaboratorQueryPathParams {}
 
 /**
  * For organization-owned repositories, the list of collaborators includes outside collaborators, organization members that are direct collaborators, organization members with access through team memberships, organization members with access through default organization permissions, and organization owners.

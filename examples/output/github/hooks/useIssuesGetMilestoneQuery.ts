@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesGetMilestonePathParams {
+export interface UseIssuesGetMilestoneQueryPathParams {
 	owner: string;
 	repo: string;
 	milestone_number: number;
 }
 
-export interface UseIssuesGetMilestoneQueryProps extends IssuesGetMilestonePathParams {}
+export interface UseIssuesGetMilestoneQueryProps extends UseIssuesGetMilestoneQueryPathParams {}
 
 /**
  *

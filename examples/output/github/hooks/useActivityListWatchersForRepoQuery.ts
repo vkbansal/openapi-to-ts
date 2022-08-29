@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActivityListWatchersForRepoPathParams {
+export interface UseActivityListWatchersForRepoQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ActivityListWatchersForRepoQueryParams {
+export interface UseActivityListWatchersForRepoQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -20,8 +20,8 @@ export interface ActivityListWatchersForRepoQueryParams {
 }
 
 export interface UseActivityListWatchersForRepoQueryProps
-	extends ActivityListWatchersForRepoPathParams {
-	queryParams: ActivityListWatchersForRepoQueryParams;
+	extends UseActivityListWatchersForRepoQueryPathParams {
+	queryParams: UseActivityListWatchersForRepoQueryQueryParams;
 }
 
 /**

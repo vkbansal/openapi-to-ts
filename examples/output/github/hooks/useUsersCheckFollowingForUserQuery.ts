@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface UsersCheckFollowingForUserPathParams {
+export interface UseUsersCheckFollowingForUserQueryPathParams {
 	username: string;
 	target_user: string;
 }
 
 export interface UseUsersCheckFollowingForUserQueryProps
-	extends UsersCheckFollowingForUserPathParams {}
+	extends UseUsersCheckFollowingForUserQueryPathParams {}
 
 /**
  *

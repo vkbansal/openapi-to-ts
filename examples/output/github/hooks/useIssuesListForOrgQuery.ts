@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesListForOrgPathParams {
+export interface UseIssuesListForOrgQueryPathParams {
 	org: string;
 }
 
-export interface IssuesListForOrgQueryParams {
+export interface UseIssuesListForOrgQueryQueryParams {
 	/**
 	 * @default "assigned"
 	 */
@@ -36,8 +36,8 @@ export interface IssuesListForOrgQueryParams {
 	page?: number;
 }
 
-export interface UseIssuesListForOrgQueryProps extends IssuesListForOrgPathParams {
-	queryParams: IssuesListForOrgQueryParams;
+export interface UseIssuesListForOrgQueryProps extends UseIssuesListForOrgQueryPathParams {
+	queryParams: UseIssuesListForOrgQueryQueryParams;
 }
 
 /**

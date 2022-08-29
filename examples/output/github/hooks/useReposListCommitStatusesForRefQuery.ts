@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListCommitStatusesForRefPathParams {
+export interface UseReposListCommitStatusesForRefQueryPathParams {
 	owner: string;
 	repo: string;
 	ref: string;
 }
 
-export interface ReposListCommitStatusesForRefQueryParams {
+export interface UseReposListCommitStatusesForRefQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -21,8 +21,8 @@ export interface ReposListCommitStatusesForRefQueryParams {
 }
 
 export interface UseReposListCommitStatusesForRefQueryProps
-	extends ReposListCommitStatusesForRefPathParams {
-	queryParams: ReposListCommitStatusesForRefQueryParams;
+	extends UseReposListCommitStatusesForRefQueryPathParams {
+	queryParams: UseReposListCommitStatusesForRefQueryQueryParams;
 }
 
 /**

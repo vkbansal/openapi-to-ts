@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetBranchPathParams {
+export interface UseReposGetBranchQueryPathParams {
 	owner: string;
 	repo: string;
 	branch: string;
 }
 
-export interface UseReposGetBranchQueryProps extends ReposGetBranchPathParams {}
+export interface UseReposGetBranchQueryProps extends UseReposGetBranchQueryPathParams {}
 
 /**
  *

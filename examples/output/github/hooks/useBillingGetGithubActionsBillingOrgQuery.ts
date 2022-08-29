@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface BillingGetGithubActionsBillingOrgPathParams {
+export interface UseBillingGetGithubActionsBillingOrgQueryPathParams {
 	org: string;
 }
 
 export interface UseBillingGetGithubActionsBillingOrgQueryProps
-	extends BillingGetGithubActionsBillingOrgPathParams {}
+	extends UseBillingGetGithubActionsBillingOrgQueryPathParams {}
 
 /**
  * Gets the summary of the free and paid GitHub Actions minutes used.

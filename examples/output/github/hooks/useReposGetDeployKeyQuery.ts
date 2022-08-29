@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetDeployKeyPathParams {
+export interface UseReposGetDeployKeyQueryPathParams {
 	owner: string;
 	repo: string;
 	key_id: number;
 }
 
-export interface UseReposGetDeployKeyQueryProps extends ReposGetDeployKeyPathParams {}
+export interface UseReposGetDeployKeyQueryProps extends UseReposGetDeployKeyQueryPathParams {}
 
 /**
  *

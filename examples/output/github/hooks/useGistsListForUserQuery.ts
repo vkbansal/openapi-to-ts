@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GistsListForUserPathParams {
+export interface UseGistsListForUserQueryPathParams {
 	username: string;
 }
 
-export interface GistsListForUserQueryParams {
+export interface UseGistsListForUserQueryQueryParams {
 	since?: string;
 	/**
 	 * @default 30
@@ -19,8 +19,8 @@ export interface GistsListForUserQueryParams {
 	page?: number;
 }
 
-export interface UseGistsListForUserQueryProps extends GistsListForUserPathParams {
-	queryParams: GistsListForUserQueryParams;
+export interface UseGistsListForUserQueryProps extends UseGistsListForUserQueryPathParams {
+	queryParams: UseGistsListForUserQueryQueryParams;
 }
 
 /**

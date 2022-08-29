@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesGetPathParams {
+export interface UseIssuesGetQueryPathParams {
 	owner: string;
 	repo: string;
 	issue_number: number;
 }
 
-export interface UseIssuesGetQueryProps extends IssuesGetPathParams {}
+export interface UseIssuesGetQueryProps extends UseIssuesGetQueryPathParams {}
 
 /**
  * The API returns a [`301 Moved Permanently` status](https://docs.github.com/rest/overview/resources-in-the-rest-api#http-redirects-redirects) if the issue was

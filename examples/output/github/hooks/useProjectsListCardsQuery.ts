@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ProjectsListCardsPathParams {
+export interface UseProjectsListCardsQueryPathParams {
 	column_id: number;
 }
 
-export interface ProjectsListCardsQueryParams {
+export interface UseProjectsListCardsQueryQueryParams {
 	/**
 	 * @default "not_archived"
 	 */
@@ -22,8 +22,8 @@ export interface ProjectsListCardsQueryParams {
 	page?: number;
 }
 
-export interface UseProjectsListCardsQueryProps extends ProjectsListCardsPathParams {
-	queryParams: ProjectsListCardsQueryParams;
+export interface UseProjectsListCardsQueryProps extends UseProjectsListCardsQueryPathParams {
+	queryParams: UseProjectsListCardsQueryQueryParams;
 }
 
 /**

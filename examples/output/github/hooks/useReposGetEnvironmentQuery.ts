@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetEnvironmentPathParams {
+export interface UseReposGetEnvironmentQueryPathParams {
 	owner: string;
 	repo: string;
 	environment_name: string;
 }
 
-export interface UseReposGetEnvironmentQueryProps extends ReposGetEnvironmentPathParams {}
+export interface UseReposGetEnvironmentQueryProps extends UseReposGetEnvironmentQueryPathParams {}
 
 /**
  * Anyone with read access to the repository can use this endpoint. If the repository is private, you must use an access token with the `repo` scope. GitHub Apps must have the `actions:read` permission to use this endpoint.

@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesListEventsPathParams {
+export interface UseIssuesListEventsQueryPathParams {
 	owner: string;
 	repo: string;
 	issue_number: number;
 }
 
-export interface IssuesListEventsQueryParams {
+export interface UseIssuesListEventsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -20,8 +20,8 @@ export interface IssuesListEventsQueryParams {
 	page?: number;
 }
 
-export interface UseIssuesListEventsQueryProps extends IssuesListEventsPathParams {
-	queryParams: IssuesListEventsQueryParams;
+export interface UseIssuesListEventsQueryProps extends UseIssuesListEventsQueryPathParams {
+	queryParams: UseIssuesListEventsQueryQueryParams;
 }
 
 /**

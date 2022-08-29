@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsListDiscussionCommentsInOrgPathParams {
+export interface UseTeamsListDiscussionCommentsInOrgQueryPathParams {
 	org: string;
 	team_slug: string;
 	discussion_number: number;
 }
 
-export interface TeamsListDiscussionCommentsInOrgQueryParams {
+export interface UseTeamsListDiscussionCommentsInOrgQueryQueryParams {
 	/**
 	 * @default "desc"
 	 */
@@ -25,8 +25,8 @@ export interface TeamsListDiscussionCommentsInOrgQueryParams {
 }
 
 export interface UseTeamsListDiscussionCommentsInOrgQueryProps
-	extends TeamsListDiscussionCommentsInOrgPathParams {
-	queryParams: TeamsListDiscussionCommentsInOrgQueryParams;
+	extends UseTeamsListDiscussionCommentsInOrgQueryPathParams {
+	queryParams: UseTeamsListDiscussionCommentsInOrgQueryQueryParams;
 }
 
 /**

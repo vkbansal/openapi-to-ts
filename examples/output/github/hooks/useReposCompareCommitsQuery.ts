@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposCompareCommitsPathParams {
+export interface UseReposCompareCommitsQueryPathParams {
 	owner: string;
 	repo: string;
 	base: string;
 	head: string;
 }
 
-export interface UseReposCompareCommitsQueryProps extends ReposCompareCommitsPathParams {}
+export interface UseReposCompareCommitsQueryProps extends UseReposCompareCommitsQueryPathParams {}
 
 /**
  * Both `:base` and `:head` must be branch names in `:repo`. To compare branches across other repositories in the same network as `:repo`, use the format `<USERNAME>:branch`.

@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesListLabelsForMilestonePathParams {
+export interface UseIssuesListLabelsForMilestoneQueryPathParams {
 	owner: string;
 	repo: string;
 	milestone_number: number;
 }
 
-export interface IssuesListLabelsForMilestoneQueryParams {
+export interface UseIssuesListLabelsForMilestoneQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -21,8 +21,8 @@ export interface IssuesListLabelsForMilestoneQueryParams {
 }
 
 export interface UseIssuesListLabelsForMilestoneQueryProps
-	extends IssuesListLabelsForMilestonePathParams {
-	queryParams: IssuesListLabelsForMilestoneQueryParams;
+	extends UseIssuesListLabelsForMilestoneQueryPathParams {
+	queryParams: UseIssuesListLabelsForMilestoneQueryQueryParams;
 }
 
 /**

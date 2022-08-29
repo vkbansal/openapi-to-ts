@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GistsGetCommentPathParams {
+export interface UseGistsGetCommentQueryPathParams {
 	gist_id: string;
 	comment_id: number;
 }
 
-export interface UseGistsGetCommentQueryProps extends GistsGetCommentPathParams {}
+export interface UseGistsGetCommentQueryProps extends UseGistsGetCommentQueryPathParams {}
 
 /**
  *

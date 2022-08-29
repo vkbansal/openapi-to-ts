@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ChecksListSuitesForRefPathParams {
+export interface UseChecksListSuitesForRefQueryPathParams {
 	owner: string;
 	repo: string;
 	ref: string;
 }
 
-export interface ChecksListSuitesForRefQueryParams {
+export interface UseChecksListSuitesForRefQueryQueryParams {
 	app_id?: number;
 	check_name?: string;
 	/**
@@ -22,8 +22,9 @@ export interface ChecksListSuitesForRefQueryParams {
 	page?: number;
 }
 
-export interface UseChecksListSuitesForRefQueryProps extends ChecksListSuitesForRefPathParams {
-	queryParams: ChecksListSuitesForRefQueryParams;
+export interface UseChecksListSuitesForRefQueryProps
+	extends UseChecksListSuitesForRefQueryPathParams {
+	queryParams: UseChecksListSuitesForRefQueryQueryParams;
 }
 
 /**

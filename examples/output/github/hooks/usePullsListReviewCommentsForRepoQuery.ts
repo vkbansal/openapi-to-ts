@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface PullsListReviewCommentsForRepoPathParams {
+export interface UsePullsListReviewCommentsForRepoQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface PullsListReviewCommentsForRepoQueryParams {
+export interface UsePullsListReviewCommentsForRepoQueryQueryParams {
 	sort?: 'created' | 'created_at' | 'updated';
 	direction?: 'asc' | 'desc';
 	since?: string;
@@ -23,8 +23,8 @@ export interface PullsListReviewCommentsForRepoQueryParams {
 }
 
 export interface UsePullsListReviewCommentsForRepoQueryProps
-	extends PullsListReviewCommentsForRepoPathParams {
-	queryParams: PullsListReviewCommentsForRepoQueryParams;
+	extends UsePullsListReviewCommentsForRepoQueryPathParams {
+	queryParams: UsePullsListReviewCommentsForRepoQueryQueryParams;
 }
 
 /**

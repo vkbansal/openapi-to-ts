@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface LicensesGetPathParams {
+export interface UseLicensesGetQueryPathParams {
 	license: string;
 }
 
-export interface UseLicensesGetQueryProps extends LicensesGetPathParams {}
+export interface UseLicensesGetQueryProps extends UseLicensesGetQueryPathParams {}
 
 /**
  *

@@ -1,0 +1,35 @@
+{% assign has_path_params = pathParams.props.length > 0 %}
+{% assign has_query_params = queryParams.props.length > 0 %}
+
+{% if has_path_params %}
+{% render 'interface.liquid', name: pathParams.name, props: pathParams.props %}
+{% endif %}
+
+{% if queryParams.props.length > 0 %}
+{% render 'interface.liquid', name: queryParams.name, props: queryParams.props %}
+{% endif %}
+
+{% if bodyCode %}
+{{bodyCode}}
+{% endif %}
+
+export interface {{hookPropsName}}
+{% if has_path_params %}
+  extends
+  {% if has_path_params %}
+    {{pathParams.name}}
+  {% endif %}
+{% endif %}
+{
+  {% if has_query_params -%}
+  queryParams: {{queryParams.name}};
+  {%- endif %}
+  {% if bodyCode %}
+  body: {{requestBodyName}};
+  {%- endif %}
+}
+
+{% render 'comments.liquid', schema: operation %}
+export function {{hookName}}(props: {{hookPropsName}}) {
+  return useMutation(() => Promise.resolve())
+}

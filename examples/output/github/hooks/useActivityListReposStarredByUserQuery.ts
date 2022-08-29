@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActivityListReposStarredByUserPathParams {
+export interface UseActivityListReposStarredByUserQueryPathParams {
 	username: string;
 }
 
-export interface ActivityListReposStarredByUserQueryParams {
+export interface UseActivityListReposStarredByUserQueryQueryParams {
 	/**
 	 * @default "created"
 	 */
@@ -27,8 +27,8 @@ export interface ActivityListReposStarredByUserQueryParams {
 }
 
 export interface UseActivityListReposStarredByUserQueryProps
-	extends ActivityListReposStarredByUserPathParams {
-	queryParams: ActivityListReposStarredByUserQueryParams;
+	extends UseActivityListReposStarredByUserQueryPathParams {
+	queryParams: UseActivityListReposStarredByUserQueryQueryParams;
 }
 
 /**

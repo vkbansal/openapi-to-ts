@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsCheckPermissionsForProjectInOrgPathParams {
+export interface UseTeamsCheckPermissionsForProjectInOrgQueryPathParams {
 	org: string;
 	team_slug: string;
 	project_id: number;
 }
 
 export interface UseTeamsCheckPermissionsForProjectInOrgQueryProps
-	extends TeamsCheckPermissionsForProjectInOrgPathParams {}
+	extends UseTeamsCheckPermissionsForProjectInOrgQueryPathParams {}
 
 /**
  * Checks whether a team has `read`, `write`, or `admin` permissions for an organization project. The response includes projects inherited from a parent team.

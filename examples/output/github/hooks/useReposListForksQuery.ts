@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListForksPathParams {
+export interface UseReposListForksQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ReposListForksQueryParams {
+export interface UseReposListForksQueryQueryParams {
 	/**
 	 * @default "newest"
 	 */
@@ -25,8 +25,8 @@ export interface ReposListForksQueryParams {
 	organization?: string;
 }
 
-export interface UseReposListForksQueryProps extends ReposListForksPathParams {
-	queryParams: ReposListForksQueryParams;
+export interface UseReposListForksQueryProps extends UseReposListForksQueryPathParams {
+	queryParams: UseReposListForksQueryQueryParams;
 }
 
 /**

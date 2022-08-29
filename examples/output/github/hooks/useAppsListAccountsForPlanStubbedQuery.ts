@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface AppsListAccountsForPlanStubbedPathParams {
+export interface UseAppsListAccountsForPlanStubbedQueryPathParams {
 	plan_id: number;
 }
 
-export interface AppsListAccountsForPlanStubbedQueryParams {
+export interface UseAppsListAccountsForPlanStubbedQueryQueryParams {
 	/**
 	 * @default "created"
 	 */
@@ -24,8 +24,8 @@ export interface AppsListAccountsForPlanStubbedQueryParams {
 }
 
 export interface UseAppsListAccountsForPlanStubbedQueryProps
-	extends AppsListAccountsForPlanStubbedPathParams {
-	queryParams: AppsListAccountsForPlanStubbedQueryParams;
+	extends UseAppsListAccountsForPlanStubbedQueryPathParams {
+	queryParams: UseAppsListAccountsForPlanStubbedQueryQueryParams;
 }
 
 /**

@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface AppsGetInstallationPathParams {
+export interface UseAppsGetInstallationQueryPathParams {
 	installation_id: number;
 }
 
-export interface UseAppsGetInstallationQueryProps extends AppsGetInstallationPathParams {}
+export interface UseAppsGetInstallationQueryProps extends UseAppsGetInstallationQueryPathParams {}
 
 /**
  * Enables an authenticated GitHub App to find an installation's information using the installation id. The installation's account type (`target_type`) will be either an organization or a user account, depending which account the repository belongs to.

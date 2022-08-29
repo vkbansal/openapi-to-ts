@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface LicensesGetAllCommonlyUsedQueryParams {
+export interface UseLicensesGetAllCommonlyUsedQueryQueryParams {
 	featured?: boolean;
 	/**
 	 * @default 30
@@ -16,7 +16,7 @@ export interface LicensesGetAllCommonlyUsedQueryParams {
 }
 
 export interface UseLicensesGetAllCommonlyUsedQueryProps {
-	queryParams: LicensesGetAllCommonlyUsedQueryParams;
+	queryParams: UseLicensesGetAllCommonlyUsedQueryQueryParams;
 }
 
 /**

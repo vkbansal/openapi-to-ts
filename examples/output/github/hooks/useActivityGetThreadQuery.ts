@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActivityGetThreadPathParams {
+export interface UseActivityGetThreadQueryPathParams {
 	thread_id: number;
 }
 
-export interface UseActivityGetThreadQueryProps extends ActivityGetThreadPathParams {}
+export interface UseActivityGetThreadQueryProps extends UseActivityGetThreadQueryPathParams {}
 
 /**
  *

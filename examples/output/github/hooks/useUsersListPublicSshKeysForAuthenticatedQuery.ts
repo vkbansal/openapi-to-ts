@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface UsersListPublicSshKeysForAuthenticatedQueryParams {
+export interface UseUsersListPublicSshKeysForAuthenticatedQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -15,7 +15,7 @@ export interface UsersListPublicSshKeysForAuthenticatedQueryParams {
 }
 
 export interface UseUsersListPublicSshKeysForAuthenticatedQueryProps {
-	queryParams: UsersListPublicSshKeysForAuthenticatedQueryParams;
+	queryParams: UseUsersListPublicSshKeysForAuthenticatedQueryQueryParams;
 }
 
 /**

@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActivityListWatchedReposForAuthenticatedUserQueryParams {
+export interface UseActivityListWatchedReposForAuthenticatedUserQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -15,7 +15,7 @@ export interface ActivityListWatchedReposForAuthenticatedUserQueryParams {
 }
 
 export interface UseActivityListWatchedReposForAuthenticatedUserQueryProps {
-	queryParams: ActivityListWatchedReposForAuthenticatedUserQueryParams;
+	queryParams: UseActivityListWatchedReposForAuthenticatedUserQueryQueryParams;
 }
 
 /**

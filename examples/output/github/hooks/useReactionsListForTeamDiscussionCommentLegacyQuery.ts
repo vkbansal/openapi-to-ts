@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReactionsListForTeamDiscussionCommentLegacyPathParams {
+export interface UseReactionsListForTeamDiscussionCommentLegacyQueryPathParams {
 	team_id: number;
 	discussion_number: number;
 	comment_number: number;
 }
 
-export interface ReactionsListForTeamDiscussionCommentLegacyQueryParams {
+export interface UseReactionsListForTeamDiscussionCommentLegacyQueryQueryParams {
 	content?: '+1' | '-1' | 'confused' | 'eyes' | 'heart' | 'hooray' | 'laugh' | 'rocket';
 	/**
 	 * @default 30
@@ -22,8 +22,8 @@ export interface ReactionsListForTeamDiscussionCommentLegacyQueryParams {
 }
 
 export interface UseReactionsListForTeamDiscussionCommentLegacyQueryProps
-	extends ReactionsListForTeamDiscussionCommentLegacyPathParams {
-	queryParams: ReactionsListForTeamDiscussionCommentLegacyQueryParams;
+	extends UseReactionsListForTeamDiscussionCommentLegacyQueryPathParams {
+	queryParams: UseReactionsListForTeamDiscussionCommentLegacyQueryQueryParams;
 }
 
 /**

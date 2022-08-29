@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface MigrationsGetImportStatusPathParams {
+export interface UseMigrationsGetImportStatusQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
 export interface UseMigrationsGetImportStatusQueryProps
-	extends MigrationsGetImportStatusPathParams {}
+	extends UseMigrationsGetImportStatusQueryPathParams {}
 
 /**
  * View the progress of an import.

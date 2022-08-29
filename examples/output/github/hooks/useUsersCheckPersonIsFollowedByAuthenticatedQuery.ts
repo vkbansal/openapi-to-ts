@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface UsersCheckPersonIsFollowedByAuthenticatedPathParams {
+export interface UseUsersCheckPersonIsFollowedByAuthenticatedQueryPathParams {
 	username: string;
 }
 
 export interface UseUsersCheckPersonIsFollowedByAuthenticatedQueryProps
-	extends UsersCheckPersonIsFollowedByAuthenticatedPathParams {}
+	extends UseUsersCheckPersonIsFollowedByAuthenticatedQueryPathParams {}
 
 /**
  *

@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsListMembershipsForAuthenticatedUserQueryParams {
+export interface UseOrgsListMembershipsForAuthenticatedUserQueryQueryParams {
 	state?: 'active' | 'pending';
 	/**
 	 * @default 30
@@ -16,7 +16,7 @@ export interface OrgsListMembershipsForAuthenticatedUserQueryParams {
 }
 
 export interface UseOrgsListMembershipsForAuthenticatedUserQueryProps {
-	queryParams: OrgsListMembershipsForAuthenticatedUserQueryParams;
+	queryParams: UseOrgsListMembershipsForAuthenticatedUserQueryQueryParams;
 }
 
 /**

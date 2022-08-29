@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListCommitsPathParams {
+export interface UseReposListCommitsQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ReposListCommitsQueryParams {
+export interface UseReposListCommitsQueryQueryParams {
 	sha?: string;
 	path?: string;
 	author?: string;
@@ -26,8 +26,8 @@ export interface ReposListCommitsQueryParams {
 	last_sha?: string;
 }
 
-export interface UseReposListCommitsQueryProps extends ReposListCommitsPathParams {
-	queryParams: ReposListCommitsQueryParams;
+export interface UseReposListCommitsQueryProps extends UseReposListCommitsQueryPathParams {
+	queryParams: UseReposListCommitsQueryQueryParams;
 }
 
 /**

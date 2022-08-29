@@ -3,12 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface AppsCheckAuthorizationPathParams {
+export interface UseAppsCheckAuthorizationQueryPathParams {
 	client_id: string;
 	access_token: string;
 }
 
-export interface UseAppsCheckAuthorizationQueryProps extends AppsCheckAuthorizationPathParams {}
+export interface UseAppsCheckAuthorizationQueryProps
+	extends UseAppsCheckAuthorizationQueryPathParams {}
 
 /**
  * **Deprecation Notice:** GitHub will discontinue OAuth endpoints that contain `access_token` in the path parameter. We have introduced new endpoints that allow you to securely manage tokens for OAuth Apps by moving `access_token` to the request body. For more information, see the [blog post](https://developer.github.com/changes/2020-02-14-deprecating-oauth-app-endpoint/).

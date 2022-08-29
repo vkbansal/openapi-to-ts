@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsListQueryParams {
+export interface UseOrgsListQueryQueryParams {
 	since?: number;
 	/**
 	 * @default 30
@@ -12,7 +12,7 @@ export interface OrgsListQueryParams {
 }
 
 export interface UseOrgsListQueryProps {
-	queryParams: OrgsListQueryParams;
+	queryParams: UseOrgsListQueryQueryParams;
 }
 
 /**

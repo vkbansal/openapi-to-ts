@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface FindPetsByTagsQueryParams {
+export interface UseFindPetsByTagsQueryQueryParams {
 	tags: string[];
 }
 
 export interface UseFindPetsByTagsQueryProps {
-	queryParams: FindPetsByTagsQueryParams;
+	queryParams: UseFindPetsByTagsQueryQueryParams;
 }
 
 /**

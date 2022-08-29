@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface LicensesGetForRepoPathParams {
+export interface UseLicensesGetForRepoQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface UseLicensesGetForRepoQueryProps extends LicensesGetForRepoPathParams {}
+export interface UseLicensesGetForRepoQueryProps extends UseLicensesGetForRepoQueryPathParams {}
 
 /**
  * This method returns the contents of the repository's license file, if one is detected.

@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsGetMembershipForAuthenticatedUserPathParams {
+export interface UseOrgsGetMembershipForAuthenticatedUserQueryPathParams {
 	org: string;
 }
 
 export interface UseOrgsGetMembershipForAuthenticatedUserQueryProps
-	extends OrgsGetMembershipForAuthenticatedUserPathParams {}
+	extends UseOrgsGetMembershipForAuthenticatedUserQueryPathParams {}
 
 /**
  *

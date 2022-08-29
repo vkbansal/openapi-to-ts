@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesListCommentsPathParams {
+export interface UseIssuesListCommentsQueryPathParams {
 	owner: string;
 	repo: string;
 	issue_number: number;
 }
 
-export interface IssuesListCommentsQueryParams {
+export interface UseIssuesListCommentsQueryQueryParams {
 	since?: string;
 	/**
 	 * @default 30
@@ -21,8 +21,8 @@ export interface IssuesListCommentsQueryParams {
 	page?: number;
 }
 
-export interface UseIssuesListCommentsQueryProps extends IssuesListCommentsPathParams {
-	queryParams: IssuesListCommentsQueryParams;
+export interface UseIssuesListCommentsQueryProps extends UseIssuesListCommentsQueryPathParams {
+	queryParams: UseIssuesListCommentsQueryQueryParams;
 }
 
 /**

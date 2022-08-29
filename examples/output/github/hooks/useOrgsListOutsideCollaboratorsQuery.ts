@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsListOutsideCollaboratorsPathParams {
+export interface UseOrgsListOutsideCollaboratorsQueryPathParams {
 	org: string;
 }
 
-export interface OrgsListOutsideCollaboratorsQueryParams {
+export interface UseOrgsListOutsideCollaboratorsQueryQueryParams {
 	/**
 	 * @default "all"
 	 */
@@ -23,8 +23,8 @@ export interface OrgsListOutsideCollaboratorsQueryParams {
 }
 
 export interface UseOrgsListOutsideCollaboratorsQueryProps
-	extends OrgsListOutsideCollaboratorsPathParams {
-	queryParams: OrgsListOutsideCollaboratorsQueryParams;
+	extends UseOrgsListOutsideCollaboratorsQueryPathParams {
+	queryParams: UseOrgsListOutsideCollaboratorsQueryQueryParams;
 }
 
 /**

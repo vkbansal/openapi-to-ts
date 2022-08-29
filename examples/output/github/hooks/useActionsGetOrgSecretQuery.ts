@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsGetOrgSecretPathParams {
+export interface UseActionsGetOrgSecretQueryPathParams {
 	org: string;
 	secret_name: string;
 }
 
-export interface UseActionsGetOrgSecretQueryProps extends ActionsGetOrgSecretPathParams {}
+export interface UseActionsGetOrgSecretQueryProps extends UseActionsGetOrgSecretQueryPathParams {}
 
 /**
  * Gets a single organization secret without revealing its encrypted value. You must authenticate using an access token with the `admin:org` scope to use this endpoint. GitHub Apps must have the `secrets` organization permission to use this endpoint.

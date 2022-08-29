@@ -159,16 +159,16 @@ export class Codegen {
 
 		if (ref.startsWith('#/components/schemas')) {
 			type = getNameForType(ref.replace('#/components/schemas/', ''));
-			$imports.add(`import { ${type} } from '../schemas/${type}'`);
+			$imports.add(`import type { ${type} } from '../schemas/${type}'`);
 		} else if (ref.startsWith('#/components/responses')) {
 			type = getNameForResponse(ref.replace('#/components/responses/', ''));
-			$imports.add(`import { ${type} } from '../responses/${type}'`);
+			$imports.add(`import type { ${type} } from '../responses/${type}'`);
 		} else if (ref.startsWith('#/components/parameters')) {
 			type = getNameForParameter(ref.replace('#/components/parameters/', ''));
-			$imports.add(`import { ${type} } from '../parameters/${type}'`);
+			$imports.add(`import type { ${type} } from '../parameters/${type}'`);
 		} else if (ref.startsWith('#/components/requestBodies')) {
 			type = getNameForRequestBody(ref.replace('#/components/requestBodies/', ''));
-			$imports.add(`import { ${type} } from '../requestBodies/${type}'`);
+			$imports.add(`import type { ${type} } from '../requestBodies/${type}'`);
 		} else {
 			throw new Error(
 				'This library only resolve $ref that are include into `#/components/*` for now',

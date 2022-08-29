@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActivityListPublicEventsForRepoNetworkPathParams {
+export interface UseActivityListPublicEventsForRepoNetworkQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ActivityListPublicEventsForRepoNetworkQueryParams {
+export interface UseActivityListPublicEventsForRepoNetworkQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -20,8 +20,8 @@ export interface ActivityListPublicEventsForRepoNetworkQueryParams {
 }
 
 export interface UseActivityListPublicEventsForRepoNetworkQueryProps
-	extends ActivityListPublicEventsForRepoNetworkPathParams {
-	queryParams: ActivityListPublicEventsForRepoNetworkQueryParams;
+	extends UseActivityListPublicEventsForRepoNetworkQueryPathParams {
+	queryParams: UseActivityListPublicEventsForRepoNetworkQueryQueryParams;
 }
 
 /**

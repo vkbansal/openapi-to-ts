@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActivityListNotificationsForAuthenticatedUserQueryParams {
+export interface UseActivityListNotificationsForAuthenticatedUserQueryQueryParams {
 	all?: boolean;
 	participating?: boolean;
 	since?: string;
@@ -19,7 +19,7 @@ export interface ActivityListNotificationsForAuthenticatedUserQueryParams {
 }
 
 export interface UseActivityListNotificationsForAuthenticatedUserQueryProps {
-	queryParams: ActivityListNotificationsForAuthenticatedUserQueryParams;
+	queryParams: UseActivityListNotificationsForAuthenticatedUserQueryQueryParams;
 }
 
 /**

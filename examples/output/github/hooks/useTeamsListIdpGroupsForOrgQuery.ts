@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsListIdpGroupsForOrgPathParams {
+export interface UseTeamsListIdpGroupsForOrgQueryPathParams {
 	org: string;
 }
 
-export interface TeamsListIdpGroupsForOrgQueryParams {
+export interface UseTeamsListIdpGroupsForOrgQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -15,8 +15,9 @@ export interface TeamsListIdpGroupsForOrgQueryParams {
 	page?: string;
 }
 
-export interface UseTeamsListIdpGroupsForOrgQueryProps extends TeamsListIdpGroupsForOrgPathParams {
-	queryParams: TeamsListIdpGroupsForOrgQueryParams;
+export interface UseTeamsListIdpGroupsForOrgQueryProps
+	extends UseTeamsListIdpGroupsForOrgQueryPathParams {
+	queryParams: UseTeamsListIdpGroupsForOrgQueryQueryParams;
 }
 
 /**

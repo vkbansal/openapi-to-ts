@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsListReposLegacyPathParams {
+export interface UseTeamsListReposLegacyQueryPathParams {
 	team_id: number;
 }
 
-export interface TeamsListReposLegacyQueryParams {
+export interface UseTeamsListReposLegacyQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -18,8 +18,8 @@ export interface TeamsListReposLegacyQueryParams {
 	page?: number;
 }
 
-export interface UseTeamsListReposLegacyQueryProps extends TeamsListReposLegacyPathParams {
-	queryParams: TeamsListReposLegacyQueryParams;
+export interface UseTeamsListReposLegacyQueryProps extends UseTeamsListReposLegacyQueryPathParams {
+	queryParams: UseTeamsListReposLegacyQueryQueryParams;
 }
 
 /**

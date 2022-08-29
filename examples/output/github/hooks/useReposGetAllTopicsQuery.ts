@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetAllTopicsPathParams {
+export interface UseReposGetAllTopicsQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ReposGetAllTopicsQueryParams {
+export interface UseReposGetAllTopicsQueryQueryParams {
 	/**
 	 * @default 1
 	 */
@@ -19,8 +19,8 @@ export interface ReposGetAllTopicsQueryParams {
 	per_page?: number;
 }
 
-export interface UseReposGetAllTopicsQueryProps extends ReposGetAllTopicsPathParams {
-	queryParams: ReposGetAllTopicsQueryParams;
+export interface UseReposGetAllTopicsQueryProps extends UseReposGetAllTopicsQueryPathParams {
+	queryParams: UseReposGetAllTopicsQueryQueryParams;
 }
 
 /**

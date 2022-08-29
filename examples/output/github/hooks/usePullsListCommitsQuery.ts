@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface PullsListCommitsPathParams {
+export interface UsePullsListCommitsQueryPathParams {
 	owner: string;
 	repo: string;
 	pull_number: number;
 }
 
-export interface PullsListCommitsQueryParams {
+export interface UsePullsListCommitsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -20,8 +20,8 @@ export interface PullsListCommitsQueryParams {
 	page?: number;
 }
 
-export interface UsePullsListCommitsQueryProps extends PullsListCommitsPathParams {
-	queryParams: PullsListCommitsQueryParams;
+export interface UsePullsListCommitsQueryProps extends UsePullsListCommitsQueryPathParams {
+	queryParams: UsePullsListCommitsQueryQueryParams;
 }
 
 /**

@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface AppsListSubscriptionsForAuthenticatedUserStubbedQueryParams {
+export interface UseAppsListSubscriptionsForAuthenticatedUserStubbedQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -15,7 +15,7 @@ export interface AppsListSubscriptionsForAuthenticatedUserStubbedQueryParams {
 }
 
 export interface UseAppsListSubscriptionsForAuthenticatedUserStubbedQueryProps {
-	queryParams: AppsListSubscriptionsForAuthenticatedUserStubbedQueryParams;
+	queryParams: UseAppsListSubscriptionsForAuthenticatedUserStubbedQueryQueryParams;
 }
 
 /**

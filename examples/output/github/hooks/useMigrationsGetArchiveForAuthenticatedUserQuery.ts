@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface MigrationsGetArchiveForAuthenticatedUserPathParams {
+export interface UseMigrationsGetArchiveForAuthenticatedUserQueryPathParams {
 	migration_id: number;
 }
 
 export interface UseMigrationsGetArchiveForAuthenticatedUserQueryProps
-	extends MigrationsGetArchiveForAuthenticatedUserPathParams {}
+	extends UseMigrationsGetArchiveForAuthenticatedUserQueryPathParams {}
 
 /**
  * Fetches the URL to download the migration archive as a `tar.gz` file. Depending on the resources your repository uses, the migration archive can contain JSON files with data for these objects:

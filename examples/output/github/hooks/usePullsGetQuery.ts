@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface PullsGetPathParams {
+export interface UsePullsGetQueryPathParams {
 	owner: string;
 	repo: string;
 	pull_number: number;
 }
 
-export interface UsePullsGetQueryProps extends PullsGetPathParams {}
+export interface UsePullsGetQueryProps extends UsePullsGetQueryPathParams {}
 
 /**
  * Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.

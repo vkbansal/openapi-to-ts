@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListForUserPathParams {
+export interface UseReposListForUserQueryPathParams {
 	username: string;
 }
 
-export interface ReposListForUserQueryParams {
+export interface UseReposListForUserQueryQueryParams {
 	/**
 	 * @default "owner"
 	 */
@@ -27,8 +27,8 @@ export interface ReposListForUserQueryParams {
 	page?: number;
 }
 
-export interface UseReposListForUserQueryProps extends ReposListForUserPathParams {
-	queryParams: ReposListForUserQueryParams;
+export interface UseReposListForUserQueryProps extends UseReposListForUserQueryPathParams {
+	queryParams: UseReposListForUserQueryQueryParams;
 }
 
 /**

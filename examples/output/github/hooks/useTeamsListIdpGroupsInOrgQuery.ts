@@ -3,12 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsListIdpGroupsInOrgPathParams {
+export interface UseTeamsListIdpGroupsInOrgQueryPathParams {
 	org: string;
 	team_slug: string;
 }
 
-export interface UseTeamsListIdpGroupsInOrgQueryProps extends TeamsListIdpGroupsInOrgPathParams {}
+export interface UseTeamsListIdpGroupsInOrgQueryProps
+	extends UseTeamsListIdpGroupsInOrgQueryPathParams {}
 
 /**
  * Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.

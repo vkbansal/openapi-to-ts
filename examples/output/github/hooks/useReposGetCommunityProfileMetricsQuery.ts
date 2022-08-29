@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetCommunityProfileMetricsPathParams {
+export interface UseReposGetCommunityProfileMetricsQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
 export interface UseReposGetCommunityProfileMetricsQueryProps
-	extends ReposGetCommunityProfileMetricsPathParams {}
+	extends UseReposGetCommunityProfileMetricsQueryPathParams {}
 
 /**
  * This endpoint will return all community profile metrics, including an

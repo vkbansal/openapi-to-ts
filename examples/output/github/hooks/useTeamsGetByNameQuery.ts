@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsGetByNamePathParams {
+export interface UseTeamsGetByNameQueryPathParams {
 	org: string;
 	team_slug: string;
 }
 
-export interface UseTeamsGetByNameQueryProps extends TeamsGetByNamePathParams {}
+export interface UseTeamsGetByNameQueryProps extends UseTeamsGetByNameQueryPathParams {}
 
 /**
  * Gets a team using the team's `slug`. GitHub generates the `slug` from the team `name`.

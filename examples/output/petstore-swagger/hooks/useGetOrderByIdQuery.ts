@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GetOrderByIdPathParams {
+export interface UseGetOrderByIdQueryPathParams {
 	/**
 	 * @format int64
 	 */
 	orderId: number;
 }
 
-export interface UseGetOrderByIdQueryProps extends GetOrderByIdPathParams {}
+export interface UseGetOrderByIdQueryProps extends UseGetOrderByIdQueryPathParams {}
 
 /**
  * For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions

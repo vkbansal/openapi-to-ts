@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface OrgsListFailedInvitationsPathParams {
+export interface UseOrgsListFailedInvitationsQueryPathParams {
 	org: string;
 }
 
-export interface OrgsListFailedInvitationsQueryParams {
+export interface UseOrgsListFailedInvitationsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface OrgsListFailedInvitationsQueryParams {
 }
 
 export interface UseOrgsListFailedInvitationsQueryProps
-	extends OrgsListFailedInvitationsPathParams {
-	queryParams: OrgsListFailedInvitationsQueryParams;
+	extends UseOrgsListFailedInvitationsQueryPathParams {
+	queryParams: UseOrgsListFailedInvitationsQueryQueryParams;
 }
 
 /**

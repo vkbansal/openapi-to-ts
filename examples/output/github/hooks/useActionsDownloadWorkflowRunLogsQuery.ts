@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsDownloadWorkflowRunLogsPathParams {
+export interface UseActionsDownloadWorkflowRunLogsQueryPathParams {
 	owner: string;
 	repo: string;
 	run_id: number;
 }
 
 export interface UseActionsDownloadWorkflowRunLogsQueryProps
-	extends ActionsDownloadWorkflowRunLogsPathParams {}
+	extends UseActionsDownloadWorkflowRunLogsQueryPathParams {}
 
 /**
  * Gets a redirect URL to download an archive of log files for a workflow run. This link expires after 1 minute. Look for

@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsListDiscussionsLegacyPathParams {
+export interface UseTeamsListDiscussionsLegacyQueryPathParams {
 	team_id: number;
 }
 
-export interface TeamsListDiscussionsLegacyQueryParams {
+export interface UseTeamsListDiscussionsLegacyQueryQueryParams {
 	/**
 	 * @default "desc"
 	 */
@@ -23,8 +23,8 @@ export interface TeamsListDiscussionsLegacyQueryParams {
 }
 
 export interface UseTeamsListDiscussionsLegacyQueryProps
-	extends TeamsListDiscussionsLegacyPathParams {
-	queryParams: TeamsListDiscussionsLegacyQueryParams;
+	extends UseTeamsListDiscussionsLegacyQueryPathParams {
+	queryParams: UseTeamsListDiscussionsLegacyQueryQueryParams;
 }
 
 /**

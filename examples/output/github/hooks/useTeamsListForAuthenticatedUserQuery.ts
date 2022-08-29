@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsListForAuthenticatedUserQueryParams {
+export interface UseTeamsListForAuthenticatedUserQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -15,7 +15,7 @@ export interface TeamsListForAuthenticatedUserQueryParams {
 }
 
 export interface UseTeamsListForAuthenticatedUserQueryProps {
-	queryParams: TeamsListForAuthenticatedUserQueryParams;
+	queryParams: UseTeamsListForAuthenticatedUserQueryQueryParams;
 }
 
 /**

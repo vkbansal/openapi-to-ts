@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListPublicQueryParams {
+export interface UseReposListPublicQueryQueryParams {
 	since?: number;
 }
 
 export interface UseReposListPublicQueryProps {
-	queryParams: ReposListPublicQueryParams;
+	queryParams: UseReposListPublicQueryQueryParams;
 }
 
 /**

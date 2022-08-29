@@ -3,11 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface AppsGetUserInstallationPathParams {
+export interface UseAppsGetUserInstallationQueryPathParams {
 	username: string;
 }
 
-export interface UseAppsGetUserInstallationQueryProps extends AppsGetUserInstallationPathParams {}
+export interface UseAppsGetUserInstallationQueryProps
+	extends UseAppsGetUserInstallationQueryPathParams {}
 
 /**
  * Enables an authenticated GitHub App to find the user’s installation information.

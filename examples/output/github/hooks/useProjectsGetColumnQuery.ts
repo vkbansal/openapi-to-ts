@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ProjectsGetColumnPathParams {
+export interface UseProjectsGetColumnQueryPathParams {
 	column_id: number;
 }
 
-export interface UseProjectsGetColumnQueryProps extends ProjectsGetColumnPathParams {}
+export interface UseProjectsGetColumnQueryProps extends UseProjectsGetColumnQueryPathParams {}
 
 /**
  *

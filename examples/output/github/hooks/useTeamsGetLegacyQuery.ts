@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsGetLegacyPathParams {
+export interface UseTeamsGetLegacyQueryPathParams {
 	team_id: number;
 }
 
-export interface UseTeamsGetLegacyQueryProps extends TeamsGetLegacyPathParams {}
+export interface UseTeamsGetLegacyQueryProps extends UseTeamsGetLegacyQueryPathParams {}
 
 /**
  * **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the [Get a team by name](https://docs.github.com/rest/reference/teams#get-a-team-by-name) endpoint.

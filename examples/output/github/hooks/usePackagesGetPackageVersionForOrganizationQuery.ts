@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface PackagesGetPackageVersionForOrganizationPathParams {
+export interface UsePackagesGetPackageVersionForOrganizationQueryPathParams {
 	package_type: 'container' | 'docker' | 'maven' | 'npm' | 'nuget' | 'rubygems';
 	package_name: string;
 	org: string;
@@ -11,7 +11,7 @@ export interface PackagesGetPackageVersionForOrganizationPathParams {
 }
 
 export interface UsePackagesGetPackageVersionForOrganizationQueryProps
-	extends PackagesGetPackageVersionForOrganizationPathParams {}
+	extends UsePackagesGetPackageVersionForOrganizationQueryPathParams {}
 
 /**
  * Gets a specific package version in an organization.

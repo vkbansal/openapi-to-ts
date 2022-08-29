@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GistsGetRevisionPathParams {
+export interface UseGistsGetRevisionQueryPathParams {
 	gist_id: string;
 	sha: string;
 }
 
-export interface UseGistsGetRevisionQueryProps extends GistsGetRevisionPathParams {}
+export interface UseGistsGetRevisionQueryProps extends UseGistsGetRevisionQueryPathParams {}
 
 /**
  *

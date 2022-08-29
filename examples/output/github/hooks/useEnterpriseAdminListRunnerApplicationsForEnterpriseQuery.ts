@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface EnterpriseAdminListRunnerApplicationsForEnterprisePathParams {
+export interface UseEnterpriseAdminListRunnerApplicationsForEnterpriseQueryPathParams {
 	enterprise: string;
 }
 
 export interface UseEnterpriseAdminListRunnerApplicationsForEnterpriseQueryProps
-	extends EnterpriseAdminListRunnerApplicationsForEnterprisePathParams {}
+	extends UseEnterpriseAdminListRunnerApplicationsForEnterpriseQueryPathParams {}
 
 /**
  * Lists binaries for the runner application that you can download and run.

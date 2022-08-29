@@ -3,14 +3,15 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsDownloadArtifactPathParams {
+export interface UseActionsDownloadArtifactQueryPathParams {
 	owner: string;
 	repo: string;
 	artifact_id: number;
 	archive_format: string;
 }
 
-export interface UseActionsDownloadArtifactQueryProps extends ActionsDownloadArtifactPathParams {}
+export interface UseActionsDownloadArtifactQueryProps
+	extends UseActionsDownloadArtifactQueryPathParams {}
 
 /**
  * Gets a redirect URL to download an archive for a repository. This URL expires after 1 minute. Look for `Location:` in

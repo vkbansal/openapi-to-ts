@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsGetAllowedActionsOrganizationPathParams {
+export interface UseActionsGetAllowedActionsOrganizationQueryPathParams {
 	org: string;
 }
 
 export interface UseActionsGetAllowedActionsOrganizationQueryProps
-	extends ActionsGetAllowedActionsOrganizationPathParams {}
+	extends UseActionsGetAllowedActionsOrganizationQueryPathParams {}
 
 /**
  * Gets the selected actions that are allowed in an organization. To use this endpoint, the organization permission policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for an organization](#set-github-actions-permissions-for-an-organization).""

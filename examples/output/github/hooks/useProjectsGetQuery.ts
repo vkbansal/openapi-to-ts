@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ProjectsGetPathParams {
+export interface UseProjectsGetQueryPathParams {
 	project_id: number;
 }
 
-export interface UseProjectsGetQueryProps extends ProjectsGetPathParams {}
+export interface UseProjectsGetQueryProps extends UseProjectsGetQueryPathParams {}
 
 /**
  * Gets a project by its `id`. Returns a `404 Not Found` status if projects are disabled. If you do not have sufficient privileges to perform this action, a `401 Unauthorized` or `410 Gone` status is returned.

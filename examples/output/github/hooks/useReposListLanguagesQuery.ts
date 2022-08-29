@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposListLanguagesPathParams {
+export interface UseReposListLanguagesQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface UseReposListLanguagesQueryProps extends ReposListLanguagesPathParams {}
+export interface UseReposListLanguagesQueryProps extends UseReposListLanguagesQueryPathParams {}
 
 /**
  * Lists languages for the specified repository. The value shown for each language is the number of bytes of code written in that language.

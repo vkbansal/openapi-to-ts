@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface SearchUsersQueryParams {
+export interface UseSearchUsersQueryQueryParams {
 	q: string;
 	sort?: 'followers' | 'joined' | 'repositories';
 	/**
@@ -21,7 +21,7 @@ export interface SearchUsersQueryParams {
 }
 
 export interface UseSearchUsersQueryProps {
-	queryParams: SearchUsersQueryParams;
+	queryParams: UseSearchUsersQueryQueryParams;
 }
 
 /**

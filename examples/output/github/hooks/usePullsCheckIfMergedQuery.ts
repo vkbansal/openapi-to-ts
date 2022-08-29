@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface PullsCheckIfMergedPathParams {
+export interface UsePullsCheckIfMergedQueryPathParams {
 	owner: string;
 	repo: string;
 	pull_number: number;
 }
 
-export interface UsePullsCheckIfMergedQueryProps extends PullsCheckIfMergedPathParams {}
+export interface UsePullsCheckIfMergedQueryProps extends UsePullsCheckIfMergedQueryPathParams {}
 
 /**
  *

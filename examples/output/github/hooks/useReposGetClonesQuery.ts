@@ -3,20 +3,20 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetClonesPathParams {
+export interface UseReposGetClonesQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ReposGetClonesQueryParams {
+export interface UseReposGetClonesQueryQueryParams {
 	/**
 	 * @default "day"
 	 */
 	per?: '' | 'day' | 'week';
 }
 
-export interface UseReposGetClonesQueryProps extends ReposGetClonesPathParams {
-	queryParams: ReposGetClonesQueryParams;
+export interface UseReposGetClonesQueryProps extends UseReposGetClonesQueryPathParams {
+	queryParams: UseReposGetClonesQueryQueryParams;
 }
 
 /**

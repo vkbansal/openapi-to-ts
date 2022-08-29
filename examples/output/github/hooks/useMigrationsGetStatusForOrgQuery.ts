@@ -3,18 +3,18 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface MigrationsGetStatusForOrgPathParams {
+export interface UseMigrationsGetStatusForOrgQueryPathParams {
 	org: string;
 	migration_id: number;
 }
 
-export interface MigrationsGetStatusForOrgQueryParams {
+export interface UseMigrationsGetStatusForOrgQueryQueryParams {
 	exclude?: Array<'repositories'>;
 }
 
 export interface UseMigrationsGetStatusForOrgQueryProps
-	extends MigrationsGetStatusForOrgPathParams {
-	queryParams: MigrationsGetStatusForOrgQueryParams;
+	extends UseMigrationsGetStatusForOrgQueryPathParams {
+	queryParams: UseMigrationsGetStatusForOrgQueryQueryParams;
 }
 
 /**

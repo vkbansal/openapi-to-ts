@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsGetAllowedActionsRepositoryPathParams {
+export interface UseActionsGetAllowedActionsRepositoryQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
 export interface UseActionsGetAllowedActionsRepositoryQueryProps
-	extends ActionsGetAllowedActionsRepositoryPathParams {}
+	extends UseActionsGetAllowedActionsRepositoryQueryPathParams {}
 
 /**
  * Gets the settings for selected actions that are allowed in a repository. To use this endpoint, the repository policy for `allowed_actions` must be configured to `selected`. For more information, see "[Set GitHub Actions permissions for a repository](#set-github-actions-permissions-for-a-repository)."

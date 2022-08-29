@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActivityListPublicOrgEventsPathParams {
+export interface UseActivityListPublicOrgEventsQueryPathParams {
 	org: string;
 }
 
-export interface ActivityListPublicOrgEventsQueryParams {
+export interface UseActivityListPublicOrgEventsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface ActivityListPublicOrgEventsQueryParams {
 }
 
 export interface UseActivityListPublicOrgEventsQueryProps
-	extends ActivityListPublicOrgEventsPathParams {
-	queryParams: ActivityListPublicOrgEventsQueryParams;
+	extends UseActivityListPublicOrgEventsQueryPathParams {
+	queryParams: UseActivityListPublicOrgEventsQueryQueryParams;
 }
 
 /**

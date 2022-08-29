@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetCollaboratorPermissionLevelPathParams {
+export interface UseReposGetCollaboratorPermissionLevelQueryPathParams {
 	owner: string;
 	repo: string;
 	username: string;
 }
 
 export interface UseReposGetCollaboratorPermissionLevelQueryProps
-	extends ReposGetCollaboratorPermissionLevelPathParams {}
+	extends UseReposGetCollaboratorPermissionLevelQueryPathParams {}
 
 /**
  * Checks the repository permission of a collaborator. The possible repository permissions are `admin`, `write`, `read`, and `none`.

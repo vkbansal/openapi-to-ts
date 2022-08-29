@@ -3,17 +3,17 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface MigrationsGetStatusForAuthenticatedUserPathParams {
+export interface UseMigrationsGetStatusForAuthenticatedUserQueryPathParams {
 	migration_id: number;
 }
 
-export interface MigrationsGetStatusForAuthenticatedUserQueryParams {
+export interface UseMigrationsGetStatusForAuthenticatedUserQueryQueryParams {
 	exclude?: string[];
 }
 
 export interface UseMigrationsGetStatusForAuthenticatedUserQueryProps
-	extends MigrationsGetStatusForAuthenticatedUserPathParams {
-	queryParams: MigrationsGetStatusForAuthenticatedUserQueryParams;
+	extends UseMigrationsGetStatusForAuthenticatedUserQueryPathParams {
+	queryParams: UseMigrationsGetStatusForAuthenticatedUserQueryQueryParams;
 }
 
 /**

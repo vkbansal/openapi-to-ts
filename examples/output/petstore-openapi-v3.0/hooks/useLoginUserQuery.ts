@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface LoginUserQueryParams {
+export interface UseLoginUserQueryQueryParams {
 	username?: string;
 	password?: string;
 }
 
 export interface UseLoginUserQueryProps {
-	queryParams: LoginUserQueryParams;
+	queryParams: UseLoginUserQueryQueryParams;
 }
 
 /**

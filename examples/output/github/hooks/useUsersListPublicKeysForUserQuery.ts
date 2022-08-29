@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface UsersListPublicKeysForUserPathParams {
+export interface UseUsersListPublicKeysForUserQueryPathParams {
 	username: string;
 }
 
-export interface UsersListPublicKeysForUserQueryParams {
+export interface UseUsersListPublicKeysForUserQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface UsersListPublicKeysForUserQueryParams {
 }
 
 export interface UseUsersListPublicKeysForUserQueryProps
-	extends UsersListPublicKeysForUserPathParams {
-	queryParams: UsersListPublicKeysForUserQueryParams;
+	extends UseUsersListPublicKeysForUserQueryPathParams {
+	queryParams: UseUsersListPublicKeysForUserQueryQueryParams;
 }
 
 /**

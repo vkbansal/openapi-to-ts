@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsCheckPermissionsForRepoInOrgPathParams {
+export interface UseTeamsCheckPermissionsForRepoInOrgQueryPathParams {
 	org: string;
 	team_slug: string;
 	owner: string;
@@ -11,7 +11,7 @@ export interface TeamsCheckPermissionsForRepoInOrgPathParams {
 }
 
 export interface UseTeamsCheckPermissionsForRepoInOrgQueryProps
-	extends TeamsCheckPermissionsForRepoInOrgPathParams {}
+	extends UseTeamsCheckPermissionsForRepoInOrgQueryPathParams {}
 
 /**
  * Checks whether a team has `admin`, `push`, `maintain`, `triage`, or `pull` permission for a repository. Repositories inherited through a parent team will also be checked.

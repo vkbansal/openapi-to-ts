@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface EnterpriseAdminGetProvisioningInformationForEnterpriseUserPathParams {
+export interface UseEnterpriseAdminGetProvisioningInformationForEnterpriseUserQueryPathParams {
 	enterprise: string;
 	scim_user_id: string;
 }
 
 export interface UseEnterpriseAdminGetProvisioningInformationForEnterpriseUserQueryProps
-	extends EnterpriseAdminGetProvisioningInformationForEnterpriseUserPathParams {}
+	extends UseEnterpriseAdminGetProvisioningInformationForEnterpriseUserQueryPathParams {}
 
 /**
  * **Note:** The SCIM API endpoints for enterprise accounts are currently in beta and are subject to change.

@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface UsersCheckBlockedPathParams {
+export interface UseUsersCheckBlockedQueryPathParams {
 	username: string;
 }
 
-export interface UseUsersCheckBlockedQueryProps extends UsersCheckBlockedPathParams {}
+export interface UseUsersCheckBlockedQueryProps extends UseUsersCheckBlockedQueryPathParams {}
 
 /**
  *

@@ -3,14 +3,15 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetDeploymentStatusPathParams {
+export interface UseReposGetDeploymentStatusQueryPathParams {
 	owner: string;
 	repo: string;
 	deployment_id: number;
 	status_id: number;
 }
 
-export interface UseReposGetDeploymentStatusQueryProps extends ReposGetDeploymentStatusPathParams {}
+export interface UseReposGetDeploymentStatusQueryProps
+	extends UseReposGetDeploymentStatusQueryPathParams {}
 
 /**
  * Users with pull access can view a deployment status for a deployment:

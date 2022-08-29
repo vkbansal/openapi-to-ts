@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GistsCheckIsStarredPathParams {
+export interface UseGistsCheckIsStarredQueryPathParams {
 	gist_id: string;
 }
 
-export interface UseGistsCheckIsStarredQueryProps extends GistsCheckIsStarredPathParams {}
+export interface UseGistsCheckIsStarredQueryProps extends UseGistsCheckIsStarredQueryPathParams {}
 
 /**
  *

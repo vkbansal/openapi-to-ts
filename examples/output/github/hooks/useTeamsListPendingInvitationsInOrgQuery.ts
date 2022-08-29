@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsListPendingInvitationsInOrgPathParams {
+export interface UseTeamsListPendingInvitationsInOrgQueryPathParams {
 	org: string;
 	team_slug: string;
 }
 
-export interface TeamsListPendingInvitationsInOrgQueryParams {
+export interface UseTeamsListPendingInvitationsInOrgQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -20,8 +20,8 @@ export interface TeamsListPendingInvitationsInOrgQueryParams {
 }
 
 export interface UseTeamsListPendingInvitationsInOrgQueryProps
-	extends TeamsListPendingInvitationsInOrgPathParams {
-	queryParams: TeamsListPendingInvitationsInOrgQueryParams;
+	extends UseTeamsListPendingInvitationsInOrgQueryPathParams {
+	queryParams: UseTeamsListPendingInvitationsInOrgQueryQueryParams;
 }
 
 /**

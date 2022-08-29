@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsGetSelfHostedRunnerForOrgPathParams {
+export interface UseActionsGetSelfHostedRunnerForOrgQueryPathParams {
 	org: string;
 	runner_id: number;
 }
 
 export interface UseActionsGetSelfHostedRunnerForOrgQueryProps
-	extends ActionsGetSelfHostedRunnerForOrgPathParams {}
+	extends UseActionsGetSelfHostedRunnerForOrgQueryPathParams {}
 
 /**
  * Gets a specific self-hosted runner configured in an organization.

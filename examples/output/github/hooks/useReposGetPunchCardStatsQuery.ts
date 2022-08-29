@@ -3,12 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposGetPunchCardStatsPathParams {
+export interface UseReposGetPunchCardStatsQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface UseReposGetPunchCardStatsQueryProps extends ReposGetPunchCardStatsPathParams {}
+export interface UseReposGetPunchCardStatsQueryProps
+	extends UseReposGetPunchCardStatsQueryPathParams {}
 
 /**
  * Each array contains the day number, hour number, and number of commits:

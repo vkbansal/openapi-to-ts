@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface MarkdownRenderRequestBody {
+export interface UseMarkdownRenderQueryRequestBody {
 	/**
 	 * The repository context to use when creating references in `gfm` mode.
 	 */
@@ -21,7 +21,7 @@ export interface MarkdownRenderRequestBody {
 }
 
 export interface UseMarkdownRenderQueryProps {
-	body: MarkdownRenderRequestBody;
+	body: UseMarkdownRenderQueryRequestBody;
 }
 
 /**

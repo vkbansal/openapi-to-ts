@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface TeamsListDiscussionCommentsLegacyPathParams {
+export interface UseTeamsListDiscussionCommentsLegacyQueryPathParams {
 	team_id: number;
 	discussion_number: number;
 }
 
-export interface TeamsListDiscussionCommentsLegacyQueryParams {
+export interface UseTeamsListDiscussionCommentsLegacyQueryQueryParams {
 	/**
 	 * @default "desc"
 	 */
@@ -24,8 +24,8 @@ export interface TeamsListDiscussionCommentsLegacyQueryParams {
 }
 
 export interface UseTeamsListDiscussionCommentsLegacyQueryProps
-	extends TeamsListDiscussionCommentsLegacyPathParams {
-	queryParams: TeamsListDiscussionCommentsLegacyQueryParams;
+	extends UseTeamsListDiscussionCommentsLegacyQueryPathParams {
+	queryParams: UseTeamsListDiscussionCommentsLegacyQueryQueryParams;
 }
 
 /**

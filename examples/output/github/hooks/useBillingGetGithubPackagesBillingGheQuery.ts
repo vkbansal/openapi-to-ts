@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface BillingGetGithubPackagesBillingGhePathParams {
+export interface UseBillingGetGithubPackagesBillingGheQueryPathParams {
 	enterprise: string;
 }
 
 export interface UseBillingGetGithubPackagesBillingGheQueryProps
-	extends BillingGetGithubPackagesBillingGhePathParams {}
+	extends UseBillingGetGithubPackagesBillingGheQueryPathParams {}
 
 /**
  * Gets the free and paid storage used for GitHub Packages in gigabytes.

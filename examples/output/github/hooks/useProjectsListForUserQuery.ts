@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ProjectsListForUserPathParams {
+export interface UseProjectsListForUserQueryPathParams {
 	username: string;
 }
 
-export interface ProjectsListForUserQueryParams {
+export interface UseProjectsListForUserQueryQueryParams {
 	/**
 	 * @default "open"
 	 */
@@ -22,8 +22,8 @@ export interface ProjectsListForUserQueryParams {
 	page?: number;
 }
 
-export interface UseProjectsListForUserQueryProps extends ProjectsListForUserPathParams {
-	queryParams: ProjectsListForUserQueryParams;
+export interface UseProjectsListForUserQueryProps extends UseProjectsListForUserQueryPathParams {
+	queryParams: UseProjectsListForUserQueryQueryParams;
 }
 
 /**

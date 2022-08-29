@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActionsListOrgSecretsPathParams {
+export interface UseActionsListOrgSecretsQueryPathParams {
 	org: string;
 }
 
-export interface ActionsListOrgSecretsQueryParams {
+export interface UseActionsListOrgSecretsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -18,8 +18,9 @@ export interface ActionsListOrgSecretsQueryParams {
 	page?: number;
 }
 
-export interface UseActionsListOrgSecretsQueryProps extends ActionsListOrgSecretsPathParams {
-	queryParams: ActionsListOrgSecretsQueryParams;
+export interface UseActionsListOrgSecretsQueryProps
+	extends UseActionsListOrgSecretsQueryPathParams {
+	queryParams: UseActionsListOrgSecretsQueryQueryParams;
 }
 
 /**

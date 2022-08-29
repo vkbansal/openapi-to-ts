@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReactionsListForIssuePathParams {
+export interface UseReactionsListForIssueQueryPathParams {
 	owner: string;
 	repo: string;
 	issue_number: number;
 }
 
-export interface ReactionsListForIssueQueryParams {
+export interface UseReactionsListForIssueQueryQueryParams {
 	content?: '+1' | '-1' | 'confused' | 'eyes' | 'heart' | 'hooray' | 'laugh' | 'rocket';
 	/**
 	 * @default 30
@@ -21,8 +21,9 @@ export interface ReactionsListForIssueQueryParams {
 	page?: number;
 }
 
-export interface UseReactionsListForIssueQueryProps extends ReactionsListForIssuePathParams {
-	queryParams: ReactionsListForIssueQueryParams;
+export interface UseReactionsListForIssueQueryProps
+	extends UseReactionsListForIssueQueryPathParams {
+	queryParams: UseReactionsListForIssueQueryQueryParams;
 }
 
 /**

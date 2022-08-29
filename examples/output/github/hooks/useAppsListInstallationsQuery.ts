@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface AppsListInstallationsQueryParams {
+export interface UseAppsListInstallationsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -17,7 +17,7 @@ export interface AppsListInstallationsQueryParams {
 }
 
 export interface UseAppsListInstallationsQueryProps {
-	queryParams: AppsListInstallationsQueryParams;
+	queryParams: UseAppsListInstallationsQueryQueryParams;
 }
 
 /**

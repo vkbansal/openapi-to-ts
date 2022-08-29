@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GistsListCommentsPathParams {
+export interface UseGistsListCommentsQueryPathParams {
 	gist_id: string;
 }
 
-export interface GistsListCommentsQueryParams {
+export interface UseGistsListCommentsQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -18,8 +18,8 @@ export interface GistsListCommentsQueryParams {
 	page?: number;
 }
 
-export interface UseGistsListCommentsQueryProps extends GistsListCommentsPathParams {
-	queryParams: GistsListCommentsQueryParams;
+export interface UseGistsListCommentsQueryProps extends UseGistsListCommentsQueryPathParams {
+	queryParams: UseGistsListCommentsQueryQueryParams;
 }
 
 /**

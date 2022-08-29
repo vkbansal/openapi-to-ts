@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesListForRepoPathParams {
+export interface UseIssuesListForRepoQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface IssuesListForRepoQueryParams {
+export interface UseIssuesListForRepoQueryQueryParams {
 	milestone?: string;
 	/**
 	 * @default "open"
@@ -37,8 +37,8 @@ export interface IssuesListForRepoQueryParams {
 	page?: number;
 }
 
-export interface UseIssuesListForRepoQueryProps extends IssuesListForRepoPathParams {
-	queryParams: IssuesListForRepoQueryParams;
+export interface UseIssuesListForRepoQueryProps extends UseIssuesListForRepoQueryPathParams {
+	queryParams: UseIssuesListForRepoQueryQueryParams;
 }
 
 /**

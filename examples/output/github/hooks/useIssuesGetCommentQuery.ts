@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesGetCommentPathParams {
+export interface UseIssuesGetCommentQueryPathParams {
 	owner: string;
 	repo: string;
 	comment_id: number;
 }
 
-export interface UseIssuesGetCommentQueryProps extends IssuesGetCommentPathParams {}
+export interface UseIssuesGetCommentQueryProps extends UseIssuesGetCommentQueryPathParams {}
 
 /**
  *

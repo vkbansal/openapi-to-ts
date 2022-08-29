@@ -3,7 +3,7 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface SearchCodeQueryParams {
+export interface UseSearchCodeQueryQueryParams {
 	q: string;
 	sort?: 'indexed';
 	/**
@@ -21,7 +21,7 @@ export interface SearchCodeQueryParams {
 }
 
 export interface UseSearchCodeQueryProps {
-	queryParams: SearchCodeQueryParams;
+	queryParams: UseSearchCodeQueryQueryParams;
 }
 
 /**

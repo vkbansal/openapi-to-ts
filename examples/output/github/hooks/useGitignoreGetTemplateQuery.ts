@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface GitignoreGetTemplatePathParams {
+export interface UseGitignoreGetTemplateQueryPathParams {
 	name: string;
 }
 
-export interface UseGitignoreGetTemplateQueryProps extends GitignoreGetTemplatePathParams {}
+export interface UseGitignoreGetTemplateQueryProps extends UseGitignoreGetTemplateQueryPathParams {}
 
 /**
  * The API also allows fetching the source of a single template.

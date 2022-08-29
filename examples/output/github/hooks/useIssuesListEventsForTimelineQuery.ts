@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface IssuesListEventsForTimelinePathParams {
+export interface UseIssuesListEventsForTimelineQueryPathParams {
 	owner: string;
 	repo: string;
 	issue_number: number;
 }
 
-export interface IssuesListEventsForTimelineQueryParams {
+export interface UseIssuesListEventsForTimelineQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -21,8 +21,8 @@ export interface IssuesListEventsForTimelineQueryParams {
 }
 
 export interface UseIssuesListEventsForTimelineQueryProps
-	extends IssuesListEventsForTimelinePathParams {
-	queryParams: IssuesListEventsForTimelineQueryParams;
+	extends UseIssuesListEventsForTimelineQueryPathParams {
+	queryParams: UseIssuesListEventsForTimelineQueryQueryParams;
 }
 
 /**

@@ -3,11 +3,11 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ActivityListPublicEventsForUserPathParams {
+export interface UseActivityListPublicEventsForUserQueryPathParams {
 	username: string;
 }
 
-export interface ActivityListPublicEventsForUserQueryParams {
+export interface UseActivityListPublicEventsForUserQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -19,8 +19,8 @@ export interface ActivityListPublicEventsForUserQueryParams {
 }
 
 export interface UseActivityListPublicEventsForUserQueryProps
-	extends ActivityListPublicEventsForUserPathParams {
-	queryParams: ActivityListPublicEventsForUserQueryParams;
+	extends UseActivityListPublicEventsForUserQueryPathParams {
+	queryParams: UseActivityListPublicEventsForUserQueryQueryParams;
 }
 
 /**

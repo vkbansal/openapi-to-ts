@@ -3,14 +3,14 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ReposDownloadZipballArchivePathParams {
+export interface UseReposDownloadZipballArchiveQueryPathParams {
 	owner: string;
 	repo: string;
 	ref: string;
 }
 
 export interface UseReposDownloadZipballArchiveQueryProps
-	extends ReposDownloadZipballArchivePathParams {}
+	extends UseReposDownloadZipballArchiveQueryPathParams {}
 
 /**
  * Gets a redirect URL to download a zip archive for a repository. If you omit `:ref`, the repository’s default branch (usually

@@ -3,13 +3,13 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface PullsListFilesPathParams {
+export interface UsePullsListFilesQueryPathParams {
 	owner: string;
 	repo: string;
 	pull_number: number;
 }
 
-export interface PullsListFilesQueryParams {
+export interface UsePullsListFilesQueryQueryParams {
 	/**
 	 * @default 30
 	 */
@@ -20,8 +20,8 @@ export interface PullsListFilesQueryParams {
 	page?: number;
 }
 
-export interface UsePullsListFilesQueryProps extends PullsListFilesPathParams {
-	queryParams: PullsListFilesQueryParams;
+export interface UsePullsListFilesQueryProps extends UsePullsListFilesQueryPathParams {
+	queryParams: UsePullsListFilesQueryQueryParams;
 }
 
 /**

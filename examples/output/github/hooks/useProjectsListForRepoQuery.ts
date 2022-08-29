@@ -3,12 +3,12 @@
 // Please do not modify this code directly.
 import { useQuery } from '@tanstack/react-query';
 
-export interface ProjectsListForRepoPathParams {
+export interface UseProjectsListForRepoQueryPathParams {
 	owner: string;
 	repo: string;
 }
 
-export interface ProjectsListForRepoQueryParams {
+export interface UseProjectsListForRepoQueryQueryParams {
 	/**
 	 * @default "open"
 	 */
@@ -23,8 +23,8 @@ export interface ProjectsListForRepoQueryParams {
 	page?: number;
 }
 
-export interface UseProjectsListForRepoQueryProps extends ProjectsListForRepoPathParams {
-	queryParams: ProjectsListForRepoQueryParams;
+export interface UseProjectsListForRepoQueryProps extends UseProjectsListForRepoQueryPathParams {
+	queryParams: UseProjectsListForRepoQueryQueryParams;
 }
 
 /**
