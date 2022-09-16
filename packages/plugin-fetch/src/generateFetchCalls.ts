@@ -3,7 +3,12 @@ import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { camelCase } from 'camel-case';
-import type { OpenAPIObject } from 'openapi3-ts';
+import type {
+	OpenAPIObject,
+	OperationObject,
+	ParameterLocation,
+	ParameterObject,
+} from 'openapi3-ts';
 import type { PluginReturn, CodeOutput, Plugin } from '@oa2ts/cli/plugin';
 import { processPaths } from '@oa2ts/cli/pathHelpers';
 import type { Codegen, ObjectProps } from '@oa2ts/cli/codegen';
@@ -19,6 +24,32 @@ import type { Config } from './config.js';
 
 const DIR_NAME = path.dirname(fileURLToPath(import.meta.url));
 const METHODS_WITH_BODY = ['post', 'put', 'patch'];
+
+export interface ParamsCode {
+	name: string;
+	props: ObjectProps[];
+}
+
+export type FetchTemplateName = 'fetch';
+export interface FetchTemplateProps {
+	config?: Config;
+	fnName: string;
+	requestBodyName: string;
+	propsName: string;
+	bodyCode: string | null;
+	route: string;
+	verb: string;
+	operation: OperationObject;
+	params: Record<ParameterLocation, ParameterObject[]>;
+	pathParams: ParamsCode;
+	queryParams: ParamsCode;
+}
+
+declare module '@oa2ts/cli/codegen' {
+	export interface RenderTemplate {
+		(name: FetchTemplateName, data?: FetchTemplateProps): string;
+	}
+}
 
 export function generateFetchCalls(config?: Config): Plugin['generate'] {
 	return async function generate(spec: OpenAPIObject, codegen: Codegen): Promise<PluginReturn> {
@@ -67,7 +98,7 @@ export function generateFetchCalls(config?: Config): Plugin['generate'] {
 					(param): ObjectProps => ({
 						key: param.name,
 						value: param.schema ? codegen.resolveValue(param.schema, imports) : 'unknown',
-						comment: codegen.renderTemplate('comments.liquid', { schema: param.schema }),
+						comment: codegen.renderTemplate('comments', { schema: param.schema }),
 						required: true,
 					}),
 				),
@@ -79,13 +110,13 @@ export function generateFetchCalls(config?: Config): Plugin['generate'] {
 					(param): ObjectProps => ({
 						key: param.name,
 						value: param.schema ? codegen.resolveValue(param.schema, imports) : 'unknown',
-						comment: codegen.renderTemplate('comments.liquid', { schema: param.schema }),
+						comment: codegen.renderTemplate('comments', { schema: param.schema }),
 						required: !!param.required,
 					}),
 				),
 			};
 
-			const code = codegen.renderTemplate('fetch.liquid', {
+			const code = codegen.renderTemplate('fetch', {
 				config,
 				fnName,
 				requestBodyName,
@@ -120,7 +151,7 @@ export function generateFetchCalls(config?: Config): Plugin['generate'] {
 			}
 
 			files.push({
-				code: codegen.renderTemplate('codeWithImports.liquid', { imports, code }),
+				code: codegen.renderTemplate('codeWithImports', { imports, code }),
 				file: `./fetch/${fnName}.ts`,
 			});
 		});

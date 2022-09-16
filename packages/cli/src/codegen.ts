@@ -34,6 +34,29 @@ export interface ParamsReturn {
 	imports: Set<string>;
 }
 
+export type TemplateName =
+	| 'object'
+	| 'typeDeclaration'
+	| 'interface'
+	| 'comments'
+	| 'codeWithImports';
+
+export type TemplateProps<T> = T extends 'comments'
+	? { schema?: SchemaObject | ReferenceObject }
+	: T extends 'object'
+	? { props: ObjectProps[] }
+	: T extends 'interface'
+	? { name: string; props: ObjectProps[]; schema: SchemaObject }
+	: T extends 'typeDeclaration'
+	? { name: string; value: string; schema: SchemaObject | ReferenceObject }
+	: T extends 'codeWithImports'
+	? CodeWithImports
+	: object;
+
+export interface RenderTemplate {
+	<T extends TemplateName>(name: TemplateName, data?: TemplateProps<T>): string;
+}
+
 export class Codegen {
 	private liquidEngine: Liquid;
 
@@ -57,9 +80,9 @@ export class Codegen {
 		this.liquidEngine.registerFilter('name_parameter', getNameForParameter);
 	}
 
-	renderTemplate(name: string, data?: object): string {
-		return this.liquidEngine.renderFileSync(name, data);
-	}
+	renderTemplate: RenderTemplate = (name, data): string => {
+		return this.liquidEngine.renderFileSync(name + '.liquid', data);
+	};
 
 	createObjectProperties(item: SchemaObject, $imports: Set<string>): ObjectProps[] {
 		if (!item.type && !has(item, 'properties') && !has(item, 'additionalProperties')) {
@@ -96,7 +119,7 @@ export class Codegen {
 					return {
 						key: name,
 						value: this.resolveValue(schema, $imports),
-						comment: this.renderTemplate('comments.liquid', { schema }),
+						comment: this.renderTemplate('comments', { schema }),
 						required: item.required?.includes(name),
 					};
 				});
@@ -132,7 +155,7 @@ export class Codegen {
 
 		const props = this.createObjectProperties(item, $imports);
 
-		return this.renderTemplate('object.liquid', { props });
+		return this.renderTemplate('object', { props });
 	}
 
 	createFreeFormProperty(valueType = 'any'): ObjectProps {
@@ -220,7 +243,7 @@ export class Codegen {
 
 		return {
 			imports,
-			code: this.renderTemplate('interface.liquid', { name, props, schema }),
+			code: this.renderTemplate('interface', { name, props, schema }),
 		};
 	}
 
@@ -230,7 +253,7 @@ export class Codegen {
 
 		return {
 			imports,
-			code: this.renderTemplate('typeDeclaration.liquid', { name, value, schema }),
+			code: this.renderTemplate('typeDeclaration', { name, value, schema }),
 		};
 	}
 
@@ -275,13 +298,10 @@ export class Codegen {
 				!response.oneOf &&
 				!response.nullable
 			) {
-				code = this.renderTemplate(
-					'codeWithImports.liquid',
-					this.createInterface(finalName, response),
-				);
+				code = this.renderTemplate('codeWithImports', this.createInterface(finalName, response));
 			} else {
 				code = this.renderTemplate(
-					'codeWithImports.liquid',
+					'codeWithImports',
 					this.createTypeDeclaration(finalName, response),
 				);
 			}
@@ -309,13 +329,10 @@ export class Codegen {
 				!schema.oneOf &&
 				!schema.nullable
 			) {
-				code = this.renderTemplate(
-					'codeWithImports.liquid',
-					this.createInterface(finalName, schema),
-				);
+				code = this.renderTemplate('codeWithImports', this.createInterface(finalName, schema));
 			} else {
 				code = this.renderTemplate(
-					'codeWithImports.liquid',
+					'codeWithImports',
 					this.createTypeDeclaration(finalName, schema),
 				);
 			}

@@ -1,4 +1,9 @@
-import type { OpenAPIObject } from 'openapi3-ts';
+import type {
+	OpenAPIObject,
+	OperationObject,
+	ParameterLocation,
+	ParameterObject,
+} from 'openapi3-ts';
 import type { PluginReturn, CodeOutput, Plugin } from '@oa2ts/cli/plugin';
 import { processPaths } from '@oa2ts/cli/pathHelpers';
 import type { Codegen, ObjectProps } from '@oa2ts/cli/codegen';
@@ -7,6 +12,31 @@ import { getNameForType } from '@oa2ts/cli/nameHelpers';
 import { isReferenceObject } from '@oa2ts/cli/helpers';
 
 const METHODS_WITH_BODY = ['post', 'put', 'patch'];
+
+export interface ParamsCode {
+	name: string;
+	props: ObjectProps[];
+}
+
+export type ReactQueryTemplateName = 'useQueryHook' | 'useMutationHook';
+export interface ReactQueryTemplateProps {
+	hookName: string;
+	hookPropsName: string;
+	requestBodyName: string;
+	bodyCode: string | null;
+	route: string;
+	verb: string;
+	operation: OperationObject;
+	params: Record<ParameterLocation, ParameterObject[]>;
+	pathParams: ParamsCode;
+	queryParams: ParamsCode;
+}
+
+declare module '@oa2ts/cli/codegen' {
+	export interface RenderTemplate {
+		(name: ReactQueryTemplateName, data?: ReactQueryTemplateProps): string;
+	}
+}
 
 export function generateReactQueryHooks(config?: Config): Plugin['generate'] {
 	return async (spec: OpenAPIObject, codegen: Codegen): Promise<PluginReturn> => {
@@ -24,7 +54,7 @@ export function generateReactQueryHooks(config?: Config): Plugin['generate'] {
 			const useUseQuery = verb === 'get' || config?.overrides?.[operation.operationId]?.useQuery;
 			const suffix = useUseQuery ? 'Query' : 'Mutation';
 
-			const imports = new Set<string>();
+			let imports = new Set<string>();
 			const typeName = getNameForType(operation.operationId);
 			const hookName = `use${typeName}${suffix}`;
 			const hookPropsName = `Use${typeName}${suffix}Props`;
@@ -57,7 +87,7 @@ export function generateReactQueryHooks(config?: Config): Plugin['generate'] {
 					(param): ObjectProps => ({
 						key: param.name,
 						value: param.schema ? codegen.resolveValue(param.schema, imports) : 'unknown',
-						comment: codegen.renderTemplate('comments.liquid', { schema: param.schema }),
+						comment: codegen.renderTemplate('comments', { schema: param.schema }),
 						required: true,
 					}),
 				),
@@ -69,27 +99,24 @@ export function generateReactQueryHooks(config?: Config): Plugin['generate'] {
 					(param): ObjectProps => ({
 						key: param.name,
 						value: param.schema ? codegen.resolveValue(param.schema, imports) : 'unknown',
-						comment: codegen.renderTemplate('comments.liquid', { schema: param.schema }),
+						comment: codegen.renderTemplate('comments', { schema: param.schema }),
 						required: !!param.required,
 					}),
 				),
 			};
 
-			const code = codegen.renderTemplate(
-				useUseQuery ? 'useQueryHook.liquid' : 'useMutationHook.liquid',
-				{
-					hookName,
-					hookPropsName,
-					requestBodyName,
-					bodyCode,
-					route,
-					verb,
-					operation,
-					params,
-					pathParams,
-					queryParams,
-				},
-			);
+			const code = codegen.renderTemplate(useUseQuery ? 'useQueryHook' : 'useMutationHook', {
+				hookName,
+				hookPropsName,
+				requestBodyName,
+				bodyCode,
+				route,
+				verb,
+				operation,
+				params,
+				pathParams,
+				queryParams,
+			});
 
 			const exportedTypes = [];
 
@@ -111,15 +138,15 @@ export function generateReactQueryHooks(config?: Config): Plugin['generate'] {
 				includes.push(`export type { ${exportedTypes.join(', ')} } from './hooks/${hookName}'`);
 			}
 
+			if (useUseQuery) {
+				imports = new Set(['import { useQuery } from "@tanstack/react-query";', '', ...imports]);
+			} else {
+				imports = new Set(['import { useMutation } from "@tanstack/react-query";', '', ...imports]);
+			}
+
 			files.push({
-				code: codegen.renderTemplate('codeWithImports.liquid', {
-					imports: [
-						useUseQuery
-							? 'import { useQuery } from "@tanstack/react-query"'
-							: 'import { useMutation } from "@tanstack/react-query";',
-						'',
-						...imports,
-					],
+				code: codegen.renderTemplate('codeWithImports', {
+					imports,
 					code,
 				}),
 				file: `hooks/${hookName}.ts`,
