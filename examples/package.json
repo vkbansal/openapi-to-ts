@@ -15,8 +15,8 @@
     "@oa2ts/cli": "^0.1.0",
     "@oa2ts/plugin-fetch": "^0.1.0",
     "@oa2ts/plugin-react-query": "^0.1.0",
-    "@tanstack/react-query": "^4.2.3",
+    "@tanstack/react-query": "^4.3.4",
     "react": "^18.2.0",
-    "typescript": "^4.8.2"
+    "typescript": "^4.8.3"
   }
 }
